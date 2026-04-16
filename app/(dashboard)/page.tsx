@@ -1,26 +1,54 @@
+"use client";
+
+const services = [
+  { name: "Rank Boosting", price: "Rp 50k - 500k", icon: "🚀", desc: "Fast rank climb with pro players." },
+  { name: "Classic Win Rate", price: "Rp 15k / match", icon: "💎", desc: "Maintain high win rate effortlessly." },
+  { name: "Hero Mastery", price: "Rp 100k / hero", icon: "⚔️", desc: "Get your hero to expert or global." },
+  { name: "Tournament Prep", price: "Rp 250k / session", icon: "🏆", desc: "Strategy and team coaching." },
+  { name: "Daily Missions", price: "Rp 20k / day", icon: "📅", desc: "Automation for your daily rewards." },
+  { name: "Skins & Gifting", price: "Varies", icon: "🎁", desc: "Safe skin gifting and diamond top-up." },
+];
+
 export default function Home() {
   return (
-    <div className="space-y-8">
-      {/* Welcome Section */}
-      <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-white mb-2">System Overview</h1>
-          <p className="text-slate-400">Monitoring Mifabyte performance and financial health.</p>
-        </div>
-        <div className="flex gap-3">
-          <button className="glass-card px-4 py-2 text-sm font-medium hover:bg-white/5">
-            Download Report
-          </button>
-          <button className="btn-primary">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            Add Transaction
-          </button>
+    <div className="space-y-12">
+      {/* About Mifabyte Section */}
+      <section className="glass-card p-8 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[100px] -z-10" />
+        <div className="flex flex-col md:flex-row gap-8 items-center">
+          <div className="flex-1">
+            <h1 className="text-4xl font-extrabold text-white mb-4">
+              Mifabyte<span className="text-primary">.id</span>
+            </h1>
+            <p className="text-lg text-slate-300 leading-relaxed mb-6">
+              Mifabyte is Indonesia's premium digital gaming service provider. We specialize in high-speed rank boosting, hero mastery, and account optimization for competitive players. Our mission is to empower gamers by providing secure, professional, and reliable services that help them reach their peak performance.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-sm text-slate-400">
+                <span className="text-primary mr-2 font-bold">✓</span> Reliable Security
+              </div>
+              <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-sm text-slate-400">
+                <span className="text-primary mr-2 font-bold">✓</span> Pro Players only
+              </div>
+              <div className="px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-sm text-slate-400">
+                <span className="text-primary mr-2 font-bold">✓</span> 24/7 Fast Support
+              </div>
+            </div>
+          </div>
+          <div className="w-full md:w-1/3 flex flex-col gap-4">
+            <div className="glass p-6 rounded-2xl border border-primary/20 text-center">
+              <h3 className="text-3xl font-bold text-primary">5+ Years</h3>
+              <p className="text-slate-500 text-sm uppercase tracking-widest mt-1 font-mono">Industry Experience</p>
+            </div>
+            <div className="glass p-6 rounded-2xl border border-cyber-green/20 text-center">
+              <h3 className="text-3xl font-bold text-cyber-green">10k+</h3>
+              <p className="text-slate-500 text-sm uppercase tracking-widest mt-1 font-mono">Successful Orders</p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Stats Grid */}
+      {/* Stats Quick Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
           { label: "Total Revenue", value: "Rp 12.450.000", trend: "+12.5%", color: "text-primary" },
@@ -36,60 +64,70 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Main Content Area */}
+      {/* Price List Section */}
+      <section id="prices">
+        <div className="mb-8">
+          <h2 className="text-3xl font-bold text-white mb-2">Our Premium Services</h2>
+          <p className="text-slate-400">Choose from our wide range of professional gaming optimizations.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, i) => (
+            <div key={i} className="glass-card p-6 flex flex-col h-full group hover:border-primary/50 transition-all duration-300">
+              <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
+                {service.icon}
+              </div>
+              <h3 className="text-xl font-bold text-white mb-2">{service.name}</h3>
+              <p className="text-slate-400 text-sm mb-6 flex-1">{service.desc}</p>
+              
+              <div className="mt-auto">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono text-primary uppercase tracking-wider">Starting from</span>
+                  <span className="text-lg font-bold text-cyber-green">{service.price}</span>
+                </div>
+                <button className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-primary hover:text-dark-bg hover:border-primary transition-all duration-300">
+                  Order Now
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Recent Activity (Moved lower) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Activity Feed */}
         <div className="lg:col-span-2 glass-card p-6">
-          <h3 className="text-lg font-semibold text-white mb-6">Recent Transactions</h3>
+          <h3 className="text-lg font-semibold text-white mb-6">Recent Live Orders</h3>
           <div className="space-y-4">
-            {[1, 2, 3, 4, 5].map((item) => (
+            {[1, 2, 3].map((item) => (
               <div key={item} className="flex items-center justify-between p-4 rounded-xl bg-white/5 border border-white/5 hover:border-primary/20 transition-colors">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                    🚀
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-white">Joki Rank Promotion</p>
-                    <p className="text-xs text-slate-500">2 minutes ago</p>
+                    <p className="text-sm font-medium text-white">Rank Boosting Promo</p>
+                    <p className="text-xs text-slate-500">Processing now...</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-bold text-cyber-green">+Rp 150.000</p>
-                  <p className="text-xs text-slate-500">Success</p>
+                  <p className="text-sm font-bold text-cyber-green">Ongoing</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Quick Actions / Services */}
-        <div className="space-y-6">
-          <div className="glass-card p-6 bg-gradient-to-br from-primary/10 to-transparent">
-            <h3 className="text-lg font-semibold text-white mb-4">Quick Shortcuts</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {["Update Prices", "Team Logs", "Finances", "Settings"].map((action) => (
-                <button key={action} className="p-3 text-xs font-medium text-slate-300 bg-white/5 rounded-lg border border-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all">
-                  {action}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="glass-card p-6">
-            <h3 className="text-lg font-semibold text-white mb-4">Team Status</h3>
-            <div className="space-y-4">
-              {["Alex", "Budi", "Siska"].map((name) => (
-                <div key={name} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-slate-700" />
-                    <span className="text-sm text-slate-300">{name}</span>
-                  </div>
-                  <span className="w-2 h-2 rounded-full bg-cyber-green shadow-[0_0_8px_rgba(0,255,157,0.6)]" />
-                </div>
-              ))}
-            </div>
+        <div className="glass-card p-6">
+          <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
+          <div className="space-y-3">
+            <button className="w-full p-4 text-left text-sm font-medium text-slate-300 bg-white/5 rounded-xl border border-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all flex justify-between items-center group">
+              Manage Finances
+              <span className="text-primary group-hover:translate-x-1 transition-transform">→</span>
+            </button>
+            <button className="w-full p-4 text-left text-sm font-medium text-slate-300 bg-white/5 rounded-xl border border-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all flex justify-between items-center group">
+              Support Center
+              <span className="text-primary group-hover:translate-x-1 transition-transform">→</span>
+            </button>
           </div>
         </div>
       </div>
