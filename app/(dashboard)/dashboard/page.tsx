@@ -1,89 +1,123 @@
-export default function DashboardOverviewPage() {
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+export default function DashboardPage() {
+  const [transactionType, setTransactionType] = useState<"in" | "out">("in");
+
   return (
     <div className="space-y-10">
-      <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Ringkasan Tim</h1>
-          <p className="text-sm text-slate-500">Memantau operasional internal dan aktivitas terbaru.</p>
-        </div>
-        <div className="flex gap-3">
-          <button className="px-4 py-2 rounded-lg border border-border-light text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors bg-white">
-            Laporan Harian
-          </button>
-          <button className="btn-primary text-sm px-5 py-2">
-            Tambah Alert
-          </button>
-        </div>
+      <section>
+        <h1 className="text-2xl font-bold text-slate-900 mb-1">Beranda Dashboard</h1>
+        <p className="text-sm text-slate-500">Catat transaksi dan pantau saldo tim Anda secara instan.</p>
       </section>
 
-      {/* Grid Statistik */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[
-          { label: "Total Pendapatan", value: "Rp 12.45k", trend: "+12.5%", color: "text-primary" },
-          { label: "Joki Aktif", value: "24", trend: "+3 baru", color: "text-primary" },
-          { label: "Anggota Tim", value: "8", trend: "Tim Lengkap", color: "text-primary" },
-          { label: "Pesanan", value: "14", trend: "Tertunda", color: "text-amber-600" },
-        ].map((stat, i) => (
-          <div key={i} className="subtle-card p-6">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">{stat.label}</p>
-            <div className="flex items-baseline gap-2">
-              <h3 className={`text-2xl font-bold ${stat.color}`}>{stat.value}</h3>
-              <span className="text-[10px] text-slate-400 font-medium">{stat.trend}</span>
-            </div>
-            <div className="mt-4 w-full h-1 bg-slate-100 rounded-full overflow-hidden">
-              <div className="h-full bg-primary" style={{ width: '65%' }} />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Saldo & Form */}
+        <div className="lg:col-span-1 space-y-6">
+          <div className="subtle-card p-6 bg-primary font-semibold text-white shadow-lg shadow-primary/20">
+            <p className="text-[10px] text-white/70 uppercase tracking-widest mb-1">Total Saldo</p>
+            <h2 className="text-3xl font-bold">Rp 4.250.000</h2>
+            <div className="mt-4 flex items-center gap-2">
+              <span className="text-[10px] px-2 py-0.5 rounded bg-white/20">+15% bulan ini</span>
             </div>
           </div>
-        ))}
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Aktivitas Terbaru */}
-        <div className="lg:col-span-2 subtle-card p-6">
-          <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Aktivitas Terbaru</h3>
-          <div className="space-y-1">
-            {[1, 2, 3, 4, 5].map((item) => (
-              <div key={item} className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0">
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary text-xs font-bold">
-                    {item}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800">Cek Detak Jantung Sistem</p>
-                    <p className="text-[10px] text-slate-400">{item * 10}m yang lalu</p>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="px-2 py-0.5 rounded-full bg-primary-light text-primary text-[10px] font-bold">STABIL</span>
-                </div>
+          <div className="subtle-card p-6">
+            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Catat Transaksi</h3>
+            <div className="flex bg-slate-50 p-1 rounded-xl mb-6">
+              <button
+                onClick={() => setTransactionType("in")}
+                className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
+                  transactionType === "in" ? "bg-white text-primary shadow-sm" : "text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                Uang Masuk
+              </button>
+              <button
+                onClick={() => setTransactionType("out")}
+                className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
+                  transactionType === "out" ? "bg-white text-red-500 shadow-sm" : "text-slate-400 hover:text-slate-600"
+                }`}
+              >
+                Uang Keluar
+              </button>
+            </div>
+
+            <form className="space-y-4">
+              <div>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Jumlah</label>
+                <input
+                  type="text"
+                  placeholder="Rp 0"
+                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                />
               </div>
-            ))}
+              <div>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Catatan</label>
+                <textarea
+                  placeholder="Referensi pesanan..."
+                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
+                />
+              </div>
+              <button type="button" className={`w-full py-3 rounded-xl font-bold text-sm shadow-sm transition-all ${
+                transactionType === "in" ? "bg-primary text-white hover:opacity-90" : "bg-red-500 text-white hover:bg-red-600"
+              }`}>
+                Konfirmasi {transactionType === "in" ? "Pemasukan" : "Pengeluaran"}
+              </button>
+            </form>
           </div>
         </div>
 
-        {/* Pintasan */}
-        <div className="space-y-6">
-          <div className="subtle-card p-6 bg-primary-light/20 border-primary/5">
-            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Tindakan Cepat</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {["Verif Pesanan", "Log Tim", "Keuangan", "Konfig"].map((action) => (
-                <button key={action} className="p-3 text-[10px] uppercase font-bold text-slate-500 bg-white rounded-lg border border-border-light hover:text-primary hover:border-primary/30 transition-all shadow-sm">
-                  {action}
-                </button>
+        {/* Grafik dan Riwayat */}
+        <div className="lg:col-span-2 space-y-6">
+          <div className="subtle-card p-6">
+            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Tren Pendapatan</h3>
+            <div className="h-48 flex items-end justify-between gap-3 px-2">
+              {[40, 70, 45, 90, 65, 80, 55].map((height, i) => (
+                <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
+                  <div className="w-full relative">
+                    <div 
+                      className="w-full bg-slate-100 rounded-lg transition-all duration-300 group-hover:bg-primary-light" 
+                      style={{ height: '100px' }}
+                    >
+                      <div 
+                        className="w-full bg-primary/20 rounded-lg absolute bottom-0 transition-all duration-500 group-hover:bg-primary" 
+                        style={{ height: `${height}%` }}
+                      />
+                    </div>
+                  </div>
+                  <span className="text-[9px] text-slate-400 font-bold tracking-tighter">OKT {i + 1}</span>
+                </div>
               ))}
             </div>
           </div>
 
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Staf Online</h3>
-            <div className="space-y-4">
-              {["Alex", "Budi", "Siska"].map((name) => (
-                <div key={name} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 rounded-full bg-slate-200 border border-white shadow-sm" />
-                    <span className="text-xs font-semibold text-slate-700">{name}</span>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Log Transaksi Terakhir</h3>
+              <Link href="/history" className="text-[10px] font-bold text-primary hover:underline uppercase tracking-widest">
+                Lihat Semua
+              </Link>
+            </div>
+            <div className="space-y-1">
+              {[
+                { label: "Jasa Boost Mythic", date: "Hari ini, 14:20", amount: "+450rb", type: "in" },
+                { label: "Langganan Server", date: "Kemarin, 09:12", amount: "-120rb", type: "out" },
+                { label: "Paket Master Hero", date: "12 Okt, 21:05", amount: "+85rb", type: "in" },
+              ].map((log, i) => (
+                <div key={i} className="flex items-center justify-between p-3 hover:bg-slate-50 transition-colors rounded-lg border-b border-slate-50 last:border-0">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-2 h-2 rounded-full ${log.type === "in" ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "bg-red-400"}`} />
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800">{log.label}</p>
+                      <p className="text-[10px] text-slate-400 font-medium">{log.date}</p>
+                    </div>
                   </div>
-                  <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(59,130,246,0.3)]" />
+                  <p className={`text-sm font-bold ${log.type === "in" ? "text-primary" : "text-red-500"}`}>
+                    {log.amount}
+                  </p>
                 </div>
               ))}
             </div>
