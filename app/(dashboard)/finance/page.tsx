@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 export default function FinancePage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
@@ -94,7 +95,12 @@ export default function FinancePage() {
           </div>
 
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Log Transaksi</h3>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Log Transaksi</h3>
+              <Link href="/history" className="text-[10px] font-bold text-primary hover:underline uppercase tracking-widest">
+                Lihat Semua
+              </Link>
+            </div>
             <div className="space-y-1">
               {[
                 { label: "Jasa Boost Mythic", date: "Hari ini, 14:20", amount: "+450rb", type: "in" },
