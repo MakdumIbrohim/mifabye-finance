@@ -3,12 +3,12 @@
 import Link from "next/link";
 
 const services = [
-  { name: "Rank Boosting", price: "Rp 50k - 500k", icon: "🚀", desc: "Fast rank climb with pro players." },
-  { name: "Classic Win Rate", price: "Rp 15k / match", icon: "💎", desc: "Maintain high win rate effortlessly." },
-  { name: "Hero Mastery", price: "Rp 100k / hero", icon: "⚔️", desc: "Get your hero to expert or global." },
-  { name: "Tournament Prep", price: "Rp 250k / session", icon: "🏆", desc: "Strategy and team coaching." },
-  { name: "Daily Missions", price: "Rp 20k / day", icon: "📅", desc: "Automation for your daily rewards." },
-  { name: "Skins & Gifting", price: "Varies", icon: "🎁", desc: "Safe skin gifting and diamond top-up." },
+  { name: "Joki Rank", price: "Rp 50rb - 500rb", icon: "🚀", desc: "Naik rank cepat bersama pemain pro." },
+  { name: "Win Rate Classic", price: "Rp 15rb / match", icon: "💎", desc: "Jaga win rate tinggi tanpa ribet." },
+  { name: "Penguasaan Hero", price: "Rp 100rb / hero", icon: "⚔️", desc: "Dapatkan gelar ahli atau global untuk hero Anda." },
+  { name: "Persiapan Turnamen", price: "Rp 250rb / sesi", icon: "🏆", desc: "Strategi dan kepelatihan tim profesional." },
+  { name: "Misi Harian", price: "Rp 20rb / hari", icon: "📅", desc: "Otomatisasi untuk klaim hadiah harian Anda." },
+  { name: "Skin & Hadiah", price: "Bervariasi", icon: "🎁", desc: "Pengiriman skin aman dan top-up diamond." },
 ];
 
 export default function LandingPage() {
