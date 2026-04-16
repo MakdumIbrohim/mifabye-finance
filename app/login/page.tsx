@@ -4,72 +4,68 @@ import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/20 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary/20 rounded-full blur-[120px] animate-pulse opacity-50" />
+    <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 relative overflow-hidden">
+      {/* Subtle Background Elements */}
+      <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
+      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
       
       <div className="w-full max-w-md relative z-10">
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-2xl shadow-primary/30 mx-auto mb-6">
-            <span className="text-dark-bg font-extrabold text-3xl">M</span>
+        <div className="text-center mb-8">
+          <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 mx-auto mb-4">
+            <span className="text-white font-extrabold text-xl font-mono">M</span>
           </div>
-          <h1 className="text-3xl font-bold gradient-text mb-2">Internal Access</h1>
-          <p className="text-slate-400">Team Mifabyte Authorization Portal</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">Mifabyte Portal</h1>
+          <p className="text-sm text-slate-500">Authorized Personnel Only</p>
         </div>
 
-        <div className="glass p-8 rounded-2xl border border-glass-border shadow-2xl">
+        <div className="subtle-card p-10 shadow-2xl shadow-slate-200/50">
           <form className="space-y-6">
             <div className="space-y-2">
-              <label className="text-xs font-mono text-primary uppercase tracking-widest pl-1">Employee ID</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Employee ID</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
                 <input
                   type="text"
                   placeholder="MFB-XXXX-XX"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all font-mono"
+                  className="w-full bg-slate-50 border border-border-light rounded-xl py-3 px-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-mono text-sm"
                 />
               </div>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-mono text-primary uppercase tracking-widest pl-1">Access Key</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Access Key</label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                </div>
                 <input
                   type="password"
                   placeholder="••••••••••••"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white placeholder:text-slate-600 focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/20 transition-all"
+                  className="w-full bg-slate-50 border border-border-light rounded-xl py-3 px-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-mono"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-between text-xs">
-              <label className="flex items-center gap-2 text-slate-400 cursor-pointer">
-                <input type="checkbox" className="w-4 h-4 rounded border-white/10 bg-white/5 text-primary focus:ring-primary/30" />
-                Keep authorized
+            <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
+              <label className="flex items-center gap-2 cursor-pointer hover:text-slate-700">
+                <input type="checkbox" className="w-4 h-4 rounded border-border-light bg-slate-50 text-primary focus:ring-primary/20" />
+                Stay Authorized
               </label>
-              <a href="#" className="text-primary/70 hover:text-primary transition-colors">Emergency Reset</a>
+              <a href="#" className="text-primary hover:underline">Forgot Key?</a>
             </div>
 
-            <Link href="/" className="w-full btn-primary py-4 text-lg">
-              Unlock Dashboard
+            <Link href="/dashboard" className="w-full btn-primary py-4 text-sm font-bold shadow-md shadow-primary/20">
+              Log In to Dashboard
             </Link>
           </form>
         </div>
 
-        <p className="text-center mt-8 text-slate-600 text-xs font-mono">
-          SECURE ENCRYPTED ACCESS PORTAL v2.4.0 <br />
-          © 2026 MIFABYTE TECH SOLUTIONS
-        </p>
+        <div className="text-center mt-12 space-y-2">
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+            Secure Encrypted Access • v2.4.0
+          </p>
+          <div className="flex justify-center gap-4">
+            <Link href="/" className="text-[10px] font-bold text-primary hover:underline">Back to Home</Link>
+            <span className="text-[10px] text-slate-300">|</span>
+            <a href="#" className="text-[10px] font-bold text-slate-400 hover:text-slate-600">Privacy Policy</a>
+          </div>
+        </div>
       </div>
     </div>
   );

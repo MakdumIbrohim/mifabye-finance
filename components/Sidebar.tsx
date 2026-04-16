@@ -37,36 +37,38 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="w-64 h-screen glass border-r border-glass-border fixed left-0 top-0 hidden md:flex flex-col p-6">
-      <div className="flex items-center gap-3 mb-12">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
-          <span className="text-dark-bg font-bold text-xl">M</span>
+    <div className="w-64 h-screen bg-white border-r border-border-light fixed left-0 top-0 hidden md:flex flex-col p-6 shadow-sm">
+      <div className="flex items-center gap-3 mb-10 px-2">
+        <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-md shadow-primary/20">
+          <span className="text-white font-bold text-xl font-mono">M</span>
         </div>
-        <h1 className="text-xl font-bold gradient-text">Mifabyte.id</h1>
+        <h1 className="text-xl font-bold tracking-tight text-slate-900">Mifabyte<span className="text-primary">.id</span></h1>
       </div>
 
-      <nav className="space-y-2 flex-1">
+      <nav className="space-y-1 flex-1">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`nav-link ${isActive ? "active text-primary font-medium" : ""}`}
+              className={`nav-link ${isActive ? "active" : ""}`}
             >
-              {item.icon}
+              <div className={`${isActive ? "text-primary" : "text-slate-400"}`}>
+                {item.icon}
+              </div>
               {item.name}
             </Link>
           );
         })}
       </nav>
 
-      <div className="pt-6 border-t border-glass-border">
-        <Link href="/login" className="nav-link text-primary/80 hover:text-primary hover:bg-primary/10">
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div className="pt-6 border-t border-border-light mt-auto">
+        <Link href="/login" className="nav-link hover:bg-red-50 hover:text-red-500 group">
+          <svg className="w-5 h-5 text-slate-400 group-hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
-          Staff Login
+          Staff Portal
         </Link>
       </div>
     </div>
