@@ -1,17 +1,31 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 
-const services = [
-  { name: "Joki Rank", price: "Rp 50rb - 500rb", icon: "🚀", desc: "Naik rank cepat bersama pemain pro." },
-  { name: "Win Rate Classic", price: "Rp 15rb / match", icon: "💎", desc: "Jaga win rate tinggi tanpa ribet." },
-  { name: "Penguasaan Hero", price: "Rp 100rb / hero", icon: "⚔️", desc: "Dapatkan gelar ahli atau global untuk hero Anda." },
-  { name: "Persiapan Turnamen", price: "Rp 250rb / sesi", icon: "🏆", desc: "Strategi dan kepelatihan tim profesional." },
-  { name: "Misi Harian", price: "Rp 20rb / hari", icon: "📅", desc: "Otomatisasi untuk klaim hadiah harian Anda." },
-  { name: "Skin & Hadiah", price: "Bervariasi", icon: "🎁", desc: "Pengiriman skin aman dan top-up diamond." },
+const categories = [
+  { id: 'akademik', name: 'Joki Akademik', icon: '📝' },
+  { id: 'teknologi', name: 'Layanan Teknologi', icon: '💻' }
 ];
 
+const servicesData = {
+  akademik: [
+    { name: "Artikel Ilmiah", price: "Rp 150rb+", icon: "📝", desc: "Penulisan artikel ilmiah berkualitas untuk jurnal dan publikasi." },
+    { name: "Penyusunan Makalah", price: "Rp 50rb+", icon: "📄", desc: "Pengerjaan makalah tugas sekolah atau kuliah dengan riset mendalam." },
+    { name: "Desain PPT", price: "Rp 35rb+", icon: "🎨", desc: "Presentasi visual yang menarik dan profesional untuk berbagai kebutuhan." },
+  ],
+  teknologi: [
+    { name: "Web Dev (FE & BE)", price: "Rp 1jt+", icon: "🌐", desc: "Pembuatan website fungsional dari Front-End hingga Back-End." },
+    { name: "Aplikasi Mobile", price: "Rp 2jt+", icon: "📱", desc: "Pengembangan aplikasi Android & iOS sesuai kebutuhan Anda." },
+    { name: "Lisensi Windows", price: "Rp 100rb", icon: "🔑", desc: "Aktivasi dan pembukaan lisensi Windows yang terkunci secara resmi." },
+  ]
+};
+
 export default function LandingPage() {
+  const [activeTab, setActiveTab] = useState('akademik');
+
+  const services = servicesData[activeTab as keyof typeof servicesData];
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header Navigasi */}
@@ -37,13 +51,13 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <div className="inline-block px-3 py-1 rounded-full bg-primary-light text-primary text-[10px] font-bold uppercase tracking-widest mb-6 border border-primary/10">
-                Layanan Joki Premium
+                Solusi Joki & Teknologi Premium
               </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-900 leading-[1.1] mb-8">
-                Siap mencapai <span className="text-primary">rank tertinggi Anda?</span>
+                Solusi terbaik untuk <span className="text-primary">tugas & proyek Anda.</span>
               </h1>
               <p className="text-lg text-slate-600 leading-relaxed mb-10 max-w-xl">
-                Mifabyte adalah penyedia layanan digital gaming premium di Indonesia. Kami menghadirkan joki rank profesional, penguasaan hero, dan optimasi akun dengan keamanan dan kecepatan mutlak.
+                Mifabyte menghadirkan layanan profesional untuk kebutuhan akademik dan teknologi. Mulai dari penulisan ilmiah hingga pengembangan aplikasi berskala tinggi.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <button className="btn-primary px-8 py-4">Mulai Sekarang</button>
@@ -51,8 +65,8 @@ export default function LandingPage() {
               </div>
               <div className="flex items-center gap-8 border-t border-border-light pt-8">
                 <div>
-                  <p className="text-2xl font-bold text-slate-900">10rb+</p>
-                  <p className="text-xs text-slate-500 font-medium uppercase mt-1">Pesanan Selesai</p>
+                  <p className="text-2xl font-bold text-slate-900">5rb+</p>
+                  <p className="text-xs text-slate-500 font-medium uppercase mt-1">Proyek Selesai</p>
                 </div>
                 <div className="w-px h-10 bg-border-light" />
                 <div>
@@ -71,7 +85,7 @@ export default function LandingPage() {
                 {/* Elemen melayang seperti di gambar referensi */}
                 <div className="absolute top-8 -right-4 subtle-card p-4 shadow-xl">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-cyber-green/20 text-cyber-green flex items-center justify-center">✓</div>
+                    <div className="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">✓</div>
                     <div>
                       <p className="text-xs font-bold text-slate-900">Staf Terpilih</p>
                       <p className="text-[10px] text-slate-500">Proses Cepat</p>
@@ -86,9 +100,27 @@ export default function LandingPage() {
         {/* Section Harga / Layanan */}
         <section id="services" className="bg-slate-50 py-24 px-6 md:px-12 border-y border-border-light">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-slate-900 mb-4">Harga Transparan</h2>
-              <p className="text-slate-500 max-w-xl mx-auto">Layanan gaming premium dengan tarif jelas dan keamanan terjamin.</p>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-slate-900 mb-4">Daftar Harga Layanan</h2>
+              <p className="text-slate-500 max-w-xl mx-auto mb-10">Pilih kategori layanan yang Anda butuhkan untuk melihat detail harga.</p>
+              
+              {/* Tab Switcher */}
+              <div className="flex justify-center gap-2 p-1 bg-slate-200/50 rounded-2xl w-fit mx-auto border border-border-light">
+                {categories.map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setActiveTab(cat.id)}
+                    className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all ${
+                      activeTab === cat.id 
+                        ? 'bg-white text-primary shadow-sm' 
+                        : 'text-slate-500 hover:text-slate-700'
+                    }`}
+                  >
+                    <span>{cat.icon}</span>
+                    {cat.name}
+                  </button>
+                ))}
+              </div>
             </div>
             
             <div id="prices" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
