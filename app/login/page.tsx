@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 relative overflow-hidden">
-      {/* Subtle Background Elements */}
+      {/* Elemen Latar Belakang Halus */}
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
       <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-primary/5 rounded-full blur-[100px]" />
       
@@ -14,14 +14,14 @@ export default function LoginPage() {
           <div className="w-12 h-12 rounded-2xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 mx-auto mb-4">
             <span className="text-white font-extrabold text-xl font-mono">M</span>
           </div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Mifabyte Portal</h1>
-          <p className="text-sm text-slate-500">Authorized Personnel Only</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">Portal Mifabyte</h1>
+          <p className="text-sm text-slate-500">Hanya untuk Personel Resmi</p>
         </div>
 
         <div className="subtle-card p-10 shadow-2xl shadow-slate-200/50">
           <form className="space-y-6">
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Employee ID</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">ID Karyawan</label>
               <div className="relative">
                 <input
                   type="text"
@@ -32,7 +32,7 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Access Key</label>
+              <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest pl-1">Kunci Akses</label>
               <div className="relative">
                 <input
                   type="password"
@@ -45,25 +45,25 @@ export default function LoginPage() {
             <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500">
               <label className="flex items-center gap-2 cursor-pointer hover:text-slate-700">
                 <input type="checkbox" className="w-4 h-4 rounded border-border-light bg-slate-50 text-primary focus:ring-primary/20" />
-                Stay Authorized
+                Tetap Masuk
               </label>
-              <a href="#" className="text-primary hover:underline">Forgot Key?</a>
+              <a href="#" className="text-primary hover:underline">Lupa Kunci?</a>
             </div>
 
             <Link href="/dashboard" className="w-full btn-primary py-4 text-sm font-bold shadow-md shadow-primary/20">
-              Log In to Dashboard
+              Masuk ke Dashboard
             </Link>
           </form>
         </div>
 
         <div className="text-center mt-12 space-y-2">
           <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
-            Secure Encrypted Access • v2.4.0
+            Akses Terenkripsi Aman • v2.4.0
           </p>
           <div className="flex justify-center gap-4">
-            <Link href="/" className="text-[10px] font-bold text-primary hover:underline">Back to Home</Link>
+            <Link href="/" className="text-[10px] font-bold text-primary hover:underline">Kembali ke Beranda</Link>
             <span className="text-[10px] text-slate-300">|</span>
-            <a href="#" className="text-[10px] font-bold text-slate-400 hover:text-slate-600">Privacy Policy</a>
+            <a href="#" className="text-[10px] font-bold text-slate-400 hover:text-slate-600">Kebijakan Privasi</a>
           </div>
         </div>
       </div>

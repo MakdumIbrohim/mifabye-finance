@@ -3,26 +3,26 @@ export default function DashboardOverviewPage() {
     <div className="space-y-10">
       <section className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Team Overview</h1>
-          <p className="text-sm text-slate-500">Monitoring internal operations and recent activity.</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">Ringkasan Tim</h1>
+          <p className="text-sm text-slate-500">Memantau operasional internal dan aktivitas terbaru.</p>
         </div>
         <div className="flex gap-3">
           <button className="px-4 py-2 rounded-lg border border-border-light text-sm font-semibold text-slate-600 hover:bg-slate-50 transition-colors bg-white">
-            Daily Report
+            Laporan Harian
           </button>
           <button className="btn-primary text-sm px-5 py-2">
-            Add Alert
+            Tambah Alert
           </button>
         </div>
       </section>
 
-      {/* Stats Grid */}
+      {/* Grid Statistik */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: "Total Revenue", value: "Rp 12.45k", trend: "+12.5%", color: "text-primary" },
-          { label: "Active Joki", value: "24", trend: "+3 new", color: "text-primary" },
-          { label: "Team Members", value: "8", trend: "Full Team", color: "text-primary" },
-          { label: "Orders", value: "14", trend: "Pending", color: "text-amber-600" },
+          { label: "Total Pendapatan", value: "Rp 12.45k", trend: "+12.5%", color: "text-primary" },
+          { label: "Joki Aktif", value: "24", trend: "+3 baru", color: "text-primary" },
+          { label: "Anggota Tim", value: "8", trend: "Tim Lengkap", color: "text-primary" },
+          { label: "Pesanan", value: "14", trend: "Tertunda", color: "text-amber-600" },
         ].map((stat, i) => (
           <div key={i} className="subtle-card p-6">
             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">{stat.label}</p>
@@ -38,9 +38,9 @@ export default function DashboardOverviewPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Activity Feed */}
+        {/* Aktivitas Terbaru */}
         <div className="lg:col-span-2 subtle-card p-6">
-          <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Recent Activity</h3>
+          <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Aktivitas Terbaru</h3>
           <div className="space-y-1">
             {[1, 2, 3, 4, 5].map((item) => (
               <div key={item} className="flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors border-b border-slate-50 last:border-0">
@@ -49,24 +49,24 @@ export default function DashboardOverviewPage() {
                     {item}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-800">System Heartbeat Check</p>
-                    <p className="text-[10px] text-slate-400">{item * 10}m ago</p>
+                    <p className="text-sm font-semibold text-slate-800">Cek Detak Jantung Sistem</p>
+                    <p className="text-[10px] text-slate-400">{item * 10}m yang lalu</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <span className="px-2 py-0.5 rounded-full bg-primary-light text-primary text-[10px] font-bold">STABLE</span>
+                  <span className="px-2 py-0.5 rounded-full bg-primary-light text-primary text-[10px] font-bold">STABIL</span>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Shortcuts */}
+        {/* Pintasan */}
         <div className="space-y-6">
           <div className="subtle-card p-6 bg-primary-light/20 border-primary/5">
-            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Quick Actions</h3>
+            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Tindakan Cepat</h3>
             <div className="grid grid-cols-2 gap-3">
-              {["Verify Orders", "Team Logs", "Finances", "Config"].map((action) => (
+              {["Verif Pesanan", "Log Tim", "Keuangan", "Konfig"].map((action) => (
                 <button key={action} className="p-3 text-[10px] uppercase font-bold text-slate-500 bg-white rounded-lg border border-border-light hover:text-primary hover:border-primary/30 transition-all shadow-sm">
                   {action}
                 </button>
@@ -75,7 +75,7 @@ export default function DashboardOverviewPage() {
           </div>
 
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Staff Online</h3>
+            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Staf Online</h3>
             <div className="space-y-4">
               {["Alex", "Budi", "Siska"].map((name) => (
                 <div key={name} className="flex items-center justify-between">

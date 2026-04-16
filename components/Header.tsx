@@ -2,7 +2,7 @@ export default function Header() {
   return (
     <header className="h-16 bg-white/80 backdrop-blur-md border-b border-border-light flex items-center justify-between px-8 sticky top-0 z-10 shadow-sm">
       <div>
-        <h2 className="text-sm font-semibold text-slate-900">Mifabyte Management</h2>
+        <h2 className="text-sm font-semibold text-slate-900">Manajemen Mifabyte</h2>
       </div>
 
       <div className="flex items-center gap-4">

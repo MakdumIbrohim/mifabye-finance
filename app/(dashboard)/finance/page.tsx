@@ -8,23 +8,23 @@ export default function FinancePage() {
   return (
     <div className="space-y-10">
       <section>
-        <h1 className="text-2xl font-bold text-slate-900 mb-1">Finance Hub</h1>
-        <p className="text-sm text-slate-500">Track team earnings and operational expenses.</p>
+        <h1 className="text-2xl font-bold text-slate-900 mb-1">Pusat Keuangan</h1>
+        <p className="text-sm text-slate-500">Pantau pendapatan tim dan biaya operasional.</p>
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Balance & Form */}
+        {/* Saldo & Form */}
         <div className="lg:col-span-1 space-y-6">
           <div className="subtle-card p-6 bg-primary font-semibold text-white shadow-lg shadow-primary/20">
-            <p className="text-[10px] text-white/70 uppercase tracking-widest mb-1">Total Balance</p>
+            <p className="text-[10px] text-white/70 uppercase tracking-widest mb-1">Total Saldo</p>
             <h2 className="text-3xl font-bold">Rp 4.250.000</h2>
             <div className="mt-4 flex items-center gap-2">
-              <span className="text-[10px] px-2 py-0.5 rounded bg-white/20">+15% this month</span>
+              <span className="text-[10px] px-2 py-0.5 rounded bg-white/20">+15% bulan ini</span>
             </div>
           </div>
 
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Post Transaction</h3>
+            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Catat Transaksi</h3>
             <div className="flex bg-slate-50 p-1 rounded-xl mb-6">
               <button
                 onClick={() => setTransactionType("in")}
@@ -32,7 +32,7 @@ export default function FinancePage() {
                   transactionType === "in" ? "bg-white text-primary shadow-sm" : "text-slate-400 hover:text-slate-600"
                 }`}
               >
-                Money In
+                Uang Masuk
               </button>
               <button
                 onClick={() => setTransactionType("out")}
@@ -40,13 +40,13 @@ export default function FinancePage() {
                   transactionType === "out" ? "bg-white text-red-500 shadow-sm" : "text-slate-400 hover:text-slate-600"
                 }`}
               >
-                Money Out
+                Uang Keluar
               </button>
             </div>
 
             <form className="space-y-4">
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Amount</label>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Jumlah</label>
                 <input
                   type="text"
                   placeholder="Rp 0"
@@ -54,25 +54,25 @@ export default function FinancePage() {
                 />
               </div>
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Notes</label>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Catatan</label>
                 <textarea
-                  placeholder="Order reference..."
+                  placeholder="Referensi pesanan..."
                   className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
                 />
               </div>
               <button type="button" className={`w-full py-3 rounded-xl font-bold text-sm shadow-sm transition-all ${
                 transactionType === "in" ? "bg-primary text-white hover:opacity-90" : "bg-red-500 text-white hover:bg-red-600"
               }`}>
-                Confirm {transactionType === "in" ? "Income" : "Expense"}
+                Konfirmasi {transactionType === "in" ? "Pemasukan" : "Pengeluaran"}
               </button>
             </form>
           </div>
         </div>
 
-        {/* Charts and History */}
+        {/* Grafik dan Riwayat */}
         <div className="lg:col-span-2 space-y-6">
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Earnings Trend</h3>
+            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Tren Pendapatan</h3>
             <div className="h-48 flex items-end justify-between gap-3 px-2">
               {[40, 70, 45, 90, 65, 80, 55].map((height, i) => (
                 <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
@@ -87,19 +87,19 @@ export default function FinancePage() {
                       />
                     </div>
                   </div>
-                  <span className="text-[9px] text-slate-400 font-bold tracking-tighter">OCT {i + 1}</span>
+                  <span className="text-[9px] text-slate-400 font-bold tracking-tighter">OKT {i + 1}</span>
                 </div>
               ))}
             </div>
           </div>
 
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Transaction Log</h3>
+            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Log Transaksi</h3>
             <div className="space-y-1">
               {[
-                { label: "Mythic Boost Service", date: "Today, 14:20", amount: "+450k", type: "in" },
-                { label: "Server Subscription", date: "Yesterday, 09:12", amount: "-120k", type: "out" },
-                { label: "Hero Mastery Pack", date: "Oct 12, 21:05", amount: "+85k", type: "in" },
+                { label: "Jasa Boost Mythic", date: "Hari ini, 14:20", amount: "+450rb", type: "in" },
+                { label: "Langganan Server", date: "Kemarin, 09:12", amount: "-120rb", type: "out" },
+                { label: "Paket Master Hero", date: "12 Okt, 21:05", amount: "+85rb", type: "in" },
               ].map((log, i) => (
                 <div key={i} className="flex items-center justify-between p-3 hover:bg-slate-50 transition-colors rounded-lg border-b border-slate-50 last:border-0">
                   <div className="flex items-center gap-4">
