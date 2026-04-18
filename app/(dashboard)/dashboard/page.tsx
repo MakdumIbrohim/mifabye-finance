@@ -65,6 +65,16 @@ export default function DashboardPage() {
             </div>
 
             <form className="space-y-4">
+              <div>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Tanggal Transaksi</label>
+                <input
+                  type="date"
+                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
+                  value={formData.tanggal}
+                  onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
+                />
+              </div>
+
               {transactionType === "in" ? (
                 <>
                   <div>
@@ -119,16 +129,6 @@ export default function DashboardPage() {
                   </div>
                 </>
               ) : null}
-
-              <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Tanggal Transaksi</label>
-                <input
-                  type="date"
-                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
-                  value={formData.tanggal}
-                  onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
-                />
-              </div>
 
               <div>
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nominal Jumlah</label>
