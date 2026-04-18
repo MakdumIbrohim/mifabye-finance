@@ -12,16 +12,20 @@ export const metadata: Metadata = {
   description: "Modern dashboard for managing joki services and finances.",
 };
 
+import { ThemeProvider } from "@/context/ThemeContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased selection:bg-primary/30 selection:text-primary`}>
-      <body className="min-h-screen bg-dark-bg text-foreground overflow-x-hidden">
-        {children}
-      </body>
+    <html lang="en" suppressHydrationWarning className={`${inter.variable} antialiased selection:bg-primary/30 selection:text-primary`}>
+      <ThemeProvider>
+        <body className="min-h-screen bg-dark-bg text-foreground overflow-x-hidden">
+          {children}
+        </body>
+      </ThemeProvider>
     </html>
   );
 }
