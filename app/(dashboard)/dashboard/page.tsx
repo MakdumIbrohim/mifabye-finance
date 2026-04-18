@@ -453,7 +453,7 @@ export default function DashboardPage() {
               </Link>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-left">
+              <table className="w-full text-left min-w-[800px]">
                 <tbody className="divide-y divide-border-light">
                   {isLoading ? (
                     Array(5).fill(0).map((_, i) => (
