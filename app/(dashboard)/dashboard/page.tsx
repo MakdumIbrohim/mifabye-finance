@@ -55,6 +55,23 @@ export default function DashboardPage() {
     fetchData();
   }, [fetchData]);
 
+  // Calculate Financial Statistics
+  const { totalBalance, totalIncome, totalExpense } = useMemo(() => {
+    const income = transactions
+      .filter(t => t.jenis_transaksi === "Pemasukan")
+      .reduce((sum, t) => sum + t.nominal, 0);
+    
+    const expense = transactions
+      .filter(t => t.jenis_transaksi === "Pengeluaran")
+      .reduce((sum, t) => sum + t.nominal, 0);
+      
+    return {
+      totalBalance: income - expense,
+      totalIncome: income,
+      totalExpense: expense
+    };
+  }, [transactions]);
+
   // Step 1: Handle Initial Form Submit (Validation & Open Modal)
   const handlePreSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -177,6 +194,52 @@ export default function DashboardPage() {
           </div>
         )}
       </section>
+
+      {/* Full-Width Balance Card */}
+      <div className="bg-gradient-to-br from-slate-900 to-primary p-8 rounded-[2.5rem] shadow-xl shadow-primary/20 text-white relative overflow-hidden group">
+        <div className="absolute -right-10 -top-10 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700" />
+        <div className="absolute left-10 -bottom-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-all duration-700" />
+        
+        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-3 opacity-80">
+              <div className="p-1.5 bg-white/10 rounded-lg">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                </svg>
+              </div>
+              <span className="text-xs font-bold uppercase tracking-[0.2em]">Total Saldo Keuangan Mifabyte</span>
+            </div>
+            <h2 className="text-5xl font-black tracking-tighter">
+              {isLoading ? "Menghitung..." : formatCurrency(totalBalance)}
+            </h2>
+          </div>
+
+          <div className="flex flex-wrap gap-6 md:gap-12 p-6 bg-white/5 backdrop-blur-md rounded-3xl border border-white/10">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-teal-400/20 flex items-center justify-center text-teal-400">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pemasukan</p>
+                <p className="text-xl font-black text-teal-300">{isLoading ? "---" : formatCurrency(totalIncome)}</p>
+              </div>
+            </div>
+            
+            <div className="w-px h-12 bg-white/10 hidden md:block" />
+
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-full bg-red-400/20 flex items-center justify-center text-red-400">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+              </div>
+              <div>
+                <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pengeluaran</p>
+                <p className="text-xl font-black text-red-300">{isLoading ? "---" : formatCurrency(totalExpense)}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 space-y-6">
