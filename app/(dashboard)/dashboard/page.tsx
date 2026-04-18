@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
 import SearchableSelect from "@/components/SearchableSelect";
+import ConfirmationModal from "@/components/ConfirmationModal";
 import { Transaction, calculateChartData, formatCurrency } from "@/lib/finance-utils";
 
 export default function DashboardPage() {
@@ -12,6 +13,7 @@ export default function DashboardPage() {
   const [hoveredDayIndex, setHoveredDayIndex] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -51,17 +53,21 @@ export default function DashboardPage() {
     fetchData();
   }, [fetchData]);
 
-  // Handle Form Submission
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Step 1: Handle Initial Form Submit (Validation & Open Modal)
+  const handlePreSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!formData.jumlah) {
       setStatus({ type: "error", message: "Harap isi nominal jumlah!" });
       return;
     }
+    setShowConfirmModal(true);
+  };
 
+  // Step 2: Final API Submission (Triggered from Modal)
+  const executeSubmission = async () => {
     setIsSubmitting(true);
     setStatus(null);
+    setShowConfirmModal(false);
 
     try {
       const response = await fetch("/api/finance", {
@@ -74,8 +80,8 @@ export default function DashboardPage() {
 
       if (result.result === "success") {
         setStatus({ type: "success", message: `Berhasil! Data tersimpan dengan ID: ${result.id}` });
-        setFormData(initialFormState); // Reset form
-        fetchData(); // Refresh data real-time
+        setFormData(initialFormState);
+        fetchData();
       } else {
         setStatus({ type: "error", message: result.message || "Gagal menyimpan data." });
       }
@@ -98,16 +104,50 @@ export default function DashboardPage() {
   const incomePoints = generatePath(chartData as any, "income");
   const expensePoints = generatePath(chartData as any, "expense");
 
-  // Get 5 most recent transactions
   const recentTransactions = [...transactions].reverse().slice(0, 5);
 
-  // Helper to capitalize first letter of each word
   const toTitleCase = (str: string) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
   return (
     <div className="space-y-8 pb-10">
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={executeSubmission}
+        isLoading={isSubmitting}
+        type={transactionType === "in" ? "primary" : "danger"}
+        title={`Konfirmasi ${transactionType === "in" ? "Pemasukan" : "Pengeluaran"}`}
+        message={
+          <div className="space-y-3">
+            <p>Harap periksa detail berikut sebelum menyimpan data ke sistem:</p>
+            <div className="bg-subtle p-4 rounded-2xl space-y-2 border border-border-light">
+              <div className="flex justify-between">
+                <span className="text-slate-400 font-medium">Nominal:</span>
+                <span className={`font-bold ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
+                   Rp {Number(formData.jumlah.replace(/[^0-9]/g, "")).toLocaleString("id-ID")}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400 font-medium text-xs">Pihak/Klien:</span>
+                <span className="text-slate-700 font-bold text-xs">{formData.namaKlien || "-"}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400 font-medium text-xs">Layanan:</span>
+                <span className="text-slate-700 font-bold text-xs">{formData.layanan || "Umum"}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400 font-medium text-xs">Instansi:</span>
+                <span className="text-slate-700 font-bold text-xs">{formData.instansi || "-"}</span>
+              </div>
+            </div>
+            <p className="text-[10px] text-slate-400 italic font-medium pt-2">Tindakan ini akan tercatat permanen di Google Sheets.</p>
+          </div>
+        }
+      />
+
       <section className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 mb-1">Beranda Dashboard</h1>
@@ -119,13 +159,12 @@ export default function DashboardPage() {
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
             </svg>
-            <span className="text-[10px] font-bold uppercase tracking-wider">Sinkronisasi Data...</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider">Sinkronisasi...</span>
           </div>
         )}
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Left Column: Form Input (4/12) */}
         <div className="lg:col-span-4 space-y-6">
           <div className="subtle-card p-6">
             <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Catat Transaksi</h3>
@@ -150,7 +189,7 @@ export default function DashboardPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handlePreSubmit} className="space-y-4">
               {status && (
                 <div className={`p-3 rounded-xl text-xs font-bold flex items-center gap-2 animate-in fade-in slide-in-from-top-2 ${
                   status.type === "success" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"
@@ -234,13 +273,7 @@ export default function DashboardPage() {
                 }`}
               >
                 {isSubmitting ? (
-                  <>
-                    <svg className="animate-spin h-4 w-4 text-white" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Memproses...
-                  </>
+                  "Menunggu..."
                 ) : (
                   `Konfirmasi ${transactionType === "in" ? "Pemasukan" : "Pengeluaran"}`
                 )}
@@ -249,9 +282,8 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Right Column: Graphic & Transactions (8/12) */}
         <div className="lg:col-span-8 space-y-8">
-          {/* Financial Graphic Card */}
+          {/* Chart Section */}
           <div className="subtle-card p-8 min-h-[400px]">
             <div className="flex items-center justify-between mb-8">
               <div>
@@ -333,7 +365,7 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Recent Transactions List */}
+          {/* Table Section */}
           <div className="subtle-card overflow-hidden">
             <div className="p-6 border-b border-border-light flex items-center justify-between">
               <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Transaksi Terbaru</h3>
