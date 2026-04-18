@@ -5,6 +5,23 @@ import Link from "next/link";
 
 export default function DashboardPage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
+  const [formData, setFormData] = useState({
+    namaKlien: "",
+    instansi: "",
+    layanan: "",
+    jumlah: "",
+    catatan: ""
+  });
+
+  const layananOptions = [
+    "Artikel Ilmiah",
+    "Penyusunan Makalah",
+    "Pembuatan PPT",
+    "Web Development (FE/BE)",
+    "Aplikasi Mobile",
+    "Lisensi Windows",
+    "Lainnya"
+  ];
 
   return (
     <div className="space-y-10">
@@ -46,21 +63,69 @@ export default function DashboardPage() {
             </div>
 
             <form className="space-y-4">
+              {transactionType === "in" ? (
+                <>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nama Klien</label>
+                      <input
+                        type="text"
+                        placeholder="Nama Joki"
+                        className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                        value={formData.namaKlien}
+                        onChange={(e) => setFormData({...formData, namaKlien: e.target.value})}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Asal Instansi</label>
+                      <input
+                        type="text"
+                        placeholder="Sekolah/Univ"
+                        className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                        value={formData.instansi}
+                        onChange={(e) => setFormData({...formData, instansi: e.target.value})}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Pilih Layanan</label>
+                    <select
+                      className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
+                      value={formData.layanan}
+                      onChange={(e) => setFormData({...formData, layanan: e.target.value})}
+                    >
+                      <option value="" disabled>Pilih Layanan Joki</option>
+                      {layananOptions.map((opt) => (
+                        <option key={opt} value={opt}>{opt}</option>
+                      ))}
+                    </select>
+                  </div>
+                </>
+              ) : null}
+
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Jumlah</label>
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nominal Jumlah</label>
                 <input
                   type="text"
                   placeholder="Rp 0"
                   className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                  value={formData.jumlah}
+                  onChange={(e) => setFormData({...formData, jumlah: e.target.value})}
                 />
               </div>
-              <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Catatan</label>
-                <textarea
-                  placeholder="Referensi pesanan..."
-                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
-                />
-              </div>
+
+              {transactionType === "out" && (
+                <div>
+                  <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Catatan</label>
+                  <textarea
+                    placeholder="Referensi pesanan..."
+                    className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
+                    value={formData.catatan}
+                    onChange={(e) => setFormData({...formData, catatan: e.target.value})}
+                  />
+                </div>
+              )}
+
               <button type="button" className={`w-full py-3 rounded-xl font-bold text-sm shadow-sm transition-all ${
                 transactionType === "in" ? "bg-primary text-white hover:opacity-90" : "bg-red-500 text-white hover:bg-red-600"
               }`}>
