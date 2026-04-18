@@ -5,7 +5,8 @@
   --color-primary-light: var(--primary-light);
   --color-secondary: #64748b;
   --color-bg-light: #f8fafc;
-  --color-border-light: #e2e8f0;
+  --color-border-light: var(--border);
+  --color-subtle: var(--bg-subtle);
   
   --radius-xl: var(--radius);
   --radius-lg: calc(var(--radius) * 0.75);
@@ -18,8 +19,9 @@
   --background: #f8fafc;
   --foreground: #0f172a;
   --primary: #508fc5;
-  --primary-light: color-mix(in srgb, var(--primary), white 90%);
-  --border: #e2e8f0;
+  --primary-light: color-mix(in srgb, var(--primary), white 92%);
+  --border: color-mix(in srgb, var(--primary), white 88%);
+  --bg-subtle: color-mix(in srgb, var(--primary), white 96%);
   --radius: 1rem;
   --font-main: 'Inter', system-ui, -apple-system, sans-serif;
 }
@@ -36,13 +38,14 @@ body {
     background: #ffffff;
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 3px 0 color-mix(in srgb, var(--primary), transparent 95%);
     transition: all 0.2s ease;
   }
 
   .subtle-card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px color-mix(in srgb, var(--primary), transparent 90%);
     transform: translateY(-1px);
+    border-color: color-mix(in srgb, var(--primary), white 70%);
   }
 
   .nav-link {
@@ -50,7 +53,7 @@ body {
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1.25rem;
-    border-radius: 9999px; /* Pill shape remains standard but can be adjusted if needed */
+    border-radius: 9999px;
     color: #64748b;
     font-size: 0.875rem;
     font-weight: 500;
@@ -65,6 +68,7 @@ body {
   .nav-link.active {
     background: var(--primary-light);
     color: var(--primary);
+    font-weight: 600;
   }
 
   .btn-primary {
@@ -83,6 +87,11 @@ body {
   .btn-primary:hover {
     opacity: 0.9;
     box-shadow: 0 4px 12px color-mix(in srgb, var(--primary), transparent 75%);
+  }
+
+  /* Force rounded corners on all inputs explicitly */
+  input, select, textarea {
+    border-radius: calc(var(--radius) * 0.75) !important;
   }
 
   .gradient-text {

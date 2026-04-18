@@ -49,22 +49,22 @@ export default function HistoryPage() {
       <div className="subtle-card p-0 overflow-hidden">
         {/* Filter Bar */}
         <div className="p-6 border-b border-border-light flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex bg-slate-100 p-1 rounded-xl w-fit">
+          <div className="flex bg-subtle p-1 rounded-xl w-fit border border-border-light">
             <button
               onClick={() => setFilter("all")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "all" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "all" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-500 hover:text-slate-700"}`}
             >
               Semua
             </button>
             <button
               onClick={() => setFilter("in")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "in" ? "bg-white text-primary shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "in" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-500 hover:text-slate-700"}`}
             >
               Pemasukan
             </button>
             <button
               onClick={() => setFilter("out")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "out" ? "bg-white text-red-500 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "out" ? "bg-white text-red-500 shadow-sm shadow-red-500/10" : "text-slate-500 hover:text-slate-700"}`}
             >
               Pengeluaran
             </button>
@@ -76,7 +76,7 @@ export default function HistoryPage() {
               placeholder="Cari transaksi atau kategori..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-slate-50 border border-border-light rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
+              className="w-full bg-subtle border border-border-light rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
             />
             <svg className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -88,7 +88,7 @@ export default function HistoryPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-slate-50/50 border-b border-border-light">
+              <tr className="bg-subtle border-b border-border-light">
                 <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Keterangan</th>
                 <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Kategori</th>
                 <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tanggal</th>
@@ -96,15 +96,15 @@ export default function HistoryPage() {
                 <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider text-right">Jumlah</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-border-light">
               {filteredTransactions.map((t) => (
-                <tr key={t.id} className="hover:bg-slate-50/50 transition-colors">
+                <tr key={t.id} className="hover:bg-subtle/50 transition-colors">
                   <td className="px-6 py-4">
                     <p className="text-sm font-semibold text-slate-800">{t.label}</p>
                     <p className="text-[10px] text-slate-400">ID: TRX-{t.id}001X</p>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-xs font-medium text-slate-600 px-2 py-1 bg-slate-100 rounded">
+                    <span className="text-xs font-medium text-primary px-2 py-1 bg-primary-light rounded">
                       {t.category}
                     </span>
                   </td>
