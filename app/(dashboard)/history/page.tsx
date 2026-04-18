@@ -185,7 +185,16 @@ export default function HistoryPage() {
                   >
                     <td className="px-6 py-4">
                       <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
-                      <p className="text-[10px] text-slate-400 font-medium">ID: {t.id} | {t.asal_instansi}</p>
+                      <div className="flex items-center gap-2 mt-1">
+                        <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
+                          t.jenis_transaksi === "Pemasukan" 
+                            ? "bg-primary/10 text-primary border-primary/20" 
+                            : "bg-red-500/10 text-red-500 border-red-500/20"
+                        }`}>
+                          {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
+                        </span>
+                        <p className="text-[10px] text-slate-400 font-medium">ID: {t.id} | {t.asal_instansi}</p>
+                      </div>
                     </td>
                     <td className="px-6 py-4">
                       <span className="text-xs font-semibold text-primary px-2.5 py-1 bg-primary-light rounded-lg">
