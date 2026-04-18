@@ -24,7 +24,7 @@ export async function POST(request: Request) {
         tanggal: body.tanggal,
         nama_klien: body.namaKlien || "-",
         asal_instansi: body.instansi || "-",
-        jenis_layanan: body.layanan || "-",
+        produk_layanan: body.layanan || "-",
         nominal: Number(body.jumlah?.toString().replace(/[^0-9]/g, "")) || 0,
         catatan: body.catatan || "",
         jenis_transaksi: body.transactionType === "in" || body.jenis_transaksi === "Pemasukan" || body.jenis_transaksi === "Uang Masuk" ? "Pemasukan" : "Pengeluaran"

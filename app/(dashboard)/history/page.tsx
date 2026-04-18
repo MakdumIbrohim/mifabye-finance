@@ -2,11 +2,13 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Transaction, formatCurrency } from "@/lib/finance-utils";
+import TransactionDetailModal from "@/components/TransactionDetailModal";
 
 export default function HistoryPage() {
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
   const [search, setSearch] = useState("");
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   // Fetch Data from API
@@ -40,11 +42,11 @@ export default function HistoryPage() {
     });
 
     const income = monthTransactions
-      .filter(t => t.jenis_transaksi === "Uang Masuk")
+      .filter(t => t.jenis_transaksi === "Pemasukan")
       .reduce((sum, t) => sum + t.nominal, 0);
       
     const expense = monthTransactions
-      .filter(t => t.jenis_transaksi === "Uang Keluar")
+      .filter(t => t.jenis_transaksi === "Pengeluaran")
       .reduce((sum, t) => sum + t.nominal, 0);
 
     return { monthlyIncome: income, monthlyExpense: expense };
@@ -54,14 +56,14 @@ export default function HistoryPage() {
   const filteredTransactions = transactions.filter(t => {
     const matchesFilter = 
       filter === "all" || 
-      (filter === "in" && t.jenis_transaksi === "Uang Masuk") || 
-      (filter === "out" && t.jenis_transaksi === "Uang Keluar");
+      (filter === "in" && t.jenis_transaksi === "Pemasukan") || 
+      (filter === "out" && t.jenis_transaksi === "Pengeluaran");
     
     const searchLower = search.toLowerCase();
     const matchesSearch = 
       t.nama_klien?.toLowerCase().includes(searchLower) || 
       t.asal_instansi?.toLowerCase().includes(searchLower) || 
-      t.jenis_layanan?.toLowerCase().includes(searchLower) ||
+      t.produk_layanan?.toLowerCase().includes(searchLower) ||
       t.catatan?.toLowerCase().includes(searchLower) ||
       t.id?.toLowerCase().includes(searchLower);
       
@@ -70,6 +72,12 @@ export default function HistoryPage() {
 
   return (
     <div className="space-y-8 pb-10">
+      {/* Transaction Detail Modal */}
+      <TransactionDetailModal 
+        transaction={selectedTransaction} 
+        onClose={() => setSelectedTransaction(null)} 
+      />
+
       <section className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 mb-1">Riwayat Transaksi</h1>
@@ -170,14 +178,18 @@ export default function HistoryPage() {
                 ))
               ) : filteredTransactions.length > 0 ? (
                 filteredTransactions.map((t) => (
-                  <tr key={t.id} className="hover:bg-subtle/50 transition-colors group">
+                  <tr 
+                    key={t.id} 
+                    onClick={() => setSelectedTransaction(t)}
+                    className="hover:bg-primary/[0.04] transition-colors group cursor-pointer active:scale-[0.99]"
+                  >
                     <td className="px-6 py-4">
                       <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
                       <p className="text-[10px] text-slate-400 font-medium">ID: {t.id} | {t.asal_instansi}</p>
                     </td>
                     <td className="px-6 py-4">
                       <span className="text-xs font-semibold text-primary px-2.5 py-1 bg-primary-light rounded-lg">
-                        {t.jenis_layanan}
+                        {t.produk_layanan || "-"}
                       </span>
                     </td>
                     <td className="px-6 py-4">
@@ -191,8 +203,8 @@ export default function HistoryPage() {
                       </p>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <p className={`text-sm font-bold ${t.jenis_transaksi === "Uang Masuk" ? "text-primary" : "text-red-500"}`}>
-                        {t.jenis_transaksi === "Uang Masuk" ? "+" : "-"}{formatCurrency(t.nominal)}
+                      <p className={`text-sm font-bold ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>
+                        {t.jenis_transaksi === "Pemasukan" ? "+" : "-"}{formatCurrency(t.nominal)}
                       </p>
                     </td>
                   </tr>

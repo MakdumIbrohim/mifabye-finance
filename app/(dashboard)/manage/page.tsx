@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import { Transaction, formatCurrency } from "@/lib/finance-utils";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import SearchableSelect from "@/components/SearchableSelect";
+import TransactionDetailModal from "@/components/TransactionDetailModal";
 import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
 
@@ -17,6 +18,7 @@ export default function ManagePage() {
   // Modal States
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [editItem, setEditItem] = useState<Transaction | null>(null);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   // Fetch Data
@@ -78,10 +80,10 @@ export default function ManagePage() {
           tanggal: editItem.tanggal,
           namaKlien: editItem.nama_klien,
           instansi: editItem.asal_instansi,
-          layanan: editItem.jenis_layanan,
+          layanan: editItem.produk_layanan,
           jumlah: editItem.nominal,
           catatan: editItem.catatan,
-          transactionType: editItem.jenis_transaksi === "Uang Masuk" ? "in" : "out"
+          transactionType: editItem.jenis_transaksi === "Pemasukan" ? "in" : "out"
         }),
       });
       const result = await response.json();
@@ -103,15 +105,15 @@ export default function ManagePage() {
   const filteredTransactions = useMemo(() => {
     return transactions.filter(t => {
       const matchesFilter = filter === "all" || 
-        (filter === "in" && t.jenis_transaksi === "Uang Masuk") || 
-        (filter === "out" && t.jenis_transaksi === "Uang Keluar");
+        (filter === "in" && t.jenis_transaksi === "Pemasukan") || 
+        (filter === "out" && t.jenis_transaksi === "Pengeluaran");
       
       const s = search.toLowerCase();
       const matchesSearch = 
         t.nama_klien?.toLowerCase().includes(s) || 
         t.id?.toLowerCase().includes(s) || 
         t.asal_instansi?.toLowerCase().includes(s) ||
-        t.jenis_layanan?.toLowerCase().includes(s);
+        t.produk_layanan?.toLowerCase().includes(s);
 
       return matchesFilter && matchesSearch;
     }).reverse();
@@ -119,6 +121,12 @@ export default function ManagePage() {
 
   return (
     <div className="space-y-8 pb-10">
+      {/* Transaction Detail Modal */}
+      <TransactionDetailModal 
+        transaction={selectedTransaction} 
+        onClose={() => setSelectedTransaction(null)} 
+      />
+
       <section className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-slate-900 mb-1">Kelola Data Keuangan</h1>
@@ -180,7 +188,7 @@ export default function ManagePage() {
                   <label className="text-[10px] font-bold text-slate-400 uppercase mb-2 block tracking-tight">Tanggal</label>
                   <input
                     type="date"
-                    value={new Date(editItem.tanggal).toISOString().split('T')[0]}
+                    value={new Date(editItem.tanggal).toLocaleDateString('en-CA')}
                     onChange={(e) => setEditItem({...editItem, tanggal: e.target.value})}
                     className="w-full bg-subtle border border-border-light rounded-xl p-3 text-sm font-semibold"
                   />
@@ -199,8 +207,8 @@ export default function ManagePage() {
                     label="Jenis Layanan"
                     placeholder="Cari Layanan..."
                     options={JokiServices}
-                    value={editItem.jenis_layanan}
-                    onChange={(val) => setEditItem({ ...editItem, jenis_layanan: val })}
+                    value={editItem.produk_layanan}
+                    onChange={(val) => setEditItem({ ...editItem, produk_layanan: val })}
                   />
                 </div>
                 <div>
@@ -219,8 +227,8 @@ export default function ManagePage() {
                     onChange={(e) => setEditItem({...editItem, jenis_transaksi: e.target.value})}
                     className="w-full bg-subtle border border-border-light rounded-xl p-3 text-sm font-semibold"
                   >
-                    <option value="Uang Masuk">Uang Masuk</option>
-                    <option value="Uang Keluar">Uang Keluar</option>
+                    <option value="Pemasukan">Pemasukan</option>
+                    <option value="Pengeluaran">Pengeluaran</option>
                   </select>
                 </div>
               </div>
@@ -244,7 +252,7 @@ export default function ManagePage() {
             <button onClick={() => setFilter("in")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "in" ? "bg-primary text-white" : "text-slate-400"}`}>Pemasukan</button>
             <button onClick={() => setFilter("out")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "out" ? "bg-primary text-white" : "text-slate-400"}`}>Pengeluaran</button>
           </div>
-          <div className="relative flex-1 max-w-sm">
+          <div className="relative flex-1 max-sm:max-w-full max-w-sm">
             <input 
               type="text" 
               placeholder="Cari ID atau Nama Klien..." 
@@ -272,29 +280,41 @@ export default function ManagePage() {
                   <tr key={i} className="animate-pulse"><td colSpan={4} className="px-6 py-8"><div className="h-4 bg-slate-100 rounded w-full"></div></td></tr>
                 ))
               ) : filteredTransactions.map((t) => (
-                <tr key={t.id} className="hover:bg-primary/[0.02] transition-colors group">
+                <tr 
+                  key={t.id} 
+                  onClick={() => setSelectedTransaction(t)}
+                  className="hover:bg-primary/[0.02] transition-colors group cursor-pointer active:scale-[0.995]"
+                >
                   <td className="px-6 py-4">
                     <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
                     <p className="text-[10px] text-slate-400 font-medium">{t.id} • {t.asal_instansi}</p>
                   </td>
                   <td className="px-6 py-4">
-                    <span className="text-[10px] font-bold text-primary bg-primary-light px-2 py-1 rounded-lg">{t.jenis_layanan}</span>
-                    <p className="text-[9px] text-slate-400 mt-1">{new Date(t.tanggal).toLocaleDateString()}</p>
+                    <span className="text-[10px] font-bold text-primary bg-primary-light px-2 py-1 rounded-lg">
+                      {t.produk_layanan || "-"}
+                    </span>
+                    <p className="text-[9px] text-slate-400 mt-1">{new Date(t.tanggal).toLocaleDateString("id-ID")}</p>
                   </td>
                   <td className="px-6 py-4">
-                    <p className={`text-sm font-bold ${t.jenis_transaksi === "Uang Masuk" ? "text-primary" : "text-red-500"}`}>{formatCurrency(t.nominal)}</p>
+                    <p className={`text-sm font-bold ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>{formatCurrency(t.nominal)}</p>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center justify-center gap-2">
                       <button 
-                         onClick={() => setEditItem(t)}
+                         onClick={(e) => {
+                           e.stopPropagation();
+                           setEditItem(t);
+                         }}
                          className="p-2 text-slate-400 hover:text-primary hover:bg-primary-light rounded-xl transition-all"
                          title="Edit Data"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                       </button>
                       <button 
-                        onClick={() => setDeleteId(t.id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setDeleteId(t.id);
+                        }}
                         className="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                         title="Hapus Data"
                       >

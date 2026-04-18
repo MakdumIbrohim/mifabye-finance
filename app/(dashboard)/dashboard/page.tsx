@@ -6,6 +6,7 @@ import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
 import SearchableSelect from "@/components/SearchableSelect";
 import ConfirmationModal from "@/components/ConfirmationModal";
+import TransactionDetailModal from "@/components/TransactionDetailModal";
 import { Transaction, calculateChartData, formatCurrency } from "@/lib/finance-utils";
 
 export default function DashboardPage() {
@@ -14,6 +15,7 @@ export default function DashboardPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   
   const [transactions, setTransactions] = useState<Transaction[]>([]);
@@ -152,6 +154,12 @@ export default function DashboardPage() {
             <p className="text-[10px] text-slate-400 italic font-medium pt-2">Tindakan ini akan tercatat permanen di Google Sheets.</p>
           </div>
         }
+      />
+
+      {/* Transaction Detail Modal */}
+      <TransactionDetailModal 
+        transaction={selectedTransaction} 
+        onClose={() => setSelectedTransaction(null)} 
       />
 
       <section className="flex items-center justify-between">
@@ -395,7 +403,11 @@ export default function DashboardPage() {
                     ))
                   ) : recentTransactions.length > 0 ? (
                     recentTransactions.map((t) => (
-                      <tr key={t.id} className="hover:bg-subtle/50 transition-all group">
+                      <tr 
+                        key={t.id} 
+                        onClick={() => setSelectedTransaction(t)}
+                        className="hover:bg-primary/[0.04] transition-all group cursor-pointer active:scale-[0.99]"
+                      >
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${t.jenis_transaksi === "Pemasukan" ? "bg-primary-light text-primary" : "bg-red-50 text-red-500"}`}>
@@ -403,7 +415,7 @@ export default function DashboardPage() {
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
-                                <p className="text-[10px] text-slate-400 font-medium">{t.id} • {t.asal_instansi}</p>
+                                <p className="text-[10px] text-slate-400 font-medium">{t.id} • {t.asal_instansi} • {t.produk_layanan}</p>
                             </div>
                           </div>
                         </td>

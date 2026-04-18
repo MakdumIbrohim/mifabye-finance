@@ -7,7 +7,7 @@ export interface Transaction {
   tanggal: string;
   nama_klien: string;
   asal_instansi: string;
-  jenis_layanan: string;
+  produk_layanan: string;
   nominal: number;
   catatan: string;
   jenis_transaksi: string;
