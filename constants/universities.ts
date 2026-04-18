@@ -39,6 +39,7 @@ export const IndonesianUniversities = [
   "SMAN 2 Bangkalan",
   "SMKN 1 Pamekasan",
   "SMKN 2 Pamekasan",
+  "SMK Al-Mujtama' Pamekasan",
   "SMKN 1 Sumenep",
   "SMKN 1 Sampang",
   "SMKN 1 Bangkalan",
