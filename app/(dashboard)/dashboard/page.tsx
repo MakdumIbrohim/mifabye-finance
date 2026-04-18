@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { IndonesianUniversities } from "@/constants/universities";
 
 export default function DashboardPage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
   const [formData, setFormData] = useState({
     namaKlien: "",
     instansi: "",
+    instansiLainnya: "",
     layanan: "",
     jumlah: "",
     catatan: ""
@@ -58,27 +60,42 @@ export default function DashboardPage() {
             <form className="space-y-4">
               {transactionType === "in" ? (
                 <>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nama Klien</label>
-                      <input
-                        type="text"
-                        placeholder="Nama Joki"
-                        className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-                        value={formData.namaKlien}
-                        onChange={(e) => setFormData({...formData, namaKlien: e.target.value})}
-                      />
-                    </div>
+                  <div>
+                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nama Klien</label>
+                    <input
+                      type="text"
+                      placeholder="Nama Joki"
+                      className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                      value={formData.namaKlien}
+                      onChange={(e) => setFormData({...formData, namaKlien: e.target.value})}
+                    />
+                  </div>
+                  <div className="space-y-3">
                     <div>
                       <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Asal Instansi</label>
-                      <input
-                        type="text"
-                        placeholder="Sekolah/Univ"
-                        className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                      <select
+                        className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
                         value={formData.instansi}
                         onChange={(e) => setFormData({...formData, instansi: e.target.value})}
-                      />
+                      >
+                        <option value="" disabled>Pilih Kampus/Sekolah</option>
+                        {IndonesianUniversities.map((uni) => (
+                          <option key={uni} value={uni}>{uni}</option>
+                        ))}
+                      </select>
                     </div>
+                    
+                    {formData.instansi === "Lainnya" && (
+                      <div>
+                        <input
+                          type="text"
+                          placeholder="Ketik Nama Instansi Manual..."
+                          className="w-full bg-slate-50 border border-primary/20 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                          value={formData.instansiLainnya}
+                          onChange={(e) => setFormData({...formData, instansiLainnya: e.target.value})}
+                        />
+                      </div>
+                    )}
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Pilih Layanan</label>

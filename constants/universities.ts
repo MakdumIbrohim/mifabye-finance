@@ -1,0 +1,22 @@
+export const IndonesianUniversities = [
+  "Universitas Indonesia (UI)",
+  "Institut Teknologi Bandung (ITB)",
+  "Universitas Gadjah Mada (UGM)",
+  "Institut Pertanian Bogor (IPB)",
+  "Universitas Airlangga (Unair)",
+  "Universitas Diponegoro (Undip)",
+  "Institut Teknologi Sepuluh Nopember (ITS)",
+  "Universitas Padjadjaran (Unpad)",
+  "Universitas Brawijaya (UB)",
+  "Universitas Sebelas Maret (UNS)",
+  "Universitas Hasanuddin (Unhas)",
+  "Universitas Sumatera Utara (USU)",
+  "Universitas Telkom",
+  "Universitas Bina Nusantara (Binus)",
+  "Universitas Katolik Indonesia Atma Jaya",
+  "Universitas Pendidikan Indonesia (UPI)",
+  "Universitas Negeri Jakarta (UNJ)",
+  "Universitas Negeri Yogyakarta (UNY)",
+  "Universitas Islam Negeri (UIN) Syarif Hidayatullah",
+  "Lainnya"
+];
