@@ -241,8 +241,8 @@ export default function ManagePage() {
         <div className="p-6 border-b border-border-light flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
           <div className="flex bg-white p-1 rounded-xl w-fit border border-border-light shadow-sm">
             <button onClick={() => setFilter("all")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "all" ? "bg-primary text-white" : "text-slate-400"}`}>Semua</button>
-            <button onClick={() => setFilter("in")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "in" ? "bg-primary text-white" : "text-slate-400"}`}>Masuk</button>
-            <button onClick={() => setFilter("out")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "out" ? "bg-primary text-white" : "text-slate-400"}`}>Keluar</button>
+            <button onClick={() => setFilter("in")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "in" ? "bg-primary text-white" : "text-slate-400"}`}>Pemasukan</button>
+            <button onClick={() => setFilter("out")} className={`px-4 py-2 text-[10px] font-bold rounded-lg transition-all uppercase tracking-wider ${filter === "out" ? "bg-primary text-white" : "text-slate-400"}`}>Pengeluaran</button>
           </div>
           <div className="relative flex-1 max-w-sm">
             <input 

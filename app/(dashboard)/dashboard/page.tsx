@@ -125,7 +125,13 @@ export default function DashboardPage() {
             <p>Harap periksa detail berikut sebelum menyimpan data ke sistem:</p>
             <div className="bg-subtle p-4 rounded-2xl space-y-2 border border-border-light">
               <div className="flex justify-between">
-                <span className="text-slate-400 font-medium">Nominal:</span>
+                <span className="text-slate-400 font-medium text-xs">Jenis Transaksi:</span>
+                <span className={`text-xs font-bold uppercase ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
+                  {transactionType === "in" ? "Pemasukan" : "Pengeluaran"}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-400 font-medium text-xs">Nominal:</span>
                 <span className={`font-bold ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
                    Rp {Number(formData.jumlah.replace(/[^0-9]/g, "")).toLocaleString("id-ID")}
                 </span>
@@ -176,7 +182,7 @@ export default function DashboardPage() {
                   transactionType === "in" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-400 hover:text-slate-600"
                 }`}
               >
-                Uang Masuk
+                Pemasukan
               </button>
               <button
                 type="button"
@@ -185,7 +191,7 @@ export default function DashboardPage() {
                   transactionType === "out" ? "bg-white text-red-500 shadow-sm shadow-red-500/10" : "text-slate-400 hover:text-slate-600"
                 }`}
               >
-                Uang Keluar
+                Pengeluaran
               </button>
             </div>
 
@@ -392,12 +398,12 @@ export default function DashboardPage() {
                       <tr key={t.id} className="hover:bg-subtle/50 transition-all group">
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${t.jenis_transaksi === "Uang Masuk" ? "bg-primary-light text-primary" : "bg-red-50 text-red-500"}`}>
-                              {t.jenis_transaksi === "Uang Masuk" ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 17l-4 4m0 0l-4-4m4 4V3" /></svg> : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" /></svg>}
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${t.jenis_transaksi === "Pemasukan" ? "bg-primary-light text-primary" : "bg-red-50 text-red-500"}`}>
+                              {t.jenis_transaksi === "Pemasukan" ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 17l-4 4m0 0l-4-4m4 4V3" /></svg> : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" /></svg>}
                             </div>
                             <div>
                                 <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
-                                <p className="text-[10px] text-slate-400 font-medium">{t.asal_instansi} • {t.jenis_layanan}</p>
+                                <p className="text-[10px] text-slate-400 font-medium">{t.id} • {t.asal_instansi}</p>
                             </div>
                           </div>
                         </td>
@@ -407,8 +413,8 @@ export default function DashboardPage() {
                           </span>
                         </td>
                         <td className="px-6 py-4 text-right">
-                          <p className={`text-sm font-bold ${t.jenis_transaksi === "Uang Masuk" ? "text-primary" : "text-red-500"}`}>
-                            {t.jenis_transaksi === "Uang Masuk" ? "+" : "-"}{formatCurrency(t.nominal)}
+                          <p className={`text-sm font-bold ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>
+                            {t.jenis_transaksi === "Pemasukan" ? "+" : "-"}{formatCurrency(t.nominal)}
                           </p>
                         </td>
                       </tr>
