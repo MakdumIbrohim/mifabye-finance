@@ -31,15 +31,8 @@ export default function DashboardPage() {
       </section>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Saldo & Form */}
+        {/* Form Input */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="subtle-card p-6 bg-primary font-semibold text-white shadow-lg shadow-primary/20">
-            <p className="text-[10px] text-white/70 uppercase tracking-widest mb-1">Total Saldo</p>
-            <h2 className="text-3xl font-bold">Rp 4.250.000</h2>
-            <div className="mt-4 flex items-center gap-2">
-              <span className="text-[10px] px-2 py-0.5 rounded bg-white/20">+15% bulan ini</span>
-            </div>
-          </div>
 
           <div className="subtle-card p-6">
             <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Catat Transaksi</h3>
