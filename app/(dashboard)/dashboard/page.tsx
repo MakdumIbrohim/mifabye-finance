@@ -8,6 +8,7 @@ import SearchableSelect from "@/components/SearchableSelect";
 
 export default function DashboardPage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
+  const [hoveredDayIndex, setHoveredDayIndex] = useState<number | null>(null);
   
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -25,13 +26,13 @@ export default function DashboardPage() {
 
   // Mock data for the chart (last 7 days)
   const chartData = [
-    { day: "Sen", income: 40, expense: 15 },
-    { day: "Sel", income: 35, expense: 45 },
-    { day: "Rab", income: 65, expense: 30 },
-    { day: "Kam", income: 50, expense: 20 },
-    { day: "Jum", income: 85, expense: 55 },
-    { day: "Sab", income: 70, expense: 10 },
-    { day: "Min", income: 95, expense: 40 },
+    { day: "Sen", income: 40, expense: 15, fullName: "Senin" },
+    { day: "Sel", income: 35, expense: 45, fullName: "Selasa" },
+    { day: "Rab", income: 65, expense: 30, fullName: "Rabu" },
+    { day: "Kam", income: 50, expense: 20, fullName: "Kamis" },
+    { day: "Jum", income: 85, expense: 55, fullName: "Jumat" },
+    { day: "Sab", income: 70, expense: 10, fullName: "Sabtu" },
+    { day: "Min", income: 95, expense: 40, fullName: "Minggu" },
   ];
 
   // Helper to generate SVG path
@@ -179,7 +180,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="relative h-64 w-full group">
+            <div className="relative h-64 w-full group overflow-visible">
               {/* SVG Area Chart */}
               <svg 
                 viewBox="0 0 100 100" 
@@ -201,12 +202,14 @@ export default function DashboardPage() {
                 <path 
                   d={`M 0,100 L ${incomePoints} L 100,100 Z`} 
                   fill="url(#incomeGradient)"
+                  className="transition-all duration-300"
                 />
                 
                 {/* Expense Area */}
                 <path 
                   d={`M 0,100 L ${expensePoints} L 100,100 Z`} 
                   fill="url(#expenseGradient)"
+                  className="transition-all duration-300"
                 />
                 
                 {/* Income Line */}
@@ -231,7 +234,64 @@ export default function DashboardPage() {
                   points={expensePoints}
                   vectorEffect="non-scaling-stroke"
                 />
+
+                {/* Vertical Scanner Line */}
+                {hoveredDayIndex !== null && (
+                  <line 
+                    x1={(hoveredDayIndex * 100) / (chartData.length - 1)} 
+                    y1="0" 
+                    x2={(hoveredDayIndex * 100) / (chartData.length - 1)} 
+                    y2="100" 
+                    stroke="var(--primary)" 
+                    strokeWidth="0.5" 
+                    strokeDasharray="2 2"
+                    className="opacity-40"
+                  />
+                )}
               </svg>
+
+              {/* Interaction Layer */}
+              <div className="absolute inset-0 flex z-10">
+                {chartData.map((_, i) => (
+                  <div 
+                    key={i} 
+                    className="flex-1 h-full cursor-crosshair"
+                    onMouseEnter={() => setHoveredDayIndex(i)}
+                    onMouseLeave={() => setHoveredDayIndex(null)}
+                  />
+                ))}
+              </div>
+
+              {/* Tooltip Card */}
+              {hoveredDayIndex !== null && (
+                <div 
+                  className="absolute z-20 pointer-events-none transition-all duration-200 subtle-card p-3 shadow-2xl bg-white/95 backdrop-blur-sm -translate-x-1/2 -translate-y-full"
+                  style={{ 
+                    left: `${(hoveredDayIndex * 100) / (chartData.length - 1)}%`,
+                    top: `-12px`
+                  }}
+                >
+                  <p className="text-[10px] font-bold text-slate-400 uppercase mb-2 border-b border-slate-100 pb-1">
+                    {chartData[hoveredDayIndex].fullName}
+                  </p>
+                  <div className="space-y-1.5 min-w-[120px]">
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        <span className="text-[10px] font-semibold text-slate-500">Masuk</span>
+                      </div>
+                      <span className="text-[11px] font-bold text-primary">Rp {chartData[hoveredDayIndex].income}0.000</span>
+                    </div>
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="flex items-center gap-1.5">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                        <span className="text-[10px] font-semibold text-slate-500">Keluar</span>
+                      </div>
+                      <span className="text-[11px] font-bold text-red-500">Rp {chartData[hoveredDayIndex].expense}0.000</span>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Grid Lines Overlay */}
               <div className="absolute inset-0 flex flex-col justify-between pointer-events-none border-b border-border-light -z-10 opacity-40">
