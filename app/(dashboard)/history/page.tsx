@@ -1,47 +1,108 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
+import { Transaction, formatCurrency } from "@/lib/finance-utils";
 
 export default function HistoryPage() {
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
   const [search, setSearch] = useState("");
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const transactions = [
-    { id: 1, label: "Jasa Boost Mythic", date: "16 Okt 2026, 14:20", amount: "Rp 450.000", type: "in", category: "Akademik", status: "Selesai" },
-    { id: 2, label: "Langganan Server", date: "15 Okt 2026, 09:12", amount: "Rp 120.000", type: "out", category: "Teknologi", status: "Berhasil" },
-    { id: 3, label: "Paket Master Hero", date: "12 Okt 2026, 21:05", amount: "Rp 85.000", type: "in", category: "Akademik", status: "Selesai" },
-    { id: 4, label: "Pembuatan Website UMKM", date: "10 Okt 2026, 11:30", amount: "Rp 1.500.000", type: "in", category: "Teknologi", status: "Selesai" },
-    { id: 5, label: "Biaya Listrik Kantor", date: "05 Okt 2026, 10:00", amount: "Rp 350.000", type: "out", category: "Operasional", status: "Berhasil" },
-    { id: 6, label: "Jasa Penulisan Jurnal", date: "02 Okt 2026, 16:45", amount: "Rp 750.000", type: "in", category: "Akademik", status: "Selesai" },
-  ];
+  // Fetch Data from API
+  const fetchData = useCallback(async () => {
+    try {
+      const response = await fetch("/api/finance");
+      const result = await response.json();
+      if (result.result === "success") {
+        setTransactions(result.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch transactions:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // Calculate Monthly Totals
+  const { monthlyIncome, monthlyExpense } = useMemo(() => {
+    const now = new Date();
+    const currentMonth = now.getMonth();
+    const currentYear = now.getFullYear();
+
+    const monthTransactions = transactions.filter(t => {
+      const tDate = new Date(t.tanggal);
+      return tDate.getMonth() === currentMonth && tDate.getFullYear() === currentYear;
+    });
+
+    const income = monthTransactions
+      .filter(t => t.jenis_transaksi === "Uang Masuk")
+      .reduce((sum, t) => sum + t.nominal, 0);
+      
+    const expense = monthTransactions
+      .filter(t => t.jenis_transaksi === "Uang Keluar")
+      .reduce((sum, t) => sum + t.nominal, 0);
+
+    return { monthlyIncome: income, monthlyExpense: expense };
+  }, [transactions]);
+
+  // Filtering Logic
   const filteredTransactions = transactions.filter(t => {
-    const matchesFilter = filter === "all" || t.type === filter;
-    const matchesSearch = t.label.toLowerCase().includes(search.toLowerCase()) || t.category.toLowerCase().includes(search.toLowerCase());
+    const matchesFilter = 
+      filter === "all" || 
+      (filter === "in" && t.jenis_transaksi === "Uang Masuk") || 
+      (filter === "out" && t.jenis_transaksi === "Uang Keluar");
+    
+    const searchLower = search.toLowerCase();
+    const matchesSearch = 
+      t.nama_klien?.toLowerCase().includes(searchLower) || 
+      t.asal_instansi?.toLowerCase().includes(searchLower) || 
+      t.jenis_layanan?.toLowerCase().includes(searchLower) ||
+      t.catatan?.toLowerCase().includes(searchLower) ||
+      t.id?.toLowerCase().includes(searchLower);
+      
     return matchesFilter && matchesSearch;
-  });
+  }).reverse(); // Most recent first
 
   return (
     <div className="space-y-8 pb-10">
-      <section>
-        <h1 className="text-2xl font-bold text-slate-900 mb-1">Riwayat Transaksi</h1>
-        <p className="text-sm text-slate-500">Daftar lengkap seluruh arus kas masuk dan keluar tim.</p>
+      <section className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">Riwayat Transaksi</h1>
+          <p className="text-sm text-slate-500">Daftar lengkap seluruh arus kas masuk dan keluar tim.</p>
+        </div>
+        {isLoading && (
+          <div className="animate-spin h-5 w-5 text-primary">
+            <svg className="w-full h-full" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+            </svg>
+          </div>
+        )}
       </section>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Total Pemasukan (Bulan Ini)</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Total Pemasukan ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
-            <h2 className="text-3xl font-bold text-primary">Rp 2.785.000</h2>
-            <span className="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded">+12%</span>
+            <h2 className="text-3xl font-bold text-primary">
+              {isLoading ? "---" : formatCurrency(monthlyIncome)}
+            </h2>
+            {!isLoading && <span className="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded">Update Real-time</span>}
           </div>
         </div>
         <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Total Pengeluaran (Bulan Ini)</p>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Total Pengeluaran ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
-            <h2 className="text-3xl font-bold text-red-500">Rp 470.000</h2>
-            <span className="text-xs font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded">Stabil</span>
+            <h2 className="text-3xl font-bold text-red-500">
+              {isLoading ? "---" : formatCurrency(monthlyExpense)}
+            </h2>
+            {!isLoading && <span className="text-xs font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded">Live Data</span>}
           </div>
         </div>
       </div>
@@ -73,7 +134,7 @@ export default function HistoryPage() {
           <div className="relative flex-1 max-w-sm">
             <input 
               type="text" 
-              placeholder="Cari transaksi atau kategori..." 
+              placeholder="Cari klien, instansi, atau layanan..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full bg-subtle border border-border-light rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
@@ -88,49 +149,65 @@ export default function HistoryPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-subtle border-b border-border-light">
-                <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Keterangan</th>
-                <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Kategori</th>
-                <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tanggal</th>
-                <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-[11px] font-bold text-slate-400 uppercase tracking-wider text-right">Jumlah</th>
+              <tr className="bg-subtle border-b border-border-light text-slate-500">
+                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Klien & Instansi</th>
+                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Layanan Joki</th>
+                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Tanggal</th>
+                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Catatan</th>
+                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-right">Jumlah (IDR)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-light">
-              {filteredTransactions.map((t) => (
-                <tr key={t.id} className="hover:bg-subtle/50 transition-colors">
-                  <td className="px-6 py-4">
-                    <p className="text-sm font-semibold text-slate-800">{t.label}</p>
-                    <p className="text-[10px] text-slate-400">ID: TRX-{t.id}001X</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-xs font-medium text-primary px-2 py-1 bg-primary-light rounded">
-                      {t.category}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <p className="text-xs text-slate-500">{t.date}</p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className={`text-[10px] font-bold uppercase tracking-tight px-2 py-1 rounded-full ${
-                      t.status === "Selesai" || t.status === "Berhasil" 
-                        ? "bg-green-50 text-green-600" 
-                        : "bg-amber-50 text-amber-600"
-                    }`}>
-                      {t.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <p className={`text-sm font-bold ${t.type === "in" ? "text-primary" : "text-red-500"}`}>
-                      {t.type === "in" ? "+" : "-"}{t.amount}
-                    </p>
-                  </td>
-                </tr>
-              ))}
-              {filteredTransactions.length === 0 && (
+              {isLoading ? (
+                Array(6).fill(0).map((_, i) => (
+                  <tr key={i} className="animate-pulse">
+                    <td className="px-6 py-6"><div className="h-10 w-48 bg-slate-100 rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-32 bg-slate-100 rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 bg-slate-100 rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-40 bg-slate-100 rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 bg-slate-100 rounded-lg ml-auto"></div></td>
+                  </tr>
+                ))
+              ) : filteredTransactions.length > 0 ? (
+                filteredTransactions.map((t) => (
+                  <tr key={t.id} className="hover:bg-subtle/50 transition-colors group">
+                    <td className="px-6 py-4">
+                      <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
+                      <p className="text-[10px] text-slate-400 font-medium">ID: {t.id} | {t.asal_instansi}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="text-xs font-semibold text-primary px-2.5 py-1 bg-primary-light rounded-lg">
+                        {t.jenis_layanan}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <p className="text-xs font-bold text-slate-500">
+                        {new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 max-w-xs">
+                      <p className="text-xs text-slate-400 truncate hover:whitespace-normal transition-all" title={t.catatan}>
+                        {t.catatan || "-"}
+                      </p>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <p className={`text-sm font-bold ${t.jenis_transaksi === "Uang Masuk" ? "text-primary" : "text-red-500"}`}>
+                        {t.jenis_transaksi === "Uang Masuk" ? "+" : "-"}{formatCurrency(t.nominal)}
+                      </p>
+                    </td>
+                  </tr>
+                ))
+              ) : (
                 <tr>
-                  <td colSpan={5} className="px-6 py-20 text-center">
-                    <p className="text-sm text-slate-400 font-medium">Tidak ada transaksi yang ditemukan.</p>
+                  <td colSpan={5} className="px-6 py-32 text-center">
+                    <div className="flex flex-col items-center gap-3">
+                      <div className="p-4 bg-slate-50 rounded-full text-slate-300">
+                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                      </div>
+                      <p className="text-sm text-slate-400 font-medium">Data transaksi belum tersedia.</p>
+                    </div>
                   </td>
                 </tr>
               )}
