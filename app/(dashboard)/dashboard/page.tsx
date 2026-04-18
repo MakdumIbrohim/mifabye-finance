@@ -50,11 +50,11 @@ export default function DashboardPage() {
 
           <div className="subtle-card p-6">
             <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Catat Transaksi</h3>
-            <div className="flex bg-slate-50 p-1 rounded-xl mb-6">
+            <div className="flex bg-subtle p-1 rounded-xl mb-6 border border-border-light">
               <button
                 onClick={() => setTransactionType("in")}
                 className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
-                  transactionType === "in" ? "bg-white text-primary shadow-sm" : "text-slate-400 hover:text-slate-600"
+                  transactionType === "in" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-400 hover:text-slate-600"
                 }`}
               >
                 Uang Masuk
@@ -74,7 +74,7 @@ export default function DashboardPage() {
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Tanggal Transaksi</label>
                 <input
                   type="date"
-                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
+                  className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
                   value={formData.tanggal}
                   onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
                 />
@@ -87,7 +87,7 @@ export default function DashboardPage() {
                     <input
                       type="text"
                       placeholder="Nama Joki"
-                      className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                      className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                       value={formData.namaKlien}
                       onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
                     />
@@ -96,7 +96,7 @@ export default function DashboardPage() {
                     <div>
                       <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Asal Instansi</label>
                       <select
-                        className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
+                        className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
                         value={formData.instansi}
                         onChange={(e) => setFormData({...formData, instansi: e.target.value})}
                       >
@@ -112,7 +112,7 @@ export default function DashboardPage() {
                         <input
                           type="text"
                           placeholder="Ketik Nama Instansi Manual..."
-                          className="w-full bg-slate-50 border border-primary/20 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                          className="w-full bg-subtle border border-primary/20 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                           value={formData.instansiLainnya}
                           onChange={(e) => setFormData({...formData, instansiLainnya: toTitleCase(e.target.value)})}
                         />
@@ -122,7 +122,7 @@ export default function DashboardPage() {
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Pilih Layanan</label>
                     <select
-                      className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
+                      className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
                       value={formData.layanan}
                       onChange={(e) => setFormData({...formData, layanan: e.target.value})}
                     >
@@ -140,7 +140,7 @@ export default function DashboardPage() {
                 <input
                   type="text"
                   placeholder="Rp 0"
-                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                  className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                   value={formData.jumlah}
                   onChange={(e) => setFormData({...formData, jumlah: e.target.value})}
                 />
@@ -150,7 +150,7 @@ export default function DashboardPage() {
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Catatan</label>
                 <textarea
                   placeholder="Referensi pesanan..."
-                  className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
+                  className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
                   value={formData.catatan}
                   onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
                 />
