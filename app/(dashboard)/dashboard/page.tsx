@@ -22,6 +22,11 @@ export default function DashboardPage() {
     catatan: ""
   });
 
+  // Helper to capitalize first letter of each word
+  const toTitleCase = (str: string) => {
+    return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
   const layananOptions = [
     "Artikel Ilmiah",
     "Penyusunan Makalah",
@@ -84,7 +89,7 @@ export default function DashboardPage() {
                       placeholder="Nama Joki"
                       className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                       value={formData.namaKlien}
-                      onChange={(e) => setFormData({...formData, namaKlien: e.target.value})}
+                      onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
                     />
                   </div>
                   <div className="space-y-3">
@@ -109,7 +114,7 @@ export default function DashboardPage() {
                           placeholder="Ketik Nama Instansi Manual..."
                           className="w-full bg-slate-50 border border-primary/20 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                           value={formData.instansiLainnya}
-                          onChange={(e) => setFormData({...formData, instansiLainnya: e.target.value})}
+                          onChange={(e) => setFormData({...formData, instansiLainnya: toTitleCase(e.target.value)})}
                         />
                       </div>
                     )}
@@ -147,7 +152,7 @@ export default function DashboardPage() {
                   placeholder="Referensi pesanan..."
                   className="w-full bg-slate-50 border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
                   value={formData.catatan}
-                  onChange={(e) => setFormData({...formData, catatan: e.target.value})}
+                  onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
                 />
               </div>
 
