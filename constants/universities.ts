@@ -18,5 +18,14 @@ export const IndonesianUniversities = [
   "Universitas Negeri Jakarta (UNJ)",
   "Universitas Negeri Yogyakarta (UNY)",
   "Universitas Islam Negeri (UIN) Syarif Hidayatullah",
-  "Universitas Islam Madura (UIM)"
+  "Universitas Trunojoyo Madura (UTM)",
+  "IAIN Madura",
+  "Universitas Islam Madura (UIM)",
+  "Universitas Madura (UNIRA)",
+  "Universitas Wiraraja (UNIJA)",
+  "Universitas KH Bahaudin Mudhary Madura (UNIBA)",
+  "Politeknik Negeri Madura (POLTERA)",
+  "Institut Dirosah Islamiyah Al-Amien (IDIA)",
+  "Institut Ilmu Keislaman Annuqayah (Instika)",
+  "STKIP PGRI Sumenep"
 ];
