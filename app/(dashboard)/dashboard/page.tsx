@@ -6,6 +6,8 @@ import { IndonesianUniversities } from "@/constants/universities";
 
 export default function DashboardPage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
+  const [isInstansiDropdownOpen, setIsInstansiDropdownOpen] = useState(false);
+  const [instansiSearch, setInstansiSearch] = useState("");
   
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -15,7 +17,6 @@ export default function DashboardPage() {
   const [formData, setFormData] = useState({
     namaKlien: "",
     instansi: "",
-    instansiLainnya: "",
     layanan: "",
     jumlah: "",
     tanggal: getTodayJakarta(),
@@ -25,6 +26,16 @@ export default function DashboardPage() {
   // Helper to capitalize first letter of each word
   const toTitleCase = (str: string) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
+  };
+
+  const filteredUniversities = IndonesianUniversities.filter((uni) =>
+    uni.toLowerCase().includes(instansiSearch.toLowerCase())
+  );
+
+  const handleSelectInstansi = (name: string) => {
+    setFormData({ ...formData, instansi: name });
+    setInstansiSearch(name);
+    setIsInstansiDropdownOpen(false);
   };
 
   const layananOptions = [
@@ -93,31 +104,54 @@ export default function DashboardPage() {
                     />
                   </div>
                   <div className="space-y-3">
-                    <div>
+                    <div className="relative">
                       <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Asal Instansi</label>
-                      <select
-                        className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
-                        value={formData.instansi}
-                        onChange={(e) => setFormData({...formData, instansi: e.target.value})}
-                      >
-                        <option value="" disabled>Pilih Kampus/Sekolah</option>
-                        {IndonesianUniversities.map((uni) => (
-                          <option key={uni} value={uni}>{uni}</option>
-                        ))}
-                      </select>
-                    </div>
-                    
-                    {formData.instansi === "Lainnya" && (
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Ketik Nama Instansi Manual..."
-                          className="w-full bg-subtle border border-primary/20 rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-                          value={formData.instansiLainnya}
-                          onChange={(e) => setFormData({...formData, instansiLainnya: toTitleCase(e.target.value)})}
+                      <input
+                        type="text"
+                        placeholder="Cari Kampus/Sekolah..."
+                        className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                        value={instansiSearch}
+                        onFocus={() => setIsInstansiDropdownOpen(true)}
+                        onChange={(e) => {
+                          setInstansiSearch(toTitleCase(e.target.value));
+                          setIsInstansiDropdownOpen(true);
+                        }}
+                      />
+                      
+                      {isInstansiDropdownOpen && (
+                        <div className="absolute z-50 w-full mt-2 bg-white border border-border-light rounded-xl shadow-xl max-h-60 overflow-y-auto subtle-card p-1">
+                          {filteredUniversities.length > 0 ? (
+                            filteredUniversities.map((uni) => (
+                              <button
+                                key={uni}
+                                type="button"
+                                onClick={() => handleSelectInstansi(uni)}
+                                className="w-full text-left px-4 py-3 text-sm font-medium text-slate-700 hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
+                              >
+                                {uni}
+                                {formData.instansi === uni && (
+                                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                )}
+                              </button>
+                            ))
+                          ) : (
+                            <div className="px-4 py-3 text-xs text-slate-400 font-medium italic text-center">
+                              Tidak ada institusi yang cocok.
+                            </div>
+                          )}
+                        </div>
+                      )}
+
+                      {/* Overlay to close dropdown when clicking outside */}
+                      {isInstansiDropdownOpen && (
+                        <div 
+                          className="fixed inset-0 z-40 cursor-default" 
+                          onClick={() => setIsInstansiDropdownOpen(false)}
                         />
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
                   <div>
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Pilih Layanan</label>

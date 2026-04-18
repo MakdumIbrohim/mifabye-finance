@@ -18,5 +18,5 @@ export const IndonesianUniversities = [
   "Universitas Negeri Jakarta (UNJ)",
   "Universitas Negeri Yogyakarta (UNY)",
   "Universitas Islam Negeri (UIN) Syarif Hidayatullah",
-  "Lainnya"
+  "Universitas Islam Madura (UIM)"
 ];
