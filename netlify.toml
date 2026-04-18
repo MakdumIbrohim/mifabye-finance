@@ -4,3 +4,7 @@
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+
+[build.environment]
+  PNPM_FLAGS = "--shamefully-hoist"
+  NODE_VERSION = "20"
