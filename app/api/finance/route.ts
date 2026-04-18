@@ -20,14 +20,15 @@ export async function POST(request: Request) {
     if (action === "insert" || action === "update") {
       gasPayload = {
         ...gasPayload,
-        id: body.id, // Only for update, insert will be ignored or handled by GAS
+        id: body.id,
         tanggal: body.tanggal,
         nama_klien: body.namaKlien || "-",
         asal_instansi: body.instansi || "-",
-        produk_layanan: body.layanan || "-",
+        jenis_layanan: body.layanan || "-", // Matching GAS script expectation
+        produk_layanan: body.layanan || "-", // Matching Sheet header
         nominal: Number(body.jumlah?.toString().replace(/[^0-9]/g, "")) || 0,
         catatan: body.catatan || "",
-        jenis_transaksi: body.transactionType === "in" || body.jenis_transaksi === "Pemasukan" || body.jenis_transaksi === "Uang Masuk" ? "Pemasukan" : "Pengeluaran"
+        jenis_transaksi: body.transactionType === "out" || body.jenis_transaksi === "Pengeluaran" ? "Pengeluaran" : "Pemasukan"
       };
     }
 
