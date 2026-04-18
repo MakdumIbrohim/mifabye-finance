@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { IndonesianUniversities } from "@/constants/universities";
+import { JokiServices } from "@/constants/services";
+import SearchableSelect from "@/components/SearchableSelect";
 
 export default function DashboardPage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
-  const [isInstansiDropdownOpen, setIsInstansiDropdownOpen] = useState(false);
-  const [instansiSearch, setInstansiSearch] = useState("");
   
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -27,26 +27,6 @@ export default function DashboardPage() {
   const toTitleCase = (str: string) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
-
-  const filteredUniversities = IndonesianUniversities.filter((uni) =>
-    uni.toLowerCase().includes(instansiSearch.toLowerCase())
-  );
-
-  const handleSelectInstansi = (name: string) => {
-    setFormData({ ...formData, instansi: name });
-    setInstansiSearch(name);
-    setIsInstansiDropdownOpen(false);
-  };
-
-  const layananOptions = [
-    "Artikel Ilmiah",
-    "Penyusunan Makalah",
-    "Pembuatan PPT",
-    "Web Development (FE/BE)",
-    "Aplikasi Mobile",
-    "Lisensi Windows",
-    "Lainnya"
-  ];
 
   return (
     <div className="space-y-10">
@@ -73,7 +53,7 @@ export default function DashboardPage() {
               <button
                 onClick={() => setTransactionType("out")}
                 className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
-                  transactionType === "out" ? "bg-white text-red-500 shadow-sm" : "text-slate-400 hover:text-slate-600"
+                  transactionType === "out" ? "bg-white text-red-500 shadow-sm shadow-red-500/10" : "text-slate-400 hover:text-slate-600"
                 }`}
               >
                 Uang Keluar
@@ -103,69 +83,22 @@ export default function DashboardPage() {
                       onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
                     />
                   </div>
-                  <div className="space-y-3">
-                    <div className="relative">
-                      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Asal Instansi</label>
-                      <input
-                        type="text"
-                        placeholder="Cari Kampus/Sekolah..."
-                        className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-                        value={instansiSearch}
-                        onFocus={() => setIsInstansiDropdownOpen(true)}
-                        onChange={(e) => {
-                          setInstansiSearch(toTitleCase(e.target.value));
-                          setIsInstansiDropdownOpen(true);
-                        }}
-                      />
-                      
-                      {isInstansiDropdownOpen && (
-                        <div className="absolute z-50 w-full mt-2 bg-white border border-border-light rounded-xl shadow-xl max-h-60 overflow-y-auto subtle-card p-1">
-                          {filteredUniversities.length > 0 ? (
-                            filteredUniversities.map((uni) => (
-                              <button
-                                key={uni}
-                                type="button"
-                                onClick={() => handleSelectInstansi(uni)}
-                                className="w-full text-left px-4 py-3 text-sm font-medium text-slate-700 hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
-                              >
-                                {uni}
-                                {formData.instansi === uni && (
-                                  <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-                                  </svg>
-                                )}
-                              </button>
-                            ))
-                          ) : (
-                            <div className="px-4 py-3 text-xs text-slate-400 font-medium italic text-center">
-                              Tidak ada institusi yang cocok.
-                            </div>
-                          )}
-                        </div>
-                      )}
+                  
+                  <SearchableSelect
+                    label="Asal Instansi"
+                    placeholder="Cari Kampus/Sekolah..."
+                    options={IndonesianUniversities}
+                    value={formData.instansi}
+                    onChange={(val) => setFormData({ ...formData, instansi: val })}
+                  />
 
-                      {/* Overlay to close dropdown when clicking outside */}
-                      {isInstansiDropdownOpen && (
-                        <div 
-                          className="fixed inset-0 z-40 cursor-default" 
-                          onClick={() => setIsInstansiDropdownOpen(false)}
-                        />
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Pilih Layanan</label>
-                    <select
-                      className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold appearance-none cursor-pointer"
-                      value={formData.layanan}
-                      onChange={(e) => setFormData({...formData, layanan: e.target.value})}
-                    >
-                      <option value="" disabled>Pilih Layanan Joki</option>
-                      {layananOptions.map((opt) => (
-                        <option key={opt} value={opt}>{opt}</option>
-                      ))}
-                    </select>
-                  </div>
+                  <SearchableSelect
+                    label="Pilih Layanan"
+                    placeholder="Cari Layanan Joki..."
+                    options={JokiServices}
+                    value={formData.layanan}
+                    onChange={(val) => setFormData({ ...formData, layanan: val })}
+                  />
                 </>
               ) : null}
 
@@ -199,56 +132,22 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Grafik dan Riwayat */}
+        {/* Info Grid - placeholder */}
         <div className="lg:col-span-2 space-y-6">
-          <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-6 uppercase tracking-tight">Tren Pendapatan</h3>
-            <div className="h-48 flex items-end justify-between gap-3 px-2">
-              {[40, 70, 45, 90, 65, 80, 55].map((height, i) => (
-                <div key={i} className="flex-1 flex flex-col items-center gap-2 group">
-                  <div className="w-full relative">
-                    <div 
-                      className="w-full bg-slate-100 rounded-lg transition-all duration-300 group-hover:bg-primary-light" 
-                      style={{ height: '100px' }}
-                    >
-                      <div 
-                        className="w-full bg-primary/20 rounded-lg absolute bottom-0 transition-all duration-500 group-hover:bg-primary" 
-                        style={{ height: `${height}%` }}
-                      />
-                    </div>
-                  </div>
-                  <span className="text-[9px] text-slate-400 font-bold tracking-tighter">OKT {i + 1}</span>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="subtle-card p-6">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-amber-50 text-amber-500 rounded-xl">
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="subtle-card p-6">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Log Transaksi Terakhir</h3>
-              <Link href="/history" className="text-[10px] font-bold text-primary hover:underline uppercase tracking-widest">
-                Lihat Semua
-              </Link>
-            </div>
-            <div className="space-y-1">
-              {[
-                { label: "Jasa Boost Mythic", date: "Hari ini, 14:20", amount: "+450rb", type: "in" },
-                { label: "Langganan Server", date: "Kemarin, 09:12", amount: "-120rb", type: "out" },
-                { label: "Paket Master Hero", date: "12 Okt, 21:05", amount: "+85rb", type: "in" },
-              ].map((log, i) => (
-                <div key={i} className="flex items-center justify-between p-3 hover:bg-slate-50 transition-colors rounded-lg border-b border-slate-50 last:border-0">
-                  <div className="flex items-center gap-4">
-                    <div className={`w-2 h-2 rounded-full ${log.type === "in" ? "bg-primary shadow-[0_0_8px_rgba(59,130,246,0.5)]" : "bg-red-400"}`} />
-                    <div>
-                      <p className="text-sm font-semibold text-slate-800">{log.label}</p>
-                      <p className="text-[10px] text-slate-400 font-medium">{log.date}</p>
-                    </div>
-                  </div>
-                  <p className={`text-sm font-bold ${log.type === "in" ? "text-primary" : "text-red-500"}`}>
-                    {log.amount}
-                  </p>
+                <div>
+                  <h4 className="text-sm font-bold text-slate-900">Transaksi Menunggu</h4>
+                  <p className="text-xs text-slate-500">3 pesanan belum dikonfirmasi</p>
                 </div>
-              ))}
+              </div>
+              <Link href="/history" className="text-xs font-bold text-primary hover:underline">Lihat Semua →</Link>
             </div>
           </div>
         </div>
