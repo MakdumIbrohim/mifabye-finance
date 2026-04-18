@@ -86,8 +86,6 @@ export default function DashboardPage() {
   const executeSubmission = async () => {
     setIsSubmitting(true);
     setStatus(null);
-    setShowConfirmModal(false);
-
     try {
       const response = await fetch("/api/finance", {
         method: "POST",
@@ -98,6 +96,7 @@ export default function DashboardPage() {
       const result = await response.json();
 
       if (result.result === "success") {
+        setShowConfirmModal(false); // Close ONLY on success
         setStatus({ type: "success", message: `Berhasil! Data tersimpan dengan ID: ${result.id}` });
         setFormData(initialFormState);
         fetchData();

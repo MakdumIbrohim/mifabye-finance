@@ -52,6 +52,7 @@ export default function ManagePage() {
       });
       const result = await response.json();
       if (result.result === "success") {
+        setDeleteId(null);
         setStatus({ type: "success", message: "Data berhasil dihapus!" });
         fetchData();
       } else {
@@ -61,7 +62,6 @@ export default function ManagePage() {
       setStatus({ type: "error", message: "Kesalahan koneksi saat menghapus." });
     } finally {
       setIsProcessing(false);
-      setDeleteId(null);
     }
   };
 
