@@ -18,21 +18,24 @@ export default function SearchableSelect({
   onChange,
 }: SearchableSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [search, setSearch] = useState(value);
+  const [search, setSearch] = useState(value || "");
 
   // Sync internal search state with external value when it changes
   useEffect(() => {
-    setSearch(value);
+    setSearch(value || "");
   }, [value]);
 
   // Helper to capitalize first letter of each word
   const toTitleCase = (str: string) => {
+    if (!str) return "";
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
-  const filteredOptions = options.filter((opt) =>
-    opt.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredOptions = options.filter((opt) => {
+    const optionLabel = (opt || "").toString().toLowerCase();
+    const searchQuery = (search || "").toString().toLowerCase();
+    return optionLabel.includes(searchQuery);
+  });
 
   const handleSelect = (option: string) => {
     onChange(option);
