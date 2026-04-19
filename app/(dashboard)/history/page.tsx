@@ -94,7 +94,7 @@ export default function HistoryPage() {
           <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-primary">
-              {isLoading ? <LoadingDots /> : formatCurrency(monthlyIncome)}
+              {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyIncome)}
             </h2>
             {!isLoading && <span className="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded">Update Real-time</span>}
           </div>
@@ -103,7 +103,7 @@ export default function HistoryPage() {
           <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-red-500">
-              {isLoading ? <LoadingDots /> : formatCurrency(monthlyExpense)}
+              {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyExpense)}
             </h2>
             {!isLoading && <span className="text-xs font-bold text-text-muted bg-bg-subtle px-2 py-1 rounded">Live Data</span>}
           </div>
