@@ -17,12 +17,17 @@ function LoginContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (searchParams.get("logout") === "success") {
+    const logoutStatus = searchParams.get("logout");
+    const hasShown = sessionStorage.getItem("logout_toast_shown");
+
+    if (logoutStatus === "success" && !hasShown) {
       setShowLogoutToast(true);
-      const timer = setTimeout(() => {
-        router.replace("/login");
-      }, 500);
-      return () => clearTimeout(timer);
+      sessionStorage.setItem("logout_toast_shown", "true");
+      // Clean up URL immediately
+      router.replace("/login");
+    } else if (logoutStatus === "success" && hasShown) {
+      // Just clean up URL if it somehow comes back but we already saw it
+      router.replace("/login");
     }
   }, [searchParams, router]);
 
@@ -30,6 +35,10 @@ function LoginContent() {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
+
+    // Reset toast flags for the new session
+    sessionStorage.removeItem("login_toast_shown");
+    sessionStorage.removeItem("logout_toast_shown");
 
     try {
       await signInWithEmailAndPassword(auth, email, password);

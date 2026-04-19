@@ -57,7 +57,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     try {
       await signOut(auth);
       if (onClose) onClose();
-      router.push("/login");
+      // Reset toast flags
+      sessionStorage.removeItem("login_toast_shown");
+      sessionStorage.removeItem("logout_toast_shown");
+      router.push("/login?logout=success");
     } catch (error) {
       console.error("Logout error:", error);
     }

@@ -19,6 +19,9 @@ export default function Header({ onOpenMenu }: HeaderProps) {
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      // Reset toast flags so they can trigger again next time
+      sessionStorage.removeItem("login_toast_shown");
+      sessionStorage.removeItem("logout_toast_shown");
       router.push("/login?logout=success");
     } catch (error) {
       console.error("Logout error:", error);

@@ -15,13 +15,16 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const loginStatus = searchParams.get("login");
-    if (loginStatus === "success") {
+    const hasShown = sessionStorage.getItem("login_toast_shown");
+
+    if (loginStatus === "success" && !hasShown) {
       setShowWelcomeToast(true);
-      // Clean up URL after 1s to keep it clean, but give user time to see it if needed
-      const timer = setTimeout(() => {
-        router.replace("/dashboard");
-      }, 500);
-      return () => clearTimeout(timer);
+      sessionStorage.setItem("login_toast_shown", "true");
+      // Clean up URL immediately
+      router.replace("/dashboard");
+    } else if (loginStatus === "success" && hasShown) {
+      // Just clean up URL if it somehow comes back but we already saw it
+      router.replace("/dashboard");
     }
   }, [searchParams, router]);
 
