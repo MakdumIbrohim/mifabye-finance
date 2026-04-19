@@ -4,11 +4,17 @@ import { useTheme } from "@/context/ThemeContext";
 
 const PRESET_COLORS = [
   { name: "Mifabyte Blue", hex: "#125EC8" },
-  { name: "Emerald", hex: "#10b981" },
+  { name: "Indigo", hex: "#4f46e5" },
   { name: "Violet", hex: "#8b5cf6" },
-  { name: "Orange", hex: "#f59e0b" },
   { name: "Rose", hex: "#f43f5e" },
+  { name: "Orange", hex: "#f59e0b" },
+  { name: "Amber", hex: "#d97706" },
+  { name: "Emerald", hex: "#10b981" },
+  { name: "Teal", hex: "#0d9488" },
+  { name: "Forest", hex: "#15803d" },
   { name: "Slate", hex: "#475569" },
+  { name: "Midnight", hex: "#1e293b" },
+  { name: "Black", hex: "#000000" },
 ];
 
 const FONTS = [
@@ -47,7 +53,7 @@ export default function ThemeSettingsPage() {
                   key={color.hex}
                   onClick={() => setTheme({ primaryColor: color.hex })}
                   className={`h-10 w-full rounded-lg transition-all ${
-                    primaryColor === color.hex ? "ring-2 ring-primary ring-offset-2 scale-90" : "hover:scale-105"
+                    primaryColor.toLowerCase() === color.hex.toLowerCase() ? "ring-2 ring-primary ring-offset-2 scale-90" : "hover:scale-105"
                   }`}
                   style={{ backgroundColor: color.hex }}
                   title={color.name}
@@ -55,13 +61,22 @@ export default function ThemeSettingsPage() {
               ))}
             </div>
             <div>
-              <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Custom Hex Code</label>
-              <input
-                type="text"
-                value={primaryColor}
-                onChange={(e) => setTheme({ primaryColor: e.target.value })}
-                className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-mono"
-              />
+              <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Custom Color Picker</label>
+              <div className="flex gap-2">
+                <input
+                  type="color"
+                  value={primaryColor.startsWith('#') ? primaryColor : '#125EC8'}
+                  onChange={(e) => setTheme({ primaryColor: e.target.value })}
+                  className="w-12 h-11 p-1 bg-subtle border border-border rounded-xl cursor-pointer"
+                />
+                <input
+                  type="text"
+                  value={primaryColor}
+                  onChange={(e) => setTheme({ primaryColor: e.target.value })}
+                  className="flex-1 bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-mono"
+                  placeholder="#000000"
+                />
+              </div>
             </div>
           </section>
 
