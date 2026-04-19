@@ -20,7 +20,7 @@
 :root {
   --background: #f8fafc;
   --foreground: #0f172a;
-  --primary: #508fc5;
+  --primary: #125EC8;
   --primary-light: color-mix(in srgb, var(--primary), white 92%);
   --border: color-mix(in srgb, var(--primary), white 88%);
   --bg-subtle: color-mix(in srgb, var(--primary), white 96%);

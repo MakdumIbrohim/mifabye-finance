@@ -57,7 +57,7 @@ export default function LoginPage() {
       />
 
       {/* Brand Side (Blue Background) */}
-      <div className="relative flex-1 bg-gradient-to-br from-[#1a6edb] to-[#0a4bb3] flex flex-col items-center justify-center p-12 lg:p-12 sm:py-24 text-white min-h-[45vh] lg:min-h-screen z-10 transition-all duration-700">
+      <div className="relative flex-1 bg-gradient-to-br from-[#125EC8] to-[#0a3d82] flex flex-col items-center justify-center p-12 lg:p-12 sm:py-24 text-white min-h-[45vh] lg:min-h-screen z-10 transition-all duration-700">
         
         {/* Branding Elements - Balanced Spacing */}
         <div className="relative z-20 text-center space-y-10 lg:space-y-12 max-w-sm animate-in fade-in slide-in-from-left-8 duration-1000">
@@ -65,7 +65,7 @@ export default function LoginPage() {
           
           <div className="flex flex-col items-center gap-6">
             <div className="w-24 h-24 lg:w-28 lg:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-900/50 transform hover:scale-110 transition-all duration-500">
-              <svg className="w-12 h-12 lg:w-16 lg:h-16 text-[#1a6edb]" fill="currentColor" viewBox="0 0 24 24">
+              <svg className="w-12 h-12 lg:w-16 lg:h-16 text-[#125EC8]" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22.5 1.5l-2.2 6.5C19 12 15 14 15 14s-2 4-6 5.3l-6.5 2.2 4.2-4.2c.5-1 1-1.5 1-1.5s2.5.5 5.5-2.5 2.5-5.5 2.5-5.5-1-.5-1.5-1.5l4.2-4.2zM8 12a1 1 0 100 2 1 1 0 000-2zm1.5-6.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
               </svg>
             </div>
@@ -142,7 +142,7 @@ export default function LoginPage() {
               {/* E-mail Address Input */}
               <div className="space-y-2 group">
                 <label className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">E-mail Address</label>
-                <div className="relative border-b border-slate-200 group-focus-within:border-[#1a6edb] transition-all duration-300">
+                <div className="relative border-b border-slate-200 group-focus-within:border-[#125EC8] transition-all duration-300">
                   <input
                     type="email"
                     value={email}
@@ -151,7 +151,7 @@ export default function LoginPage() {
                     required
                     className="w-full bg-transparent py-2 px-0 text-slate-600 focus:outline-none text-sm placeholder:text-slate-300 placeholder:italic"
                   />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[#1a6edb] opacity-0 group-focus-within:opacity-100 transition-opacity">
+                  <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[#125EC8] opacity-0 group-focus-within:opacity-100 transition-opacity">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                   </div>
                 </div>
@@ -160,7 +160,7 @@ export default function LoginPage() {
               {/* Password Input */}
               <div className="space-y-2 group">
                 <label className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">Password</label>
-                <div className="relative border-b border-slate-200 group-focus-within:border-[#1a6edb] transition-all duration-300">
+                <div className="relative border-b border-slate-200 group-focus-within:border-[#125EC8] transition-all duration-300">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
@@ -172,7 +172,7 @@ export default function LoginPage() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-300 hover:text-[#1a6edb] transition-colors"
+                    className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-300 hover:text-[#125EC8] transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={showPassword ? "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7 1.274-4.057 5.064-7 9.542-7 1.225 0 2.390.22 3.475.625m4.313 1.375C20.668 7.943 21 10.125 21 12c0 1.875-.332 4.057-3.487 6.375M15 12a3 3 0 11-6 0 3 3 0 016 0zm6-9L3 21" : "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"} />
@@ -186,7 +186,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 bg-[#1a6edb] hover:bg-[#0a4bb3] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
+                className="flex-1 bg-[#125EC8] hover:bg-[#0a3d82] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
               >
                 {isLoading ? "Authenticating..." : "LOG IN"}
               </button>

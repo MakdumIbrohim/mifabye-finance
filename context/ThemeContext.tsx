@@ -17,7 +17,7 @@ type ThemeContextType = ThemeState & {
 };
 
 const defaultTheme: ThemeState = {
-  primaryColor: "#508fc5",
+  primaryColor: "#125EC8",
   fontFamily: "'Inter', sans-serif",
   borderRadius: "1rem",
   mode: "light",

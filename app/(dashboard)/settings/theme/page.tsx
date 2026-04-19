@@ -3,7 +3,7 @@
 import { useTheme } from "@/context/ThemeContext";
 
 const PRESET_COLORS = [
-  { name: "Mifabyte Blue", hex: "#508fc5" },
+  { name: "Mifabyte Blue", hex: "#125EC8" },
   { name: "Emerald", hex: "#10b981" },
   { name: "Violet", hex: "#8b5cf6" },
   { name: "Orange", hex: "#f59e0b" },
