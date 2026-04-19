@@ -71,10 +71,8 @@ function LoginContent() {
           <p className="text-sm lg:text-xl font-medium tracking-[0.2em] opacity-90 uppercase">Welcome to</p>
           
           <div className="flex flex-col items-center gap-6">
-            <div className="w-24 h-24 lg:w-28 lg:h-28 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-900/50 transform hover:scale-110 transition-all duration-500">
-              <svg className="w-12 h-12 lg:w-16 lg:h-16 text-[#125EC8]" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M22.5 1.5l-2.2 6.5C19 12 15 14 15 14s-2 4-6 5.3l-6.5 2.2 4.2-4.2c.5-1 1-1.5 1-1.5s2.5.5 5.5-2.5 2.5-5.5 2.5-5.5-1-.5-1.5-1.5l4.2-4.2zM8 12a1 1 0 100 2 1 1 0 000-2zm1.5-6.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
-              </svg>
+            <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-900/50 transform hover:scale-110 transition-all duration-500 overflow-hidden p-4">
+              <img src="/assets/mifabyte.png" alt="Mifabyte Logo" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-4xl lg:text-5xl font-black tracking-tight uppercase">Mifabyte</h1>
           </div>
