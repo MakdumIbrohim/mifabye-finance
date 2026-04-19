@@ -46,8 +46,6 @@ export default function TransactionDetailModal({
       
       {/* Modal Content */}
       <div className="relative w-full max-w-sm bg-card-bg rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 border border-border">
-        {/* Header Decor */}
-        <div className={`h-1.5 w-full ${transaction.jenis_transaksi === "Pemasukan" ? 'bg-primary' : 'bg-red-500'}`} />
         
         <div className="p-5">
           <div className="flex items-center justify-between mb-4">
