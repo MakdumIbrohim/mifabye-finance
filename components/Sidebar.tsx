@@ -1,7 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 interface SidebarProps {
   isOpen?: boolean;
@@ -49,6 +51,17 @@ const navItems = [
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      if (onClose) onClose();
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
 
   const sidebarContent = (
     <div className="h-full flex flex-col p-6">
@@ -87,12 +100,15 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       </nav>
 
       <div className="pt-6 border-t border-border-light mt-auto">
-        <Link href="/login" onClick={onClose} className="nav-link hover:bg-red-50 hover:text-red-500 group">
+        <button 
+          onClick={handleLogout}
+          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-500 rounded-2xl transition-all hover:bg-red-50 hover:text-red-500 group"
+        >
           <svg className="w-5 h-5 text-slate-400 group-hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
-          Portal Staf
-        </Link>
+          Keluar (Logout)
+        </button>
       </div>
     </div>
   );
