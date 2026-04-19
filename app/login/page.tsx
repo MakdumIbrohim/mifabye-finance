@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
-import Toast from "@/components/Toast";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -12,7 +11,6 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [showToast, setShowToast] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -22,11 +20,7 @@ export default function LoginPage() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Show success toast before redirect
-      setShowToast(true);
-      setTimeout(() => {
-        router.push("/dashboard");
-      }, 2000);
+      router.push("/dashboard?login=success");
     } catch (err: any) {
       console.error("Login error:", err);
       switch (err.code) {
@@ -50,11 +44,6 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white overflow-hidden font-sans">
-      <Toast 
-        show={showToast} 
-        message="Login Berhasil! Mengalihkan ke Dashboard..." 
-        onClose={() => setShowToast(false)}
-      />
 
       {/* Brand Side (Blue Background) */}
       <div className="relative flex-1 bg-gradient-to-br from-[#125EC8] to-[#0a3d82] flex flex-col items-center justify-center p-12 lg:p-12 sm:py-24 text-white min-h-[45vh] lg:min-h-screen z-10 transition-all duration-700">
