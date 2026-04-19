@@ -1,17 +1,30 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
+import Toast from "@/components/Toast";
 
-export default function LoginPage() {
+function LoginContent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showLogoutToast, setShowLogoutToast] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    if (searchParams.get("logout") === "success") {
+      setShowLogoutToast(true);
+      const timer = setTimeout(() => {
+        router.replace("/login");
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -44,6 +57,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white overflow-hidden font-sans">
+      <Toast 
+        show={showLogoutToast} 
+        message="Logout Berhasil! Sesi Anda telah berakhir." 
+        onClose={() => setShowLogoutToast(false)}
+      />
 
       {/* Brand Side (Blue Background) */}
       <div className="relative flex-1 bg-gradient-to-br from-[#125EC8] to-[#0a3d82] flex flex-col items-center justify-center p-12 lg:p-12 sm:py-24 text-white min-h-[45vh] lg:min-h-screen z-10 transition-all duration-700">
@@ -184,5 +202,13 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <LoginContent />
+    </Suspense>
   );
 }

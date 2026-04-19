@@ -19,7 +19,7 @@ export default function Header({ onOpenMenu }: HeaderProps) {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      router.push("/login");
+      router.push("/login?logout=success");
     } catch (error) {
       console.error("Logout error:", error);
     }
