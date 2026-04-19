@@ -46,5 +46,6 @@ export const IndonesianUniversities = [
   "MAN 1 Pamekasan",
   "MAN 2 Pamekasan",
   "MAN 1 Sumenep",
-  "MA Al-Amien Prenduan"
+  "MA Al-Amien Prenduan",
+  "Institut Darul Ulum Banyuanyar (IDB)"
 ];
