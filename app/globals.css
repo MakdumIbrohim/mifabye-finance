@@ -105,12 +105,20 @@ body {
   }
 
   /* Force rounded corners on all inputs explicitly */
-  input, select, textarea {
-    border-radius: calc(var(--radius) * 0.75) !important;
+  input:not(.login-input), select, textarea {
+    border-radius: calc(var(--radius) * 0.75);
     background: var(--bg-subtle);
     border: 1px solid var(--border);
     color: var(--foreground) !important;
     font-weight: 600;
+  }
+
+  .login-input {
+    border: none !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 8px 0 !important;
   }
 
   input::placeholder, textarea::placeholder {

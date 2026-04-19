@@ -149,7 +149,7 @@ export default function LoginPage() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your mail"
                     required
-                    className="w-full bg-transparent py-2 px-0 text-slate-600 focus:outline-none text-sm placeholder:text-slate-300 placeholder:italic"
+                    className="w-full login-input py-2 px-0 text-slate-600 outline-none focus:ring-0 text-sm placeholder:text-slate-300 placeholder:italic"
                   />
                   <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[#125EC8] opacity-0 group-focus-within:opacity-100 transition-opacity">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
@@ -167,7 +167,7 @@ export default function LoginPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter your password"
                     required
-                    className="w-full bg-transparent py-2 px-0 text-slate-600 focus:outline-none text-sm placeholder:text-slate-300 placeholder:italic"
+                    className="w-full login-input py-2 px-0 text-slate-600 outline-none focus:ring-0 text-sm placeholder:text-slate-300 placeholder:italic"
                   />
                   <button
                     type="button"
@@ -175,7 +175,7 @@ export default function LoginPage() {
                     className="absolute right-0 top-1/2 -translate-y-1/2 text-slate-300 hover:text-[#125EC8] transition-colors"
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={showPassword ? "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7 1.274-4.057 5.064-7 9.542-7 1.225 0 2.390.22 3.475.625m4.313 1.375C20.668 7.943 21 10.125 21 12c0 1.875-.332 4.057-3.487 6.375M15 12a3 3 0 11-6 0 3 3 0 016 0zm6-9L3 21" : "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"} />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={showPassword ? "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7 1.274-4.057 5.064-7 9.542-7 1.225 0 2.390.22 3.475.625m4.313 1.375C20.668 7.943 21 10.125 21 12c0 1.875-.332 4.057-3.487 6.375M15 12a3 3 0 11-6 0 3 3 0 016 0zm6-9L3 21" : "M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268-2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"} />
                     </svg>
                   </button>
                 </div>
