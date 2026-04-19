@@ -5,11 +5,13 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import Toast from "@/components/Toast";
-import { FinanceProvider } from "@/context/FinanceContext";
+import LoadingProgressBar from "@/components/LoadingProgressBar";
+import { FinanceProvider, useFinance } from "@/context/FinanceContext";
 
 function DashboardContent({ children }: { children: React.ReactNode }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showWelcomeToast, setShowWelcomeToast] = useState(false);
+  const { isLoading } = useFinance();
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -30,6 +32,7 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen">
+      <LoadingProgressBar isLoading={isLoading} />
       <Toast 
         show={showWelcomeToast} 
         message="Login Berhasil! Selamat datang administrator." 

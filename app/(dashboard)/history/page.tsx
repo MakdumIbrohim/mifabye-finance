@@ -151,12 +151,12 @@ export default function HistoryPage() {
             <tbody className="divide-y divide-border">
               {isLoading ? (
                 Array(6).fill(0).map((_, i) => (
-                  <tr key={i} className="animate-pulse">
-                    <td className="px-6 py-6"><div className="h-10 w-48 bg-bg-subtle rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-32 bg-bg-subtle rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-24 bg-bg-subtle rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-40 bg-bg-subtle rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-28 bg-bg-subtle rounded-lg ml-auto"></div></td>
+                  <tr key={i}>
+                    <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
                   </tr>
                 ))
               ) : filteredTransactions.length > 0 ? (

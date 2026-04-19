@@ -453,10 +453,10 @@ export default function DashboardPage() {
                 <tbody className="divide-y divide-border">
                   {isLoading ? (
                     Array(5).fill(0).map((_, i) => (
-                      <tr key={i} className="animate-pulse">
-                        <td className="px-6 py-4"><div className="h-10 w-40 bg-bg-subtle rounded-lg"></div></td>
-                        <td className="px-6 py-4"><div className="h-6 w-20 bg-bg-subtle rounded-lg"></div></td>
-                        <td className="px-6 py-4"><div className="h-8 w-24 bg-bg-subtle rounded-lg ml-auto"></div></td>
+                      <tr key={i}>
+                        <td className="px-6 py-4"><div className="h-10 w-40 skeleton-shimmer rounded-lg"></div></td>
+                        <td className="px-6 py-4"><div className="h-6 w-20 skeleton-shimmer rounded-lg"></div></td>
+                        <td className="px-6 py-4"><div className="h-8 w-24 skeleton-shimmer rounded-lg ml-auto"></div></td>
                       </tr>
                     ))
                   ) : recentTransactions.length > 0 ? (
