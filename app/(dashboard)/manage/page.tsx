@@ -71,7 +71,7 @@ export default function ManagePage() {
       if (result.result === "success") {
         setStatus({ type: "success", message: "Data berhasil diperbarui!" });
         setEditItem(null);
-        fetchData();
+        refreshData();
       } else {
         setStatus({ type: "error", message: "Gagal memperbarui data." });
       }
