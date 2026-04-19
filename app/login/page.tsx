@@ -71,10 +71,6 @@ export default function LoginPage() {
             </div>
             <h1 className="text-4xl lg:text-5xl font-black tracking-tight uppercase">Mifabyte</h1>
           </div>
-
-          <p className="text-blue-50/70 leading-relaxed text-xs lg:text-sm font-light max-w-[280px] mx-auto">
-            Platform manajemen finansial modern dengan integrasi Cloud Computing cerdas.
-          </p>
         </div>
 
         {/* Mobile Cloud Divider - Varied Organic Clouds */}
@@ -101,12 +97,6 @@ export default function LoginPage() {
                 d="M0 120 V 112 a 120,40 0 0,1 240,0 a 80,25 0 0,1 160,0 a 150,45 0 0,1 300,0 a 50,15 0 0,1 100,0 V 120 H 0 Z" 
               />
             </svg>
-        </div>
-
-        {/* BOTTOM METADATA */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-8 text-[10px] font-bold tracking-widest text-blue-100/40 uppercase opacity-0 lg:opacity-100">
-          <span>Creator Here</span>
-          <span className="border-l border-blue-100/20 pl-8">Designer Here</span>
         </div>
       </div>
 
@@ -140,10 +130,6 @@ export default function LoginPage() {
         </div>
 
         <div className="w-full max-w-sm space-y-12 animate-in fade-in slide-in-from-right-8 duration-1000 relative z-10">
-          <div className="space-y-4">
-            <h2 className="text-2xl font-bold text-slate-800 tracking-tight">Create your account</h2>
-          </div>
-
           <form onSubmit={handleLogin} className="space-y-10">
             {error && (
               <div className="bg-red-50 text-red-600 p-4 rounded-xl text-xs font-bold border border-red-100 flex items-center gap-3 animate-pulse">
@@ -196,24 +182,13 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
-              <input type="checkbox" id="terms" className="w-4 h-4 text-[#1a6edb] rounded-sm border-slate-300 focus:ring-0" />
-              <label htmlFor="terms" className="text-[10px] text-slate-400 font-medium cursor-pointer">By Logging in, I agree with <span className="text-[#1a6edb] font-bold">Terms & Conditions</span></label>
-            </div>
-
             <div className="flex items-center gap-4 pt-4">
               <button
                 type="submit"
                 disabled={isLoading}
                 className="flex-1 bg-[#1a6edb] hover:bg-[#0a4bb3] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-blue-500/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
               >
-                {isLoading ? "Authenticating..." : "Sign Up"}
-              </button>
-              <button
-                type="button"
-                className="flex-1 border border-slate-200 text-slate-400 py-3 rounded-full text-xs font-bold hover:bg-slate-50 transition-all active:scale-95"
-              >
-                Sign In
+                {isLoading ? "Authenticating..." : "LOG IN"}
               </button>
             </div>
           </form>
