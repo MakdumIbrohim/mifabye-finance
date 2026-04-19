@@ -11,7 +11,68 @@ export default function HistoryPage() {
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const { transactions, isLoading } = useFinance();
 
+  // Tiered Date Filters
+  const [selectedYear, setSelectedYear] = useState<string>("");
+  const [selectedMonth, setSelectedMonth] = useState<string>("");
+  const [selectedWeek, setSelectedWeek] = useState<string>("");
+  const [selectedDay, setSelectedDay] = useState<string>("");
+
+  const MONTHS = [
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+  ];
+
+  // Helper: Get week of month (1-5)
+  const getWeekOfMonth = (date: Date) => {
+    const firstDayOfMonth = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+    return Math.ceil((date.getDate() + firstDayOfMonth) / 7);
+  };
+
   // Local fetching logic removed - now handled by FinanceContext
+
+  // Extract dynamic filter options from transactions
+  const filterOptions = useMemo(() => {
+    const years = new Set<string>();
+    const monthsByYear: Record<string, Set<string>> = {};
+    const weeksByMonth: Record<string, Set<string>> = {};
+    const daysByWeek: Record<string, Set<string>> = {};
+
+    transactions.forEach(t => {
+      // Use string splitting to avoid timezone issues
+      const parts = t.tanggal.split("-");
+      if (parts.length < 3) return;
+
+      const y = parts[0];
+      const m = parseInt(parts[1]) - 1; // 0-indexed
+      const d = parseInt(parts[2]);
+      
+      years.add(y);
+
+      // Months for this year
+      if (!monthsByYear[y]) monthsByYear[y] = new Set();
+      monthsByYear[y].add(m.toString());
+
+      // Weeks for this month/year combo
+      const comboKey = `${y}-${m}`;
+      if (!weeksByMonth[comboKey]) weeksByMonth[comboKey] = new Set();
+      
+      const dateObj = new Date(parseInt(y), m, d);
+      const week = getWeekOfMonth(dateObj);
+      weeksByMonth[comboKey].add(week.toString());
+
+      // Days for this week combo
+      const weekKey = `${y}-${m}-${week}`;
+      if (!daysByWeek[weekKey]) daysByWeek[weekKey] = new Set();
+      daysByWeek[weekKey].add(d.toString());
+    });
+
+    return {
+      years: Array.from(years).sort((a, b) => b.localeCompare(a)),
+      monthsByYear,
+      weeksByMonth,
+      daysByWeek
+    };
+  }, [transactions]);
 
   // Calculate Monthly Totals
   const { monthlyIncome, monthlyExpense } = useMemo(() => {
@@ -20,8 +81,9 @@ export default function HistoryPage() {
     const currentYear = now.getFullYear();
 
     const monthTransactions = transactions.filter(t => {
-      const tDate = new Date(t.tanggal);
-      return tDate.getMonth() === currentMonth && tDate.getFullYear() === currentYear;
+      const parts = t.tanggal.split("-");
+      if (parts.length < 3) return false;
+      return parseInt(parts[1]) - 1 === currentMonth && parseInt(parts[0]) === currentYear;
     });
 
     const income = monthTransactions
@@ -37,11 +99,13 @@ export default function HistoryPage() {
 
   // Filtering Logic
   const filteredTransactions = transactions.filter(t => {
+    // 1. Transaction Type Filter
     const matchesFilter = 
       filter === "all" || 
       (filter === "in" && t.jenis_transaksi === "Pemasukan") || 
       (filter === "out" && t.jenis_transaksi === "Pengeluaran");
     
+    // 2. Search Filter
     const searchLower = search.toLowerCase();
     const matchesSearch = 
       t.nama_klien?.toLowerCase().includes(searchLower) || 
@@ -49,9 +113,29 @@ export default function HistoryPage() {
       t.produk_layanan?.toLowerCase().includes(searchLower) ||
       t.catatan?.toLowerCase().includes(searchLower) ||
       t.id?.toLowerCase().includes(searchLower);
+
+    // 3. Tiered Date Filter
+    const parts = t.tanggal.split("-");
+    const tYear = parts[0];
+    const tMonth = (parseInt(parts[1]) - 1).toString();
+    const tDay = parseInt(parts[2]).toString();
+    const tDateObj = new Date(parseInt(tYear), parseInt(tMonth), parseInt(tDay));
+    const tWeek = getWeekOfMonth(tDateObj).toString();
+
+    const matchesYear = !selectedYear || tYear === selectedYear;
+    const matchesMonth = !selectedMonth || tMonth === selectedMonth;
+    const matchesWeek = !selectedWeek || tWeek === selectedWeek;
+    const matchesDay = !selectedDay || tDay === selectedDay;
       
-    return matchesFilter && matchesSearch;
+    return matchesFilter && matchesSearch && matchesYear && matchesMonth && matchesWeek && matchesDay;
   }).reverse(); // Most recent first
+
+  const resetDateFilters = () => {
+    setSelectedYear("");
+    setSelectedMonth("");
+    setSelectedWeek("");
+    setSelectedDay("");
+  };
 
   // Sub-component for dot animation (1-4 dots)
   const LoadingDots = () => {
@@ -112,39 +196,130 @@ export default function HistoryPage() {
 
       <div className="subtle-card p-0 overflow-hidden">
         {/* Filter Bar */}
-        <div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex bg-bg-subtle p-1 rounded-xl w-fit border border-border">
-            <button
-              onClick={() => setFilter("all")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "all" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"}`}
-            >
-              Semua
-            </button>
-            <button
-              onClick={() => setFilter("in")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "in" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"}`}
-            >
-              Pemasukan
-            </button>
-            <button
-              onClick={() => setFilter("out")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "out" ? "bg-card-bg text-red-500 shadow-sm shadow-red-500/10" : "text-text-muted hover:text-foreground"}`}
-            >
-              Pengeluaran
-            </button>
+        <div className="p-6 border-b border-border space-y-6">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="flex bg-bg-subtle p-1 rounded-xl w-fit border border-border">
+              <button
+                onClick={() => setFilter("all")}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "all" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"}`}
+              >
+                Semua
+              </button>
+              <button
+                onClick={() => setFilter("in")}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "in" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"}`}
+              >
+                Pemasukan
+              </button>
+              <button
+                onClick={() => setFilter("out")}
+                className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "out" ? "bg-card-bg text-red-500 shadow-sm shadow-red-500/10" : "text-text-muted hover:text-foreground"}`}
+              >
+                Pengeluaran
+              </button>
+            </div>
+
+            <div className="relative flex-1 max-w-md">
+              <input 
+                type="text" 
+                placeholder="Cari klien, instansi, atau layanan..." 
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full bg-bg-subtle border border-border rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
+              />
+              <svg className="w-4 h-4 text-text-muted absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
           </div>
 
-          <div className="relative flex-1 max-w-sm">
-            <input 
-              type="text" 
-              placeholder="Cari klien, instansi, atau layanan..." 
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-bg-subtle border border-border rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
-            />
-            <svg className="w-4 h-4 text-text-muted absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+          {/* Cascading Date Filters */}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Filter Bertingkat:</span>
+            </div>
+            
+            {/* Year Select */}
+            <select
+              value={selectedYear}
+              onChange={(e) => {
+                resetDateFilters();
+                setSelectedYear(e.target.value);
+              }}
+              className="bg-bg-subtle border border-border rounded-lg py-1.5 px-3 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer"
+            >
+              <option value="">Pilih Tahun</option>
+              {filterOptions.years.map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+
+            {/* Month Select */}
+            <select
+              disabled={!selectedYear}
+              value={selectedMonth}
+              onChange={(e) => {
+                setSelectedMonth(e.target.value);
+                setSelectedWeek("");
+                setSelectedDay("");
+              }}
+              className={`bg-bg-subtle border border-border rounded-lg py-1.5 px-3 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer ${!selectedYear ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
+            >
+              <option value="">Pilih Bulan</option>
+              {selectedYear && filterOptions.monthsByYear[selectedYear] && 
+                Array.from(filterOptions.monthsByYear[selectedYear])
+                  .sort((a, b) => parseInt(a) - parseInt(b))
+                  .map(m => (
+                    <option key={m} value={m}>{MONTHS[parseInt(m)]}</option>
+                  ))
+              }
+            </select>
+
+            {/* Week Select */}
+            <select
+              disabled={!selectedMonth}
+              value={selectedWeek}
+              onChange={(e) => {
+                setSelectedWeek(e.target.value);
+                setSelectedDay("");
+              }}
+              className={`bg-bg-subtle border border-border rounded-lg py-1.5 px-3 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer ${!selectedMonth ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
+            >
+              <option value="">Pilih Minggu</option>
+              {selectedMonth && filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`] && 
+                Array.from(filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`])
+                  .sort((a, b) => parseInt(a) - parseInt(b))
+                  .map(w => (
+                    <option key={w} value={w}>Minggu ke-{w}</option>
+                  ))
+              }
+            </select>
+
+            {/* Day Select */}
+            <select
+              disabled={!selectedWeek}
+              value={selectedDay}
+              onChange={(e) => setSelectedDay(e.target.value)}
+              className={`bg-bg-subtle border border-border rounded-lg py-1.5 px-3 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer ${!selectedWeek ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
+            >
+              <option value="">Pilih Hari</option>
+              {selectedWeek && filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`] && 
+                Array.from(filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`])
+                  .sort((a, b) => parseInt(a) - parseInt(b))
+                  .map(d => (
+                    <option key={d} value={d}>Tanggal {d}</option>
+                  ))
+              }
+            </select>
+
+            {(selectedYear || selectedMonth || selectedWeek || selectedDay) && (
+              <button 
+                onClick={resetDateFilters}
+                className="text-[10px] font-bold text-red-500 hover:text-red-600 transition-colors uppercase tracking-widest px-2"
+              >
+                Reset Filter
+              </button>
+            )}
           </div>
         </div>
 
