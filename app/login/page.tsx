@@ -76,8 +76,8 @@ export default function LoginPage() {
           </p>
         </div>
 
-        {/* Waves Animation Container */}
-        <div className="hidden lg:block absolute top-0 left-full h-full w-24 overflow-hidden z-20">
+        {/* Cloudy Divider (Desktop) */}
+        <div className="hidden lg:block absolute top-0 left-full h-full w-40 overflow-hidden z-20 pointer-events-none">
             <svg 
               className="h-full w-full" 
               viewBox="0 0 100 800" 
@@ -85,22 +85,34 @@ export default function LoginPage() {
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
+              {/* Layer 1: Deep Blue Bubbles (Far Back) */}
               <path 
-                d="M0 0C40 100 100 200 100 300C100 400 30px 500 0 600C-30 700 0 800 0 800V0H0Z" 
+                d="M0 0 C 10 30, 25 60, 25 100 C 25 140, 10 170, 0 200 C 15 230, 30 260, 30 300 C 30 340, 15 370, 0 400 C 10 430, 25 460, 25 500 C 25 540, 10 570, 0 600 C 15 630, 30 660, 30 700 C 30 740, 15 770, 0 800 V 0 H 0 Z" 
                 fill="#0a4bb3"
-                className="animate-pulse"
-                style={{ animationDuration: '4s' }}
+                opacity="0.2"
               />
+              {/* Layer 2: Mid Blue Bubbles */}
               <path 
-                d="M0 0C30 150 70 300 70 450C70 600 30px 750 0 800V0H0Z" 
+                d="M0 0 C 20 40, 45 80, 45 133 C 45 186, 20 226, 0 266 C 30 306, 55 346, 55 400 C 55 454, 30 494, 0 534 C 20 574, 45 614, 45 667 C 45 720, 20 760, 0 800 V 0 H 0 Z" 
                 fill="#1a6edb"
-                opacity="0.5"
+                opacity="0.4"
+              />
+              {/* Layer 3: Lighter Blue Bubbles */}
+              <path 
+                d="M0 50 C 40 100, 70 150, 70 200 C 70 250, 40 300, 0 350 C 50 400, 80 450, 80 500 C 80 550, 50 600, 0 650 V 0 H 0 Z" 
+                fill="#3b82f6"
+                opacity="0.3"
+              />
+              {/* Layer 4: Main Blue Bubbles (Solid Edge) */}
+              <path 
+                d="M0 0 C 15 50, 30 100, 30 150 C 30 200, 15 250, 0 300 C 20 350, 40 400, 40 450 C 40 500, 20 550, 0 600 C 15 650, 30 700, 30 750 C 30 800, 15 850, 0 900 V 0 H 0 Z" 
+                fill="#1a6edb"
               />
             </svg>
         </div>
 
-        {/* Mobile Wave Wrapper */}
-        <div className="lg:hidden absolute bottom-[-1px] left-0 w-full h-16 overflow-hidden z-20">
+        {/* Cloudy Divider (Mobile) */}
+        <div className="lg:hidden absolute bottom-[-1px] left-0 w-full h-24 overflow-hidden z-20 pointer-events-none">
             <svg 
               className="w-full h-full" 
               viewBox="0 0 800 100" 
@@ -108,7 +120,15 @@ export default function LoginPage() {
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M0 100C100 60 200 0 300 0C400 0 500 70 600 100C700 130 800 100 800 100H0V100Z" fill="#f8faff" />
+              <path 
+                d="M0 100 C 50 80, 100 20, 150 20 C 200 20, 220 70, 300 70 C 380 70, 400 30, 500 30 C 600 30, 650 80, 800 50 V 100 H 0 Z" 
+                fill="#f8faff" 
+              />
+              <path 
+                d="M0 100 C 80 90, 120 40, 200 40 C 280 40, 320 90, 400 90 C 480 90, 520 40, 600 40 C 680 40, 720 95, 800 90 V 100 H 0 Z" 
+                fill="#f8faff" 
+                opacity="0.4"
+              />
             </svg>
         </div>
       </div>
