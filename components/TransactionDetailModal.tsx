@@ -27,7 +27,7 @@ export default function TransactionDetailModal({
   if (!transaction) return null;
 
   const DetailItem = ({ label, value, icon, fullWidth = false }: { label: string; value: string | number; icon: React.ReactNode, fullWidth?: boolean }) => (
-    <div className={`p-4 bg-bg-subtle border border-border rounded-2xl ${fullWidth ? 'col-span-2' : ''}`}>
+    <div className={`p-2.5 bg-bg-subtle border border-border rounded-xl ${fullWidth ? 'col-span-2' : ''}`}>
       <div className="flex items-center gap-2 mb-1.5">
         <div className="text-text-muted">{icon}</div>
         <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">{label}</span>
@@ -45,14 +45,14 @@ export default function TransactionDetailModal({
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-md bg-card-bg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 border border-border">
+      <div className="relative w-full max-w-sm bg-card-bg rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 border border-border">
         {/* Header Decor */}
-        <div className={`h-2 w-full ${transaction.jenis_transaksi === "Pemasukan" ? 'bg-primary' : 'bg-red-500'}`} />
+        <div className={`h-1.5 w-full ${transaction.jenis_transaksi === "Pemasukan" ? 'bg-primary' : 'bg-red-500'}`} />
         
-        <div className="p-8">
-          <div className="flex items-center justify-between mb-8">
+        <div className="p-5">
+          <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-2xl font-black text-foreground tracking-tight">Detail Transaksi</h3>
+              <h3 className="text-xl font-black text-foreground tracking-tight">Detail Transaksi</h3>
               <p className="text-xs font-bold text-text-muted mt-1 uppercase tracking-tighter">ID: {transaction.id}</p>
             </div>
             <button 
@@ -65,14 +65,14 @@ export default function TransactionDetailModal({
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2 p-6 bg-slate-950 rounded-[2rem] text-center mb-2">
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Nominal Transaksi</p>
-              <h2 className={`text-3xl font-black ${transaction.jenis_transaksi === "Pemasukan" ? 'text-primary' : 'text-red-400'}`}>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="col-span-2 p-4 bg-slate-950 rounded-2xl text-center mb-1">
+              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-1.5">Nominal Transaksi</p>
+              <h2 className={`text-2xl font-black ${transaction.jenis_transaksi === "Pemasukan" ? 'text-primary' : 'text-red-400'}`}>
                 {transaction.jenis_transaksi === "Pemasukan" ? "+" : "-"} {formatCurrency(transaction.nominal)}
               </h2>
-              <div className="mt-4 flex justify-center">
-                <span className={`text-[10px] font-black uppercase px-3 py-1.5 rounded-full border ${
+              <div className="mt-3 flex justify-center">
+                <span className={`text-[8px] font-black uppercase px-2.5 py-1 rounded-full border ${
                   transaction.jenis_transaksi === "Pemasukan" 
                     ? 'border-primary/30 text-primary bg-primary/10' 
                     : 'border-red-500/30 text-red-400 bg-red-500/10'
@@ -97,14 +97,12 @@ export default function TransactionDetailModal({
             <DetailItem 
               label="Asal Instansi" 
               value={transaction.asal_instansi} 
-              fullWidth
               icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>}
             />
 
             <DetailItem 
               label="Produk Layanan" 
               value={transaction.produk_layanan} 
-              fullWidth
               icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>}
             />
 
@@ -122,11 +120,10 @@ export default function TransactionDetailModal({
               icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>}
             />
           </div>
-
-          <div className="mt-8">
+          <div className="mt-4">
             <button 
               onClick={onClose}
-              className="w-full py-4 bg-primary text-white font-bold rounded-2xl hover:brightness-110 transition-all shadow-xl shadow-primary/20 active:scale-95"
+              className="w-full py-2.5 bg-primary text-white font-bold rounded-xl hover:brightness-110 transition-all shadow-lg shadow-primary/20 active:scale-95 text-xs"
             >
               Tutup Detail
             </button>
