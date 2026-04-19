@@ -1,4 +1,10 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
 import { useTheme } from "@/context/ThemeContext";
+import { signOut } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useRouter } from "next/navigation";
 
 interface HeaderProps {
   onOpenMenu: () => void;
@@ -6,9 +12,32 @@ interface HeaderProps {
 
 export default function Header({ onOpenMenu }: HeaderProps) {
   const { mode, toggleMode } = useTheme();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
-    <header className="h-16 bg-card-bg/80 backdrop-blur-md border-b border-border flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 shadow-sm transition-colors duration-300">
+    <header className="h-16 bg-card-bg/80 backdrop-blur-md border-b border-border flex items-center justify-between px-4 md:px-8 sticky top-0 z-50 shadow-sm transition-colors duration-300">
       <div className="flex items-center gap-3">
         {/* Hamburger Menu - Mobile Only */}
         <button 
@@ -47,10 +76,38 @@ export default function Header({ onOpenMenu }: HeaderProps) {
             Online
           </span>
         </div>
-        <div className="w-9 h-9 rounded-full bg-primary-light border border-primary/20 flex items-center justify-center overflow-hidden">
-          <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-          </svg>
+        
+        {/* Profile Dropdown */}
+        <div className="relative" ref={dropdownRef}>
+          <button 
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className={`w-9 h-9 rounded-full bg-primary-light border flex items-center justify-center overflow-hidden transition-all duration-300 ${
+              dropdownOpen ? "ring-2 ring-primary ring-offset-2 border-primary" : "border-primary/20 hover:border-primary/50"
+            }`}
+          >
+            <svg className="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+            </svg>
+          </button>
+
+          {/* Dropdown Menu */}
+          {dropdownOpen && (
+            <div className="absolute right-0 mt-3 w-48 bg-card-bg border border-border rounded-2xl shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200 z-50">
+              <div className="px-4 py-3 border-b border-border mb-1 sm:hidden">
+                <p className="text-sm font-bold text-foreground">Administrator</p>
+                <p className="text-[10px] text-primary font-medium">Online</p>
+              </div>
+              <button 
+                onClick={handleLogout}
+                className="w-full text-left px-4 py-2.5 text-sm text-red-500 hover:bg-red-50 font-semibold flex items-center gap-3 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                Log Out
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>
