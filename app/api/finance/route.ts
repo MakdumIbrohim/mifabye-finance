@@ -18,22 +18,23 @@ export async function POST(request: Request) {
 
     // Common fields for insert and update
     if (action === "insert" || action === "update") {
+      // Ensure date is only YYYY-MM-DD
+      const cleanTanggal = body.tanggal?.toString().includes("T") 
+        ? body.tanggal.split("T")[0] 
+        : body.tanggal;
+
       gasPayload = {
         ...gasPayload,
         id: body.id,
-        tanggal: body.tanggal,
+        tanggal: cleanTanggal,
         nama_klien: body.namaKlien || "-",
         asal_instansi: body.instansi || "-",
-        jenis_layanan: body.layanan || "-", // Matching GAS script expectation
-        produk_layanan: body.layanan || "-", // Matching Sheet header
+        produk_layanan: body.layanan || "-", // Column E (index 4)
         nominal: Number(body.jumlah?.toString().replace(/[^0-9]/g, "")) || 0,
         catatan: body.catatan || "",
-        // The user reported that Column I is Metode Pembayaran and Column J is Created At,
-        // but they are being swapped in either the GAS script or the previous field mapping.
-        // Swapping here to match the spreadsheet layout (Metode Pembayaran at index 9, Created At at index 10)
-        created_at: body.created_at || new Date().toISOString(),
+        jenis_transaksi: body.transactionType === "out" || body.jenis_transaksi === "Pengeluaran" ? "Pengeluaran" : "Pemasukan",
         metode_pembayaran: body.metodePembayaran || "-",
-        jenis_transaksi: body.transactionType === "out" || body.jenis_transaksi === "Pengeluaran" ? "Pengeluaran" : "Pemasukan"
+        created_at: body.created_at || new Date().toISOString(),
       };
     }
 
@@ -75,24 +76,26 @@ export async function GET() {
 
     const result = await response.json();
     
-    // Data Correction: If GAS returns the timestamp in 'metode_pembayaran' 
-    // and the payment method is in 'created_at' (or vice versa), swap them.
+    // Data Normalization
     if (result.result === "success" && Array.isArray(result.data)) {
       result.data = result.data.map((item: any) => {
-        // Detect if item.metode_pembayaran is actually a timestamp (contains T and Z or looks like ISO)
-        const isMetodeTimestamp = item.metode_pembayaran && 
-                                 (item.metode_pembayaran.includes('T') || /\d{4}-\d{2}-\d{2}/.test(item.metode_pembayaran));
-        
-        if (isMetodeTimestamp) {
-          return {
-            ...item,
-            created_at: item.metode_pembayaran,
-            // If created_at was empty or had the payment method, we need to recover it.
-            // In many GAS scripts, if keys are swapped, the actual value might be in another key.
-            metode_pembayaran: item.created_at || "Transfer Bank" 
-          };
+        // Ensure nominal is a clean number
+        const rawNominal = item.nominal?.toString() || "0";
+        const cleanNominal = Number(rawNominal.replace(/[^0-9.-]/g, "")) || 0;
+
+        // Ensure tanggal is only YYYY-MM-DD
+        let cleanTanggal = item.tanggal || "";
+        if (cleanTanggal.includes(" ")) {
+          cleanTanggal = cleanTanggal.split(" ")[0];
+        } else if (cleanTanggal.includes("T")) {
+          cleanTanggal = cleanTanggal.split("T")[0];
         }
-        return item;
+
+        return {
+          ...item,
+          nominal: cleanNominal,
+          tanggal: cleanTanggal
+        };
       });
     }
 

@@ -54,11 +54,11 @@ export const calculateChartData = (transactions: Transaction[]) => {
     
     const income = dayTransactions
       .filter((t) => t.jenis_transaksi === "Pemasukan")
-      .reduce((sum, t) => sum + t.nominal, 0);
+      .reduce((sum, t) => sum + (Number(t.nominal) || 0), 0);
       
     const expense = dayTransactions
       .filter((t) => t.jenis_transaksi === "Pengeluaran")
-      .reduce((sum, t) => sum + t.nominal, 0);
+      .reduce((sum, t) => sum + (Number(t.nominal) || 0), 0);
       
     result.push({
       day: dayName,

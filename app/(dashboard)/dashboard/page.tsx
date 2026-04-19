@@ -53,11 +53,11 @@ export default function DashboardPage() {
   const { totalBalance, totalIncome, totalExpense } = useMemo(() => {
     const income = transactions
       .filter(t => t.jenis_transaksi === "Pemasukan")
-      .reduce((sum, t) => sum + t.nominal, 0);
+      .reduce((sum, t) => sum + (Number(t.nominal) || 0), 0);
     
     const expense = transactions
       .filter(t => t.jenis_transaksi === "Pengeluaran")
-      .reduce((sum, t) => sum + t.nominal, 0);
+      .reduce((sum, t) => sum + (Number(t.nominal) || 0), 0);
       
     return {
       totalBalance: income - expense,
