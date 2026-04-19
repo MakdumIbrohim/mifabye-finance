@@ -44,11 +44,23 @@ export const calculateChartData = (transactions: Transaction[]) => {
     
     const dayName = days[d.getDay()];
     const fullName = fullDays[d.getDay()];
-    const dateStr = d.toISOString().split("T")[0]; // YYYY-MM-DD
+    
+    // Construct local YYYY-MM-DD string manually to avoid timezone shifts
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const dateStr = `${y}-${m}-${day}`;
     
     // Filter transactions for this specific day
     const dayTransactions = transactions.filter((t) => {
-      const tDate = new Date(t.tanggal).toISOString().split("T")[0];
+      if (!t.tanggal) return false;
+      
+      // If t.tanggal is already YYYY-MM-DD string, compare directly
+      // If it has time, clean it first
+      let tDate = t.tanggal;
+      if (tDate.includes(" ")) tDate = tDate.split(" ")[0];
+      if (tDate.includes("T")) tDate = tDate.split("T")[0];
+      
       return tDate === dateStr;
     });
     
