@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
 import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
+import { PaymentMethods } from "@/constants/payment-methods";
 import SearchableSelect from "@/components/SearchableSelect";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
@@ -30,6 +31,7 @@ export default function DashboardPage() {
     layanan: "",
     jumlah: "",
     tanggal: getTodayJakarta(),
+    metodePembayaran: "Transfer Bank",
     catatan: ""
   };
 
@@ -147,6 +149,10 @@ export default function DashboardPage() {
               <div className="flex justify-between">
                 <span className="text-text-muted font-medium text-xs">Instansi:</span>
                 <span className="text-foreground font-bold text-xs">{formData.instansi || "-"}</span>
+              </div>
+              <div className="flex justify-between border-t border-border pt-2 mt-2">
+                <span className="text-text-muted font-medium text-xs">Pembayaran via:</span>
+                <span className="text-primary font-bold text-xs">{formData.metodePembayaran}</span>
               </div>
             </div>
             <p className="text-[10px] text-text-muted italic font-medium pt-2">Tindakan ini akan tercatat permanen di Google Sheets.</p>
@@ -310,6 +316,14 @@ export default function DashboardPage() {
                   onChange={(e) => setFormData({...formData, jumlah: e.target.value})}
                 />
               </div>
+
+              <SearchableSelect
+                label="Metode Pembayaran"
+                placeholder="Pilih Metode..."
+                options={PaymentMethods}
+                value={formData.metodePembayaran}
+                onChange={(val) => setFormData({ ...formData, metodePembayaran: val })}
+              />
 
               <div>
                 <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Catatan</label>

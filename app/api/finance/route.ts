@@ -28,6 +28,7 @@ export async function POST(request: Request) {
         produk_layanan: body.layanan || "-", // Matching Sheet header
         nominal: Number(body.jumlah?.toString().replace(/[^0-9]/g, "")) || 0,
         catatan: body.catatan || "",
+        metode_pembayaran: body.metodePembayaran || "-",
         jenis_transaksi: body.transactionType === "out" || body.jenis_transaksi === "Pengeluaran" ? "Pengeluaran" : "Pemasukan"
       };
     }

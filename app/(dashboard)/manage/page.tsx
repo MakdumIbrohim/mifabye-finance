@@ -8,6 +8,7 @@ import TransactionDetailModal from "@/components/TransactionDetailModal";
 import { useFinance } from "@/context/FinanceContext";
 import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
+import { PaymentMethods } from "@/constants/payment-methods";
 
 export default function ManagePage() {
   const { transactions, isLoading, refreshData } = useFinance();
@@ -64,6 +65,7 @@ export default function ManagePage() {
           layanan: editItem.produk_layanan,
           jumlah: editItem.nominal,
           catatan: editItem.catatan,
+          metodePembayaran: editItem.metode_pembayaran,
           transactionType: editItem.jenis_transaksi === "Pemasukan" ? "in" : "out"
         }),
       });
@@ -211,6 +213,15 @@ export default function ManagePage() {
                     <option value="Pemasukan">Pemasukan</option>
                     <option value="Pengeluaran">Pengeluaran</option>
                   </select>
+                </div>
+                <div className="md:col-span-2">
+                   <SearchableSelect
+                    label="Metode Pembayaran"
+                    placeholder="Pilih Metode..."
+                    options={PaymentMethods}
+                    value={editItem.metode_pembayaran}
+                    onChange={(val) => setEditItem({ ...editItem, metode_pembayaran: val })}
+                  />
                 </div>
               </div>
 

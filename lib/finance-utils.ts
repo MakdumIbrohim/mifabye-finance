@@ -10,6 +10,7 @@ export interface Transaction {
   produk_layanan: string;
   nominal: number;
   catatan: string;
+  metode_pembayaran: string;
   jenis_transaksi: string;
   created_at: string;
 }

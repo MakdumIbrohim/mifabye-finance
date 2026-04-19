@@ -32,6 +32,12 @@ export default function SearchableSelect({
   };
 
   const filteredOptions = options.filter((opt) => {
+    // If the input is focused and the search matches the current value, 
+    // we show ALL options to allow the user to see what else they can pick.
+    // If they start typing (search != value), we filter normally.
+    const isShowingAll = isOpen && search === value;
+    if (isShowingAll) return true;
+
     const optionLabel = (opt || "").toString().toLowerCase();
     const searchQuery = (search || "").toString().toLowerCase();
     return optionLabel.includes(searchQuery);
