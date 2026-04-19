@@ -65,16 +65,16 @@ export default function ExportModal({ isOpen, onClose, onExport, filterInfo }: E
         <div className="grid grid-cols-1 gap-4">
           <button
             onClick={() => onExport("pdf")}
-            className="flex items-center gap-4 p-5 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 transition-all group"
+            className="flex items-center gap-4 p-5 rounded-2xl bg-subtle border border-border hover:border-primary/50 transition-all group"
           >
-            <div className="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">
+            <div className="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center text-red-500 group-hover:scale-110 transition-transform">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
             </div>
             <div className="text-left">
-              <p className="font-bold text-sm">Dokumen PDF (.pdf)</p>
-              <p className="text-[10px] opacity-60 font-medium">Format laporan resmi & cetak</p>
+              <p className="font-bold text-sm text-foreground">Dokumen PDF (.pdf)</p>
+              <p className="text-[10px] text-text-muted font-medium">Format laporan resmi & cetak</p>
             </div>
           </button>
 
