@@ -3,12 +3,15 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Transaction, formatCurrency } from "@/lib/finance-utils";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
+import ExportModal from "@/components/ExportModal";
 import { useFinance } from "@/context/FinanceContext";
+import { exportToCSV, exportToExcel, exportToPDF } from "@/lib/export-utils";
 
 export default function HistoryPage() {
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
   const [search, setSearch] = useState("");
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
+  const [showExportModal, setShowExportModal] = useState(false);
   const { transactions, isLoading } = useFinance();
 
   // Tiered Date Filters
@@ -137,6 +140,23 @@ export default function HistoryPage() {
     setSelectedDay("");
   };
 
+  // Construct label for active filters (used in export file name/header)
+  const activeFilterLabel = useMemo(() => {
+    const parts = [];
+    if (selectedYear) parts.push(selectedYear);
+    if (selectedMonth) parts.push(MONTHS[parseInt(selectedMonth)]);
+    if (selectedWeek) parts.push(`Minggu ${selectedWeek}`);
+    if (selectedDay) parts.push(`Tgl ${selectedDay}`);
+    return parts.join(" ");
+  }, [selectedYear, selectedMonth, selectedWeek, selectedDay, MONTHS]);
+
+  const handleExport = (format: "pdf" | "csv" | "excel") => {
+    if (format === "pdf") exportToPDF(filteredTransactions, activeFilterLabel);
+    if (format === "csv") exportToCSV(filteredTransactions, activeFilterLabel);
+    if (format === "excel") exportToExcel(filteredTransactions, activeFilterLabel);
+    setShowExportModal(false);
+  };
+
   // Sub-component for dot animation (1-4 dots)
   const LoadingDots = () => {
     const [dots, setDots] = useState(".");
@@ -155,6 +175,14 @@ export default function HistoryPage() {
       <TransactionDetailModal 
         transaction={selectedTransaction} 
         onClose={() => setSelectedTransaction(null)} 
+      />
+
+      {/* Export Selection Modal */}
+      <ExportModal 
+        isOpen={showExportModal} 
+        onClose={() => setShowExportModal(false)}
+        onExport={handleExport}
+        filterInfo={activeFilterLabel}
       />
 
       <section className="flex items-center justify-between">
@@ -219,17 +247,29 @@ export default function HistoryPage() {
               </button>
             </div>
 
-            <div className="relative flex-1 max-w-md">
-              <input 
-                type="text" 
-                placeholder="Cari klien, instansi, atau layanan..." 
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-bg-subtle border border-border rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
-              />
-              <svg className="w-4 h-4 text-text-muted absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+            <div className="flex items-center gap-4 flex-1 justify-end">
+              <div className="relative flex-1 max-w-md">
+                <input 
+                  type="text" 
+                  placeholder="Cari klien..." 
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  className="w-full bg-bg-subtle border border-border rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
+                />
+                <svg className="w-4 h-4 text-text-muted absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <button 
+                onClick={() => setShowExportModal(true)}
+                className="flex items-center gap-2 bg-slate-900 text-white px-5 py-2.5 rounded-xl font-bold text-xs hover:bg-slate-800 transition-all shadow-sm shadow-slate-900/10 active:scale-95"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Unduh Laporan
+              </button>
             </div>
           </div>
 
