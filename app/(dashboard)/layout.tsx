@@ -14,7 +14,7 @@ export default function DashboardLayout({
 
   return (
     <FinanceProvider>
-      <div className="flex min-h-screen bg-dark-bg">
+      <div className="flex min-h-screen">
         <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
         
         <div className="flex-1 md:ml-64 flex flex-col">

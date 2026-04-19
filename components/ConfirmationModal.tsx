@@ -49,12 +49,12 @@ export default function ConfirmationModal({
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm animate-in fade-in duration-300"
+        className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm animate-in fade-in duration-300"
         onClick={onClose}
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl shadow-slate-900/10 overflow-hidden animate-in zoom-in-95 fade-in duration-300 ease-out">
+      <div className="relative w-full max-w-sm bg-card-bg rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 border border-border">
         <div className="p-6">
           <div className="flex items-center gap-3 mb-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
@@ -75,10 +75,10 @@ export default function ConfirmationModal({
                 </svg>
               )}
             </div>
-            <h3 className="text-lg font-bold text-slate-900">{title}</h3>
+            <h3 className="text-lg font-bold text-foreground">{title}</h3>
           </div>
 
-          <div className="text-sm text-slate-500 leading-relaxed mb-8">
+          <div className="text-sm text-text-muted leading-relaxed mb-8">
             {message}
           </div>
 
@@ -86,7 +86,7 @@ export default function ConfirmationModal({
             <button
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 py-3 px-4 rounded-xl text-sm font-bold text-slate-500 hover:bg-slate-50 transition-colors border border-slate-100"
+              className="flex-1 py-3 px-4 rounded-xl text-sm font-bold text-text-muted hover:bg-bg-subtle transition-colors border border-border"
             >
               {cancelText}
             </button>

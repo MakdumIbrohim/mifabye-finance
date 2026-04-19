@@ -1,21 +1,26 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState, useCallback } from "react";
+
+type ThemeMode = "light" | "dark";
 
 type ThemeState = {
   primaryColor: string;
   fontFamily: string;
   borderRadius: string;
+  mode: ThemeMode;
 };
 
 type ThemeContextType = ThemeState & {
   setTheme: (theme: Partial<ThemeState>) => void;
+  toggleMode: () => void;
 };
 
 const defaultTheme: ThemeState = {
   primaryColor: "#508fc5",
   fontFamily: "'Inter', sans-serif",
   borderRadius: "1rem",
+  mode: "light",
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -28,9 +33,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const saved = localStorage.getItem("mifabyte-theme");
     if (saved) {
       try {
-        setInternalTheme(JSON.parse(saved));
+        const parsed = JSON.parse(saved);
+        setInternalTheme(parsed);
       } catch (e) {
         console.error("Failed to parse theme", e);
+      }
+    } else {
+      // Check system preference
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        setInternalTheme(prev => ({ ...prev, mode: "dark" }));
       }
     }
   }, []);
@@ -42,16 +53,30 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.style.setProperty("--font-main", theme.fontFamily);
     root.style.setProperty("--radius", theme.borderRadius);
     
+    // Apply dark mode class
+    if (theme.mode === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    
     // Persist
     localStorage.setItem("mifabyte-theme", JSON.stringify(theme));
   }, [theme]);
 
-  const setTheme = (newTheme: Partial<ThemeState>) => {
+  const setTheme = useCallback((newTheme: Partial<ThemeState>) => {
     setInternalTheme((prev) => ({ ...prev, ...newTheme }));
-  };
+  }, []);
+
+  const toggleMode = useCallback(() => {
+    setInternalTheme((prev) => ({
+      ...prev,
+      mode: prev.mode === "light" ? "dark" : "light"
+    }));
+  }, []);
 
   return (
-    <ThemeContext.Provider value={{ ...theme, setTheme }}>
+    <ThemeContext.Provider value={{ ...theme, setTheme, toggleMode }}>
       {children}
     </ThemeContext.Provider>
   );

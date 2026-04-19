@@ -125,31 +125,31 @@ export default function DashboardPage() {
             <p>Harap periksa detail berikut sebelum menyimpan data ke sistem:</p>
             <div className="bg-subtle p-4 rounded-2xl space-y-2 border border-border-light">
               <div className="flex justify-between">
-                <span className="text-slate-400 font-medium text-xs">Jenis Transaksi:</span>
+                <span className="text-text-muted font-medium text-xs">Jenis Transaksi:</span>
                 <span className={`text-xs font-bold uppercase ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
                   {transactionType === "in" ? "Pemasukan" : "Pengeluaran"}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400 font-medium text-xs">Nominal:</span>
+                <span className="text-text-muted font-medium text-xs">Nominal:</span>
                 <span className={`font-bold ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
                    Rp {Number(formData.jumlah.replace(/[^0-9]/g, "")).toLocaleString("id-ID")}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400 font-medium text-xs">Pihak/Klien:</span>
-                <span className="text-slate-700 font-bold text-xs">{formData.namaKlien || "-"}</span>
+                <span className="text-text-muted font-medium text-xs">Pihak/Klien:</span>
+                <span className="text-foreground font-bold text-xs">{formData.namaKlien || "-"}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400 font-medium text-xs">Layanan:</span>
-                <span className="text-slate-700 font-bold text-xs">{formData.layanan || "Umum"}</span>
+                <span className="text-text-muted font-medium text-xs">Layanan:</span>
+                <span className="text-foreground font-bold text-xs">{formData.layanan || "Umum"}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-400 font-medium text-xs">Instansi:</span>
-                <span className="text-slate-700 font-bold text-xs">{formData.instansi || "-"}</span>
+                <span className="text-text-muted font-medium text-xs">Instansi:</span>
+                <span className="text-foreground font-bold text-xs">{formData.instansi || "-"}</span>
               </div>
             </div>
-            <p className="text-[10px] text-slate-400 italic font-medium pt-2">Tindakan ini akan tercatat permanen di Google Sheets.</p>
+            <p className="text-[10px] text-text-muted italic font-medium pt-2">Tindakan ini akan tercatat permanen di Google Sheets.</p>
           </div>
         }
       />
@@ -162,8 +162,8 @@ export default function DashboardPage() {
 
       <section className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Beranda Dashboard</h1>
-          <p className="text-sm text-slate-500">Catat transaksi dan pantau saldo tim Anda secara instan.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-1">Beranda Dashboard</h1>
+          <p className="text-sm text-text-muted">Catat transaksi dan pantau saldo tim Anda secara instan.</p>
         </div>
         {isLoading && (
           <div className="flex items-center gap-2 text-primary">
@@ -225,13 +225,13 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 space-y-6">
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-slate-900 mb-4 uppercase tracking-tight">Catat Transaksi</h3>
-            <div className="flex bg-subtle p-1 rounded-xl mb-6 border border-border-light">
+            <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-tight">Catat Transaksi</h3>
+            <div className="flex bg-subtle p-1 rounded-xl mb-6 border border-border">
               <button
                 type="button"
                 onClick={() => setTransactionType("in")}
                 className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
-                  transactionType === "in" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-400 hover:text-slate-600"
+                  transactionType === "in" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"
                 }`}
               >
                 Pemasukan
@@ -240,7 +240,7 @@ export default function DashboardPage() {
                 type="button"
                 onClick={() => setTransactionType("out")}
                 className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
-                  transactionType === "out" ? "bg-white text-red-500 shadow-sm shadow-red-500/10" : "text-slate-400 hover:text-slate-600"
+                  transactionType === "out" ? "bg-card-bg text-red-500 shadow-sm shadow-red-500/10" : "text-text-muted hover:text-foreground"
                 }`}
               >
                 Pengeluaran
@@ -260,10 +260,10 @@ export default function DashboardPage() {
               )}
 
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Tanggal Transaksi</label>
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Tanggal Transaksi</label>
                 <input
                   type="date"
-                  className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
+                  className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
                   value={formData.tanggal}
                   onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
                 />
@@ -272,11 +272,11 @@ export default function DashboardPage() {
               {transactionType === "in" ? (
                 <>
                   <div>
-                    <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nama Klien</label>
+                    <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Nama Klien</label>
                     <input
                       type="text"
                       placeholder="Nama Pelanggan"
-                      className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                      className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                       value={formData.namaKlien}
                       onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
                     />
@@ -301,21 +301,21 @@ export default function DashboardPage() {
               ) : null}
 
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Nominal Jumlah</label>
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Nominal Jumlah</label>
                 <input
                   type="text"
                   placeholder="Rp 0"
-                  className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                  className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                   value={formData.jumlah}
                   onChange={(e) => setFormData({...formData, jumlah: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Catatan</label>
+                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Catatan</label>
                 <textarea
                   placeholder="Keterangan tambahan..."
-                  className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
+                  className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
                   value={formData.catatan}
                   onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
                 />
@@ -345,25 +345,25 @@ export default function DashboardPage() {
           <div className="subtle-card p-8 min-h-[400px]">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Arus Kas (7 Hari Terakhir)</p>
-                <h3 className="text-xl font-bold text-slate-900">Statistik Operasional</h3>
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Arus Kas (7 Hari Terakhir)</p>
+                <h3 className="text-xl font-bold text-foreground">Statistik Operasional</h3>
               </div>
               <div className="flex gap-4">
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-primary" />
-                  <span className="text-xs font-semibold text-slate-600">Masuk</span>
+                  <span className="text-xs font-semibold text-text-muted">Masuk</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="w-3 h-3 rounded-full bg-red-500" />
-                  <span className="text-xs font-semibold text-slate-600">Keluar</span>
+                  <span className="text-xs font-semibold text-text-muted">Keluar</span>
                 </div>
               </div>
             </div>
 
             <div className="relative h-64 w-full group overflow-visible">
               {isLoading ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-slate-50/50 rounded-2xl animate-pulse">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Memuat Grafik...</span>
+                <div className="absolute inset-0 flex items-center justify-center bg-background/50 rounded-2xl animate-pulse">
+                  <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Memuat Grafik...</span>
                 </div>
               ) : (
                 <>
@@ -392,8 +392,8 @@ export default function DashboardPage() {
                     ))}
                   </div>
                   {hoveredDayIndex !== null && chartData[hoveredDayIndex] && (
-                    <div className="absolute z-20 pointer-events-none transition-all duration-200 subtle-card p-3 shadow-2xl bg-white/95 backdrop-blur-sm -translate-x-1/2 -translate-y-full" style={{ left: `${(hoveredDayIndex * 100) / (chartData.length - 1)}%`, top: `-12px` }}>
-                      <p className="text-[10px] font-bold text-slate-400 uppercase mb-2 border-b border-slate-100 pb-1">{chartData[hoveredDayIndex].fullName}</p>
+                    <div className="absolute z-20 pointer-events-none transition-all duration-200 subtle-card p-3 shadow-2xl bg-card-bg/95 backdrop-blur-sm -translate-x-1/2 -translate-y-full" style={{ left: `${(hoveredDayIndex * 100) / (chartData.length - 1)}%`, top: `-12px` }}>
+                      <p className="text-[10px] font-bold text-text-muted uppercase mb-2 border-b border-border pb-1">{chartData[hoveredDayIndex].fullName}</p>
                       <div className="space-y-1.5 min-w-[140px]">
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-primary" /><span className="text-[10px] font-semibold text-slate-500">Masuk</span></div>
@@ -408,16 +408,16 @@ export default function DashboardPage() {
                   )}
                 </>
               )}
-              <div className="absolute inset-0 flex flex-col justify-between pointer-events-none border-b border-border-light -z-10 opacity-40">
-                <div className="w-full border-t border-slate-100" />
-                <div className="w-full border-t border-slate-100" />
-                <div className="w-full border-t border-slate-100" />
+              <div className="absolute inset-0 flex flex-col justify-between pointer-events-none border-b border-border -z-10 opacity-40">
+                <div className="w-full border-t border-border" />
+                <div className="w-full border-t border-border" />
+                <div className="w-full border-t border-border" />
               </div>
             </div>
             {!isLoading && (
               <div className="flex justify-between mt-4 px-1">
                 {chartData.map((d) => (
-                  <span key={d.day} className="text-[10px] font-bold text-slate-400 uppercase">{d.day}</span>
+                  <span key={d.day} className="text-[10px] font-bold text-text-muted uppercase">{d.day}</span>
                 ))}
               </div>
             )}
@@ -425,8 +425,8 @@ export default function DashboardPage() {
 
           {/* Table Section */}
           <div className="subtle-card overflow-hidden">
-            <div className="p-6 border-b border-border-light flex items-center justify-between">
-              <h3 className="text-sm font-bold text-slate-900 uppercase tracking-tight">Transaksi Terbaru</h3>
+            <div className="p-6 border-b border-border flex items-center justify-between">
+              <h3 className="text-sm font-bold text-foreground uppercase tracking-tight">Transaksi Terbaru</h3>
               <Link href="/history" className="text-xs font-bold text-primary hover:underline group flex items-center gap-1">
                 Riwayat Lengkap
                 <svg className="w-3 h-3 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -436,13 +436,13 @@ export default function DashboardPage() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left min-w-[800px]">
-                <tbody className="divide-y divide-border-light">
+                <tbody className="divide-y divide-border">
                   {isLoading ? (
                     Array(5).fill(0).map((_, i) => (
                       <tr key={i} className="animate-pulse">
-                        <td className="px-6 py-4"><div className="h-10 w-40 bg-slate-100 rounded-lg"></div></td>
-                        <td className="px-6 py-4"><div className="h-6 w-20 bg-slate-100 rounded-lg"></div></td>
-                        <td className="px-6 py-4"><div className="h-8 w-24 bg-slate-100 rounded-lg ml-auto"></div></td>
+                        <td className="px-6 py-4"><div className="h-10 w-40 bg-bg-subtle rounded-lg"></div></td>
+                        <td className="px-6 py-4"><div className="h-6 w-20 bg-bg-subtle rounded-lg"></div></td>
+                        <td className="px-6 py-4"><div className="h-8 w-24 bg-bg-subtle rounded-lg ml-auto"></div></td>
                       </tr>
                     ))
                   ) : recentTransactions.length > 0 ? (
@@ -458,7 +458,7 @@ export default function DashboardPage() {
                               {t.jenis_transaksi === "Pemasukan" ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 17l-4 4m0 0l-4-4m4 4V3" /></svg> : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" /></svg>}
                             </div>
                             <div>
-                                <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
+                                <p className="text-sm font-bold text-foreground">{t.nama_klien}</p>
                                 <div className="flex items-center gap-2 mt-0.5">
                                   <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
                                     t.jenis_transaksi === "Pemasukan" 
@@ -467,13 +467,13 @@ export default function DashboardPage() {
                                   }`}>
                                     {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
                                   </span>
-                                  <p className="text-[10px] text-slate-400 font-medium">{t.id} • {t.asal_instansi}</p>
+                                  <p className="text-[10px] text-text-muted font-medium">{t.id} • {t.asal_instansi}</p>
                                 </div>
                             </div>
                           </div>
                         </td>
                         <td className="px-6 py-4 text-center">
-                          <span className={`text-[10px] font-bold uppercase py-1 px-2 rounded-lg tracking-tight bg-slate-50 text-slate-500`}>
+                          <span className={`text-[10px] font-bold uppercase py-1 px-2 rounded-lg tracking-tight bg-bg-subtle text-text-muted`}>
                             {new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short" })}
                           </span>
                         </td>
@@ -486,7 +486,7 @@ export default function DashboardPage() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={3} className="px-6 py-10 text-center text-xs text-slate-400 italic">Belum ada transaksi tersimpan.</td>
+                      <td colSpan={3} className="px-6 py-10 text-center text-xs text-text-muted italic">Belum ada transaksi tersimpan.</td>
                     </tr>
                   )}
                 </tbody>

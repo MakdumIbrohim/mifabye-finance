@@ -63,8 +63,8 @@ export default function HistoryPage() {
 
       <section className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Riwayat Transaksi</h1>
-          <p className="text-sm text-slate-500">Daftar lengkap seluruh arus kas masuk dan keluar tim.</p>
+          <h1 className="text-2xl font-bold text-foreground mb-1">Riwayat Transaksi</h1>
+          <p className="text-sm text-text-muted">Daftar lengkap seluruh arus kas masuk dan keluar tim.</p>
         </div>
         {isLoading && (
           <div className="animate-spin h-5 w-5 text-primary">
@@ -79,44 +79,44 @@ export default function HistoryPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Total Pemasukan ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-primary">
               {isLoading ? "---" : formatCurrency(monthlyIncome)}
             </h2>
-            {!isLoading && <span className="text-xs font-bold text-green-500 bg-green-50 px-2 py-1 rounded">Update Real-time</span>}
+            {!isLoading && <span className="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded">Update Real-time</span>}
           </div>
         </div>
         <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Total Pengeluaran ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-red-500">
               {isLoading ? "---" : formatCurrency(monthlyExpense)}
             </h2>
-            {!isLoading && <span className="text-xs font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded">Live Data</span>}
+            {!isLoading && <span className="text-xs font-bold text-text-muted bg-bg-subtle px-2 py-1 rounded">Live Data</span>}
           </div>
         </div>
       </div>
 
       <div className="subtle-card p-0 overflow-hidden">
         {/* Filter Bar */}
-        <div className="p-6 border-b border-border-light flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex bg-subtle p-1 rounded-xl w-fit border border-border-light">
+        <div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex bg-bg-subtle p-1 rounded-xl w-fit border border-border">
             <button
               onClick={() => setFilter("all")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "all" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-500 hover:text-slate-700"}`}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "all" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"}`}
             >
               Semua
             </button>
             <button
               onClick={() => setFilter("in")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "in" ? "bg-white text-primary shadow-sm shadow-primary/10" : "text-slate-500 hover:text-slate-700"}`}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "in" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"}`}
             >
               Pemasukan
             </button>
             <button
               onClick={() => setFilter("out")}
-              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "out" ? "bg-white text-red-500 shadow-sm shadow-red-500/10" : "text-slate-500 hover:text-slate-700"}`}
+              className={`px-4 py-2 text-xs font-bold rounded-lg transition-all ${filter === "out" ? "bg-card-bg text-red-500 shadow-sm shadow-red-500/10" : "text-text-muted hover:text-foreground"}`}
             >
               Pengeluaran
             </button>
@@ -128,9 +128,9 @@ export default function HistoryPage() {
               placeholder="Cari klien, instansi, atau layanan..." 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full bg-subtle border border-border-light rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
+              className="w-full bg-bg-subtle border border-border rounded-xl py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all pl-10"
             />
-            <svg className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-text-muted absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
@@ -140,7 +140,7 @@ export default function HistoryPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="bg-subtle border-b border-border-light text-slate-500">
+              <tr className="bg-bg-subtle border-b border-border text-text-muted">
                 <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Klien & Instansi</th>
                 <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Layanan Joki</th>
                 <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Tanggal</th>
@@ -148,15 +148,15 @@ export default function HistoryPage() {
                 <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-right">Jumlah (IDR)</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border-light">
+            <tbody className="divide-y divide-border">
               {isLoading ? (
                 Array(6).fill(0).map((_, i) => (
                   <tr key={i} className="animate-pulse">
-                    <td className="px-6 py-6"><div className="h-10 w-48 bg-slate-100 rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-32 bg-slate-100 rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-24 bg-slate-100 rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-40 bg-slate-100 rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-28 bg-slate-100 rounded-lg ml-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-10 w-48 bg-bg-subtle rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-32 bg-bg-subtle rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 bg-bg-subtle rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-40 bg-bg-subtle rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 bg-bg-subtle rounded-lg ml-auto"></div></td>
                   </tr>
                 ))
               ) : filteredTransactions.length > 0 ? (
@@ -167,7 +167,7 @@ export default function HistoryPage() {
                     className="hover:bg-primary/[0.04] transition-colors group cursor-pointer active:scale-[0.99]"
                   >
                     <td className="px-6 py-4">
-                      <p className="text-sm font-bold text-slate-800">{t.nama_klien}</p>
+                      <p className="text-sm font-bold text-foreground">{t.nama_klien}</p>
                       <div className="flex items-center gap-2 mt-1">
                         <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
                           t.jenis_transaksi === "Pemasukan" 
@@ -176,7 +176,7 @@ export default function HistoryPage() {
                         }`}>
                           {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
                         </span>
-                        <p className="text-[10px] text-slate-400 font-medium">ID: {t.id} | {t.asal_instansi}</p>
+                        <p className="text-[10px] text-text-muted font-medium">ID: {t.id} | {t.asal_instansi}</p>
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -185,12 +185,12 @@ export default function HistoryPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <p className="text-xs font-bold text-slate-500">
+                      <p className="text-xs font-bold text-text-muted">
                         {new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
                       </p>
                     </td>
                     <td className="px-6 py-4 max-w-xs">
-                      <p className="text-xs text-slate-400 truncate hover:whitespace-normal transition-all" title={t.catatan}>
+                      <p className="text-xs text-text-muted truncate hover:whitespace-normal transition-all" title={t.catatan}>
                         {t.catatan || "-"}
                       </p>
                     </td>
@@ -205,12 +205,12 @@ export default function HistoryPage() {
                 <tr>
                   <td colSpan={5} className="px-6 py-32 text-center">
                     <div className="flex flex-col items-center gap-3">
-                      <div className="p-4 bg-slate-50 rounded-full text-slate-300">
+                      <div className="p-4 bg-bg-subtle rounded-full text-text-muted">
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                       </div>
-                      <p className="text-sm text-slate-400 font-medium">Data transaksi belum tersedia.</p>
+                      <p className="text-sm text-text-muted font-medium">Data transaksi belum tersedia.</p>
                     </div>
                   </td>
                 </tr>

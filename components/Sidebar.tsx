@@ -70,10 +70,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
             <span className="text-white font-bold text-xl font-mono">M</span>
           </div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">Mifabyte<span className="text-primary">.id</span></h1>
+          <h1 className="text-xl font-bold tracking-tight text-foreground">Mifabyte<span className="text-primary">.id</span></h1>
         </div>
         {/* Close button for mobile */}
-        <button onClick={onClose} className="md:hidden p-2 text-slate-400 hover:text-slate-600 transition-colors">
+        <button onClick={onClose} className="md:hidden p-2 text-text-muted hover:text-foreground transition-colors">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
@@ -90,7 +90,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
               onClick={onClose}
               className={`nav-link ${isActive ? "active" : ""}`}
             >
-              <div className={`${isActive ? "text-primary" : "text-slate-400"}`}>
+              <div className={`${isActive ? "text-primary" : "text-text-muted"}`}>
                 {item.icon}
               </div>
               {item.name}
@@ -99,12 +99,12 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         })}
       </nav>
 
-      <div className="pt-6 border-t border-border-light mt-auto">
+      <div className="pt-6 border-t border-border mt-auto">
         <button 
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-slate-500 rounded-2xl transition-all hover:bg-red-50 hover:text-red-500 group"
+          className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-text-muted rounded-2xl transition-all hover:bg-red-500/10 hover:text-red-500 group"
         >
-          <svg className="w-5 h-5 text-slate-400 group-hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 text-text-muted group-hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
           Keluar (Logout)
@@ -116,7 +116,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className="w-64 h-screen bg-white border-r border-border-light fixed left-0 top-0 hidden md:flex flex-col shadow-sm">
+      <div className="w-64 h-screen bg-card-bg border-r border-border fixed left-0 top-0 hidden md:flex flex-col shadow-sm transition-colors duration-300">
         {sidebarContent}
       </div>
 
@@ -128,13 +128,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       >
         {/* Backdrop */}
         <div 
-          className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+          className="absolute inset-0 bg-slate-950/40 backdrop-blur-sm"
           onClick={onClose}
         />
         
         {/* Content */}
         <div 
-          className={`absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl transition-transform duration-300 ease-in-out ${
+          className={`absolute left-0 top-0 bottom-0 w-72 bg-card-bg shadow-2xl transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >

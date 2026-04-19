@@ -27,12 +27,12 @@ export default function TransactionDetailModal({
   if (!transaction) return null;
 
   const DetailItem = ({ label, value, icon, fullWidth = false }: { label: string; value: string | number; icon: React.ReactNode, fullWidth?: boolean }) => (
-    <div className={`p-4 bg-slate-50 border border-slate-100 rounded-2xl ${fullWidth ? 'col-span-2' : ''}`}>
+    <div className={`p-4 bg-bg-subtle border border-border rounded-2xl ${fullWidth ? 'col-span-2' : ''}`}>
       <div className="flex items-center gap-2 mb-1.5">
-        <div className="text-slate-400">{icon}</div>
-        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{label}</span>
+        <div className="text-text-muted">{icon}</div>
+        <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">{label}</span>
       </div>
-      <p className="text-sm font-bold text-slate-700 break-words">{value || "-"}</p>
+      <p className="text-sm font-bold text-foreground break-words">{value || "-"}</p>
     </div>
   );
 
@@ -45,19 +45,19 @@ export default function TransactionDetailModal({
       />
       
       {/* Modal Content */}
-      <div className="relative w-full max-w-md bg-white rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 ease-out">
+      <div className="relative w-full max-w-md bg-card-bg rounded-[2.5rem] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 border border-border">
         {/* Header Decor */}
         <div className={`h-2 w-full ${transaction.jenis_transaksi === "Pemasukan" ? 'bg-primary' : 'bg-red-500'}`} />
         
         <div className="p-8">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h3 className="text-2xl font-black text-slate-900 tracking-tight">Detail Transaksi</h3>
-              <p className="text-xs font-bold text-slate-400 mt-1 uppercase tracking-tighter">ID: {transaction.id}</p>
+              <h3 className="text-2xl font-black text-foreground tracking-tight">Detail Transaksi</h3>
+              <p className="text-xs font-bold text-text-muted mt-1 uppercase tracking-tighter">ID: {transaction.id}</p>
             </div>
             <button 
               onClick={onClose}
-              className="p-3 bg-slate-50 text-slate-400 hover:text-slate-600 rounded-2xl transition-colors active:scale-90"
+              className="p-3 bg-bg-subtle text-text-muted hover:text-foreground rounded-2xl transition-colors active:scale-90"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
@@ -66,8 +66,8 @@ export default function TransactionDetailModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <div className="col-span-2 p-6 bg-slate-900 rounded-[2rem] text-center mb-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-2">Nominal Transaksi</p>
+            <div className="col-span-2 p-6 bg-slate-950 rounded-[2rem] text-center mb-2">
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Nominal Transaksi</p>
               <h2 className={`text-3xl font-black ${transaction.jenis_transaksi === "Pemasukan" ? 'text-primary' : 'text-red-400'}`}>
                 {transaction.jenis_transaksi === "Pemasukan" ? "+" : "-"} {formatCurrency(transaction.nominal)}
               </h2>
@@ -119,7 +119,7 @@ export default function TransactionDetailModal({
           <div className="mt-8">
             <button 
               onClick={onClose}
-              className="w-full py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-slate-800 transition-colors shadow-xl shadow-slate-900/10 active:scale-95"
+              className="w-full py-4 bg-primary text-white font-bold rounded-2xl hover:brightness-110 transition-all shadow-xl shadow-primary/20 active:scale-95"
             >
               Tutup Detail
             </button>

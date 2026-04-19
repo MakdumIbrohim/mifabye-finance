@@ -45,13 +45,13 @@ export default function SearchableSelect({
 
   return (
     <div className="relative">
-      <label className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">
+      <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">
         {label}
       </label>
       <input
         type="text"
         placeholder={placeholder}
-        className="w-full bg-subtle border border-border-light rounded-xl p-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+        className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
         value={search}
         onFocus={() => setIsOpen(true)}
         onChange={(e) => {
@@ -63,14 +63,14 @@ export default function SearchableSelect({
 
       {isOpen && (
         <>
-          <div className="absolute z-50 w-full mt-2 bg-white border border-border-light rounded-xl shadow-xl max-h-60 overflow-y-auto subtle-card p-1">
+          <div className="absolute z-50 w-full mt-2 bg-card-bg border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto subtle-card p-1">
             {filteredOptions.length > 0 ? (
               filteredOptions.map((opt) => (
                 <button
                   key={opt}
                   type="button"
                   onClick={() => handleSelect(opt)}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-slate-700 hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
+                  className="w-full text-left px-4 py-3 text-sm font-medium text-foreground hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
                 >
                   {opt}
                   {value === opt && (
@@ -92,7 +92,7 @@ export default function SearchableSelect({
               ))
             ) : (
               <div className="px-4 py-5 text-center">
-                <p className="text-xs text-slate-400 font-medium italic">
+                <p className="text-xs text-text-muted font-medium italic">
                   Tidak ditemukan.
                 </p>
               </div>
