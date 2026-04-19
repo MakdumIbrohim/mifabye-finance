@@ -115,7 +115,6 @@ export default function ManagePage() {
           <h1 className="text-2xl font-bold text-foreground mb-1">Kelola Data Keuangan</h1>
           <p className="text-sm text-text-muted">Halaman khusus untuk mengedit atau menghapus catatan transaksi.</p>
         </div>
-        {isLoading && <div className="text-xs font-bold text-primary animate-pulse">Menghubungkan ke Sheets...</div>}
       </section>
 
       {/* Global Status Notification */}
@@ -269,7 +268,12 @@ export default function ManagePage() {
             <tbody className="divide-y divide-border">
               {isLoading ? (
                 Array(5).fill(0).map((_, i) => (
-                  <tr key={i} className="animate-pulse"><td colSpan={4} className="px-6 py-8"><div className="h-4 bg-bg-subtle rounded w-full"></div></td></tr>
+                  <tr key={i}>
+                    <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-20 skeleton-shimmer rounded-lg mx-auto"></div></td>
+                  </tr>
                 ))
               ) : filteredTransactions.map((t) => (
                 <tr 
