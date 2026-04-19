@@ -3,32 +3,15 @@
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { Transaction, formatCurrency } from "@/lib/finance-utils";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
+import { useFinance } from "@/context/FinanceContext";
 
 export default function HistoryPage() {
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
   const [search, setSearch] = useState("");
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { transactions, isLoading } = useFinance();
 
-  // Fetch Data from API
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await fetch("/api/finance");
-      const result = await response.json();
-      if (result.result === "success") {
-        setTransactions(result.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch transactions:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  // Local fetching logic removed - now handled by FinanceContext
 
   // Calculate Monthly Totals
   const { monthlyIncome, monthlyExpense } = useMemo(() => {

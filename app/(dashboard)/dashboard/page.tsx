@@ -8,17 +8,16 @@ import SearchableSelect from "@/components/SearchableSelect";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
 import { Transaction, calculateChartData, formatCurrency } from "@/lib/finance-utils";
+import { useFinance } from "@/context/FinanceContext";
 
 export default function DashboardPage() {
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
   const [hoveredDayIndex, setHoveredDayIndex] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
-  
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const { transactions, isLoading, refreshData } = useFinance();
 
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -36,24 +35,7 @@ export default function DashboardPage() {
 
   const [formData, setFormData] = useState(initialFormState);
 
-  // Fetch Data from API
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await fetch("/api/finance");
-      const result = await response.json();
-      if (result.result === "success") {
-        setTransactions(result.data);
-      }
-    } catch (error) {
-      console.error("Failed to fetch transactions:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  // Local fetching logic removed - now handled by FinanceContext
 
   // Calculate Financial Statistics
   const { totalBalance, totalIncome, totalExpense } = useMemo(() => {
@@ -99,7 +81,7 @@ export default function DashboardPage() {
         setShowConfirmModal(false); // Close ONLY on success
         setStatus({ type: "success", message: `Berhasil! Data tersimpan dengan ID: ${result.id}` });
         setFormData(initialFormState);
-        fetchData();
+        refreshData();
       } else {
         setStatus({ type: "error", message: result.message || "Gagal menyimpan data." });
       }

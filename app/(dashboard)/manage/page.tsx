@@ -1,16 +1,16 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { Transaction, formatCurrency } from "@/lib/finance-utils";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import SearchableSelect from "@/components/SearchableSelect";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
+import { useFinance } from "@/context/FinanceContext";
 import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
 
 export default function ManagePage() {
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { transactions, isLoading, refreshData } = useFinance();
   const [isProcessing, setIsProcessing] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
@@ -20,25 +20,6 @@ export default function ManagePage() {
   const [editItem, setEditItem] = useState<Transaction | null>(null);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
-
-  // Fetch Data
-  const fetchData = useCallback(async () => {
-    try {
-      const response = await fetch("/api/finance");
-      const result = await response.json();
-      if (result.result === "success") {
-        setTransactions(result.data);
-      }
-    } catch (error) {
-      console.error("Fetch error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
   // Handle Delete
   const handleDelete = async () => {
@@ -54,7 +35,7 @@ export default function ManagePage() {
       if (result.result === "success") {
         setDeleteId(null);
         setStatus({ type: "success", message: "Data berhasil dihapus!" });
-        fetchData();
+        refreshData();
       } else {
         setStatus({ type: "error", message: "Gagal menghapus data." });
       }
