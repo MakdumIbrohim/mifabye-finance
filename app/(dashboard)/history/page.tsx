@@ -53,6 +53,18 @@ export default function HistoryPage() {
     return matchesFilter && matchesSearch;
   }).reverse(); // Most recent first
 
+  // Sub-component for dot animation (1-4 dots)
+  const LoadingDots = () => {
+    const [dots, setDots] = useState(".");
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setDots(prev => prev.length >= 4 ? "." : prev + ".");
+      }, 400);
+      return () => clearInterval(interval);
+    }, []);
+    return <span className="inline-block min-w-[2em]">{dots}</span>;
+  };
+
   return (
     <div className="space-y-8 pb-10">
       {/* Transaction Detail Modal */}
@@ -82,7 +94,7 @@ export default function HistoryPage() {
           <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-primary">
-              {isLoading ? "---" : formatCurrency(monthlyIncome)}
+              {isLoading ? <LoadingDots /> : formatCurrency(monthlyIncome)}
             </h2>
             {!isLoading && <span className="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded">Update Real-time</span>}
           </div>
@@ -91,7 +103,7 @@ export default function HistoryPage() {
           <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-red-500">
-              {isLoading ? "---" : formatCurrency(monthlyExpense)}
+              {isLoading ? <LoadingDots /> : formatCurrency(monthlyExpense)}
             </h2>
             {!isLoading && <span className="text-xs font-bold text-text-muted bg-bg-subtle px-2 py-1 rounded">Live Data</span>}
           </div>

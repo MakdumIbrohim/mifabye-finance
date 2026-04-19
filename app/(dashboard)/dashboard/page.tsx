@@ -37,7 +37,17 @@ export default function DashboardPage() {
 
   const [formData, setFormData] = useState(initialFormState);
 
-  // Local fetching logic removed - now handled by FinanceContext
+  // Sub-component for dot animation (1-4 dots)
+  const LoadingDots = () => {
+    const [dots, setDots] = useState(".");
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setDots(prev => prev.length >= 4 ? "." : prev + ".");
+      }, 400);
+      return () => clearInterval(interval);
+    }, []);
+    return <span className="inline-block min-w-[3em]">{dots}</span>;
+  };
 
   // Calculate Financial Statistics
   const { totalBalance, totalIncome, totalExpense } = useMemo(() => {
@@ -198,7 +208,7 @@ export default function DashboardPage() {
               <span className="text-xs font-bold uppercase tracking-[0.2em]">Total Saldo Keuangan Mifabyte</span>
             </div>
             <h2 className="text-5xl font-black tracking-tighter">
-              {isLoading ? "Menghitung..." : formatCurrency(totalBalance)}
+              {isLoading ? <LoadingDots /> : formatCurrency(totalBalance)}
             </h2>
           </div>
 
@@ -209,7 +219,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pemasukan</p>
-                <p className="text-xl font-black text-teal-300">{isLoading ? "---" : formatCurrency(totalIncome)}</p>
+                <p className="text-xl font-black text-teal-300">{isLoading ? <LoadingDots /> : formatCurrency(totalIncome)}</p>
               </div>
             </div>
             
@@ -221,7 +231,7 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pengeluaran</p>
-                <p className="text-xl font-black text-red-300">{isLoading ? "---" : formatCurrency(totalExpense)}</p>
+                <p className="text-xl font-black text-red-300">{isLoading ? <LoadingDots /> : formatCurrency(totalExpense)}</p>
               </div>
             </div>
           </div>
