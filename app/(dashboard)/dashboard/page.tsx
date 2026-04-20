@@ -221,8 +221,18 @@ export default function DashboardPage() {
               </div>
               <span className="text-xs font-bold uppercase tracking-[0.2em]">Total Saldo Keuangan Mifabyte</span>
             </div>
-            <h2 className="text-5xl font-black tracking-tighter">
-              {isLoading ? <><span className="text-4xl mr-1">Rp</span><LoadingDots /></> : formatCurrency(totalBalance)}
+            <h2 className="text-5xl font-black tracking-tighter flex items-baseline">
+              {isLoading ? (
+                <>
+                  <span className="text-3xl opacity-70 mr-2">Rp</span>
+                  <LoadingDots />
+                </>
+              ) : (
+                <>
+                  <span className="text-3xl opacity-70 mr-2">Rp</span>
+                  {totalBalance.toLocaleString("id-ID")}
+                </>
+              )}
             </h2>
           </div>
 
@@ -233,7 +243,19 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pemasukan</p>
-                <p className="text-xl font-black text-teal-300">{isLoading ? <>Rp <LoadingDots /></> : formatCurrency(totalIncome)}</p>
+                <p className="text-xl font-black text-teal-300 flex items-baseline">
+                  {isLoading ? (
+                    <>
+                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
+                      <LoadingDots />
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
+                      {totalIncome.toLocaleString("id-ID")}
+                    </>
+                  )}
+                </p>
               </div>
             </div>
             
@@ -245,7 +267,19 @@ export default function DashboardPage() {
               </div>
               <div>
                 <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pengeluaran</p>
-                <p className="text-xl font-black text-red-300">{isLoading ? <>Rp <LoadingDots /></> : formatCurrency(totalExpense)}</p>
+                <p className="text-xl font-black text-red-300 flex items-baseline">
+                  {isLoading ? (
+                    <>
+                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
+                      <LoadingDots />
+                    </>
+                  ) : (
+                    <>
+                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
+                      {totalExpense.toLocaleString("id-ID")}
+                    </>
+                  )}
+                </p>
               </div>
             </div>
           </div>
