@@ -153,7 +153,7 @@ export default function HistoryPage() {
     const parts = [];
     if (selectedYear) parts.push(selectedYear);
     if (selectedMonth) parts.push(MONTHS[parseInt(selectedMonth)]);
-    if (selectedWeek) parts.push(`Minggu ${selectedWeek}`);
+    if (selectedWeek) parts.push(`Pekan ${selectedWeek}`);
     if (selectedDay) parts.push(`Tgl ${selectedDay}`);
     return parts.join(" ");
   }, [selectedYear, selectedMonth, selectedWeek, selectedDay, MONTHS]);
@@ -287,111 +287,117 @@ export default function HistoryPage() {
               <span className="text-[10px] font-bold text-text-muted uppercase tracking-wider">Filter Bertingkat:</span>
             </div>
             
-            {/* Year Select */}
-            <div className="relative group">
-              <select
-                value={selectedYear}
-                onChange={(e) => {
-                  resetDateFilters();
-                  setSelectedYear(e.target.value);
-                }}
-                className="appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all"
-              >
-                <option value="">Pilih Tahun</option>
-                {filterOptions.years.map(y => (
-                  <option key={y} value={y}>{y}</option>
-                ))}
-              </select>
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
+            {isMounted ? (
+              <>
+                {/* Year Select */}
+                <div className="relative group">
+                  <select
+                    value={selectedYear}
+                    onChange={(e) => {
+                      resetDateFilters();
+                      setSelectedYear(e.target.value);
+                    }}
+                    className="appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all"
+                  >
+                    <option value="">Pilih Tahun</option>
+                    {filterOptions.years.map(y => (
+                      <option key={y} value={y}>{y}</option>
+                    ))}
+                  </select>
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
 
-            {/* Month Select */}
-            <div className="relative group">
-              <select
-                disabled={!selectedYear}
-                value={selectedMonth}
-                onChange={(e) => {
-                  setSelectedMonth(e.target.value);
-                  setSelectedWeek("");
-                  setSelectedDay("");
-                }}
-                className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedYear ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
-              >
-                <option value="">Pilih Bulan</option>
-                {selectedYear && filterOptions.monthsByYear[selectedYear] && 
-                  Array.from(filterOptions.monthsByYear[selectedYear])
-                    .sort((a, b) => parseInt(a) - parseInt(b))
-                    .map(m => (
-                      <option key={m} value={m}>{MONTHS[parseInt(m)]}</option>
-                    ))
-                }
-              </select>
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
+                {/* Month Select */}
+                <div className="relative group">
+                  <select
+                    disabled={!selectedYear}
+                    value={selectedMonth}
+                    onChange={(e) => {
+                      setSelectedMonth(e.target.value);
+                      setSelectedWeek("");
+                      setSelectedDay("");
+                    }}
+                    className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedYear ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">Pilih Bulan</option>
+                    {selectedYear && filterOptions.monthsByYear[selectedYear] && 
+                      Array.from(filterOptions.monthsByYear[selectedYear])
+                        .sort((a, b) => parseInt(a) - parseInt(b))
+                        .map(m => (
+                          <option key={m} value={m}>{MONTHS[parseInt(m)]}</option>
+                        ))
+                    }
+                  </select>
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
 
-            {/* Week Select */}
-            <div className="relative group">
-              <select
-                disabled={!selectedMonth}
-                value={selectedWeek}
-                onChange={(e) => {
-                  setSelectedWeek(e.target.value);
-                  setSelectedDay("");
-                }}
-                className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedMonth ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
-              >
-                <option value="">Pilih Minggu</option>
-                {selectedMonth && filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`] && 
-                  Array.from(filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`])
-                    .sort((a, b) => parseInt(a) - parseInt(b))
-                    .map(w => (
-                      <option key={w} value={w}>Minggu ke-{w}</option>
-                    ))
-                }
-              </select>
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
+                {/* Week Select */}
+                <div className="relative group">
+                  <select
+                    disabled={!selectedMonth}
+                    value={selectedWeek}
+                    onChange={(e) => {
+                      setSelectedWeek(e.target.value);
+                      setSelectedDay("");
+                    }}
+                    className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedMonth ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">Pilih Pekan</option>
+                    {selectedMonth && filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`] && 
+                      Array.from(filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`])
+                        .sort((a, b) => parseInt(a) - parseInt(b))
+                        .map(w => (
+                          <option key={w} value={w}>Pekan ke-{w}</option>
+                        ))
+                    }
+                  </select>
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
 
-            {/* Day Select */}
-            <div className="relative group">
-              <select
-                disabled={!selectedWeek}
-                value={selectedDay}
-                onChange={(e) => setSelectedDay(e.target.value)}
-                className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedWeek ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
-              >
-                <option value="">Pilih Hari</option>
-                {selectedWeek && filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`] && 
-                  Array.from(filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`])
-                    .sort((a, b) => parseInt(a.split('|')[0]) - parseInt(b.split('|')[0]))
-                    .map(val => {
-                      const [d, name] = val.split('|');
-                      return (
-                        <option key={d} value={d}>{name}, {d}</option>
-                      );
-                    })
-                }
-              </select>
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
-            </div>
+                {/* Day Select */}
+                <div className="relative group">
+                  <select
+                    disabled={!selectedWeek}
+                    value={selectedDay}
+                    onChange={(e) => setSelectedDay(e.target.value)}
+                    className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedWeek ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
+                  >
+                    <option value="">Pilih Hari</option>
+                    {selectedWeek && filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`] && 
+                      Array.from(filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`])
+                        .sort((a, b) => parseInt(a.split('|')[0]) - parseInt(b.split('|')[0]))
+                        .map(val => {
+                          const [d, name] = val.split('|');
+                          return (
+                            <option key={d} value={d}>{name}, {d}</option>
+                          );
+                        })
+                    }
+                  </select>
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="h-8 w-64 bg-bg-subtle animate-pulse rounded-lg border border-border" />
+            )}
 
-            {(selectedYear || selectedMonth || selectedWeek || selectedDay) && (
+            {isMounted && (selectedYear || selectedMonth || selectedWeek || selectedDay) && (
               <button 
                 onClick={resetDateFilters}
                 className="text-[10px] font-bold text-red-500 hover:text-red-600 transition-colors uppercase tracking-widest px-2"
