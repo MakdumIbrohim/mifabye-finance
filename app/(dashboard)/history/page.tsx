@@ -9,7 +9,9 @@ import { exportToCSV, exportToExcel, exportToPDF } from "@/lib/export-utils";
 
 export default function HistoryPage() {
   const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => setIsMounted(true), []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
   const [search, setSearch] = useState("");
@@ -377,9 +379,19 @@ export default function HistoryPage() {
                       const month = parseInt(selectedMonth);
                       const week = parseInt(selectedWeek);
                       
+                      // Get current time in Jakarta for capping
+                      const now = new Date();
+                      const jakartaNow = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Jakarta" }));
+                      // Set to end of day to ensure today is included
+                      jakartaNow.setHours(23, 59, 59, 999);
+
                       const lastDay = new Date(year, month + 1, 0).getDate();
                       for (let d = 1; d <= lastDay; d++) {
                         const dObj = new Date(year, month, d);
+                        
+                        // Rule: Don't show future dates
+                        if (dObj > jakartaNow) continue;
+
                         if (getWeekOfMonth(dObj) === week) {
                           const dayName = dObj.toLocaleDateString("id-ID", { weekday: 'long' });
                           days.push({ d, dayName });
