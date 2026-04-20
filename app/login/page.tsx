@@ -66,6 +66,27 @@ function LoginContent() {
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row bg-white overflow-hidden font-sans">
+      <style jsx global>{`
+        @keyframes cloudFloatX {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(-15px); }
+        }
+        @keyframes cloudFloatY {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes cloudWaver {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
+        }
+        .animate-cloud-1 { animation: cloudFloatX 12s ease-in-out infinite; }
+        .animate-cloud-2 { animation: cloudFloatY 15s ease-in-out infinite; }
+        .animate-cloud-3 { animation: cloudWaver 10s ease-in-out infinite; }
+        
+        .animate-cloud-h-1 { animation: cloudFloatY 14s ease-in-out infinite; }
+        .animate-cloud-h-2 { animation: cloudFloatX 18s ease-in-out infinite; }
+        .animate-cloud-h-3 { animation: cloudWaver 12s ease-in-out infinite; }
+      `}</style>
       <Toast 
         show={showLogoutToast} 
         message="Logout Berhasil! Sesi Anda telah berakhir." 
@@ -88,7 +109,7 @@ function LoginContent() {
         </div>
 
         {/* Mobile Cloud Divider - Varied Organic Clouds */}
-        <div className="lg:hidden absolute bottom-[-1px] left-0 w-full h-24 overflow-visible z-[15] pointer-events-none">
+        <div className="lg:hidden absolute bottom-[-1px] left-0 w-full h-32 overflow-visible z-[15] pointer-events-none">
             <svg 
               className="w-full h-full" 
               viewBox="0 0 800 120" 
@@ -98,16 +119,19 @@ function LoginContent() {
             >
               {/* Layer 1: Varied Back */}
               <path 
+                className="animate-cloud-1"
                 d="M0 120 V 90 a 70,30 0 0,1 140,0 a 40,20 0 0,1 80,0 a 90,40 0 0,1 180,0 a 100,25 0 0,1 200,0 a 100,40 0 0,1 200,0 V 120 H 0 Z" 
-                opacity="0.2"
+                opacity="0.1"
               />
               {/* Layer 2: Varied Mid */}
               <path 
+                className="animate-cloud-2"
                 d="M0 120 V 105 a 50,20 0 0,1 100,0 a 80,30 0 0,1 160,0 a 100,20 0 0,1 200,0 a 120,35 0 0,1 240,0 a 50,20 0 0,1 100,0 V 120 H 0 Z" 
-                opacity="0.4"
+                opacity="0.2"
               />
               {/* Layer 3: Main Dynamic Bubbles */}
               <path 
+                className="animate-cloud-3"
                 d="M0 120 V 112 a 120,40 0 0,1 240,0 a 80,25 0 0,1 160,0 a 150,45 0 0,1 300,0 a 50,15 0 0,1 100,0 V 120 H 0 Z" 
               />
             </svg>
@@ -128,16 +152,19 @@ function LoginContent() {
             >
               {/* Layer 1: Dynamic Back */}
               <path 
-                opacity="0.2"
+                className="animate-cloud-h-1"
+                opacity="0.1"
                 d="M120 0 H 110 a 20,40 0 0,0 0,80 a 35,60 0 0,0 0,120 a 25,40 0 0,0 0,80 a 45,70 0 0,0 0,140 a 20,45 0 0,0 0,90 a 40,65 0 0,0 0,130 a 25,35 0 0,0 0,70 a 15,45 0 0,0 0,90 H 120 V 0 Z" 
               />
               {/* Layer 2: Dynamic Mid */}
               <path 
-                opacity="0.4"
+                className="animate-cloud-h-2"
+                opacity="0.2"
                 d="M120 0 H 112 a 30,55 0 0,0 0,110 a 20,45 0 0,0 0,90 a 40,75 0 0,0 0,150 a 25,55 0 0,0 0,110 a 35,65 0 0,0 0,130 a 20,55 0 0,0 0,110 a 30,50 0 0,0 0,100 H 120 V 0 Z" 
               />
               {/* Layer 3: Dynamic Front */}
               <path 
+                className="animate-cloud-h-3"
                 d="M120 0 H 116 a 25,60 0 0,0 0,120 a 15,45 0 0,0 0,90 a 35,85 0 0,0 0,170 a 20,55 0 0,0 0,110 a 45,105 0 0,0 0,210 a 25,50 0 0,0 0,100 H 120 V 0 Z" 
               />
             </svg>
