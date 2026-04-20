@@ -86,6 +86,17 @@ function LoginContent() {
         .animate-cloud-h-1 { animation: cloudFloatY 14s ease-in-out infinite; }
         .animate-cloud-h-2 { animation: cloudFloatX 18s ease-in-out infinite; }
         .animate-cloud-h-3 { animation: cloudWaver 12s ease-in-out infinite; }
+
+        @keyframes loadingDots {
+          0% { opacity: 0.2; }
+          20% { opacity: 1; }
+          100% { opacity: 0.2; }
+        }
+        .dot {
+          animation: loadingDots 1.4s infinite both;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
       `}</style>
       <Toast 
         show={showLogoutToast} 
@@ -229,7 +240,18 @@ function LoginContent() {
                 disabled={isLoading}
                 className="flex-1 bg-[#125EC8] hover:bg-[#0a3d82] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
               >
-                {isLoading ? "Mengecek Akses..." : "MASUK SEKARANG"}
+                {isLoading ? (
+                  <span className="flex items-center gap-1">
+                    Mengecek Akses
+                    <span className="flex gap-0.5 ml-0.5">
+                      <span className="dot">.</span>
+                      <span className="dot">.</span>
+                      <span className="dot">.</span>
+                    </span>
+                  </span>
+                ) : (
+                  "MASUK SEKARANG"
+                )}
               </button>
             </div>
           </form>
