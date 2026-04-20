@@ -256,7 +256,7 @@ export default function ManagePage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left min-w-[800px]">
             <thead>
               <tr className="border-b border-border text-text-muted text-[10px] uppercase font-bold tracking-widest bg-bg-subtle">
                 <th className="px-6 py-4">Data Transaksi</th>

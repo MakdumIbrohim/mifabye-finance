@@ -365,7 +365,7 @@ export default function HistoryPage() {
 
         {/* Table Content */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
+          <table className="w-full text-left min-w-[1000px]">
             <thead>
               <tr className="bg-bg-subtle border-b border-border text-text-muted">
                 <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Klien & Instansi</th>
