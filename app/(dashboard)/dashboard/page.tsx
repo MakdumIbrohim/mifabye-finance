@@ -40,17 +40,14 @@ export default function DashboardPage() {
 
   const [formData, setFormData] = useState(initialFormState);
 
-  // Sub-component for dot animation (1-4 dots)
-  const LoadingDots = () => {
-    const [dots, setDots] = useState(".");
-    useEffect(() => {
-      const interval = setInterval(() => {
-        setDots(prev => prev.length >= 4 ? "." : prev + ".");
-      }, 400);
-      return () => clearInterval(interval);
-    }, []);
-    return <span className="inline-block min-w-[3em]">{dots}</span>;
-  };
+  // Sub-component for dot animation
+  const LoadingDots = () => (
+    <span className="flex gap-0.5 ml-0.5 inline-flex items-baseline">
+      <span className="dot text-current">.</span>
+      <span className="dot text-current">.</span>
+      <span className="dot text-current">.</span>
+    </span>
+  );
 
   // Calculate Financial Statistics
   const { totalBalance, totalIncome, totalExpense } = useMemo(() => {
@@ -129,6 +126,18 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8 pb-10">
+      <style jsx global>{`
+        @keyframes loadingDots {
+          0% { opacity: 0.2; }
+          20% { opacity: 1; }
+          100% { opacity: 0.2; }
+        }
+        .dot {
+          animation: loadingDots 1.4s infinite both;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+      `}</style>
       {/* Confirmation Modal */}
       <ConfirmationModal
         isOpen={showConfirmModal}
