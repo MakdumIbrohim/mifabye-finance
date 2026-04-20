@@ -54,18 +54,25 @@ export default function SearchableSelect({
       <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">
         {label}
       </label>
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-        value={search}
-        onFocus={() => setIsOpen(true)}
-        onChange={(e) => {
-          const val = toTitleCase(e.target.value);
-          setSearch(val);
-          setIsOpen(true);
-        }}
-      />
+      <div className="relative group/input">
+        <input
+          type="text"
+          placeholder={placeholder}
+          className="w-full bg-subtle border border-border rounded-xl p-3 pr-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+          value={search}
+          onFocus={() => setIsOpen(true)}
+          onChange={(e) => {
+            const val = toTitleCase(e.target.value);
+            setSearch(val);
+            setIsOpen(true);
+          }}
+        />
+        <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-focus-within/input:text-primary transition-colors">
+          <svg className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
 
       {isOpen && (
         <>

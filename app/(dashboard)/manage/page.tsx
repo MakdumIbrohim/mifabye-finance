@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Transaction, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import SearchableSelect from "@/components/SearchableSelect";
@@ -209,14 +209,21 @@ export default function ManagePage() {
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Status Kas</label>
-                  <select
-                    value={editItem.jenis_transaksi}
-                    onChange={(e) => setEditItem({...editItem, jenis_transaksi: e.target.value})}
-                    className="w-full bg-bg-subtle border border-border rounded-xl p-3 text-sm font-semibold text-foreground"
-                  >
-                    <option value="Pemasukan">Pemasukan</option>
-                    <option value="Pengeluaran">Pengeluaran</option>
-                  </select>
+                  <div className="relative group">
+                    <select
+                      value={editItem.jenis_transaksi}
+                      onChange={(e) => setEditItem({...editItem, jenis_transaksi: e.target.value})}
+                      className="appearance-none w-full bg-bg-subtle border border-border rounded-xl p-3 pr-10 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+                    >
+                      <option value="Pemasukan">Pemasukan</option>
+                      <option value="Pengeluaran">Pengeluaran</option>
+                    </select>
+                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
                 <div className="md:col-span-2">
                    <SearchableSelect
