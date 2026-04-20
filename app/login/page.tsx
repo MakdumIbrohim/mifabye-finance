@@ -98,7 +98,7 @@ function LoginContent() {
         
         {/* Branding Elements - Balanced Spacing */}
         <div className="relative z-20 text-center space-y-10 lg:space-y-12 max-w-sm animate-in fade-in slide-in-from-left-8 duration-1000">
-          <p className="text-sm lg:text-xl font-medium tracking-[0.2em] opacity-90 uppercase">Welcome to</p>
+          <p className="text-sm lg:text-xl font-medium tracking-[0.2em] opacity-90 uppercase">Selamat Datang di</p>
           
           <div className="flex flex-col items-center gap-6">
             <div className="w-24 h-24 lg:w-32 lg:h-32 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-900/50 transform hover:scale-110 transition-all duration-500 overflow-hidden p-4">
@@ -182,13 +182,13 @@ function LoginContent() {
             <div className="space-y-8">
               {/* E-mail Address Input */}
               <div className="space-y-2 group">
-                <label className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">E-mail Address</label>
+                <label className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">Alamat E-mail</label>
                 <div className="relative border-b border-slate-200 group-focus-within:border-[#125EC8] transition-all duration-300">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your mail"
+                    placeholder="Masukkan email Anda"
                     required
                     className="w-full login-input py-2 px-0 text-slate-600 outline-none focus:ring-0 text-sm placeholder:text-slate-300 placeholder:italic"
                   />
@@ -200,13 +200,13 @@ function LoginContent() {
 
               {/* Password Input */}
               <div className="space-y-2 group">
-                <label className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">Password</label>
+                <label className="text-[10px] font-medium text-slate-500 tracking-[0.2em] uppercase">Kata Sandi</label>
                 <div className="relative border-b border-slate-200 group-focus-within:border-[#125EC8] transition-all duration-300">
                   <input
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="Enter your password"
+                    placeholder="Masukkan kata sandi Anda"
                     required
                     className="w-full login-input py-2 px-0 text-slate-600 outline-none focus:ring-0 text-sm placeholder:text-slate-300 placeholder:italic"
                   />
@@ -229,7 +229,7 @@ function LoginContent() {
                 disabled={isLoading}
                 className="flex-1 bg-[#125EC8] hover:bg-[#0a3d82] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
               >
-                {isLoading ? "Authenticating..." : "LOG IN"}
+                {isLoading ? "Mengecek Akses..." : "MASUK SEKARANG"}
               </button>
             </div>
           </form>
