@@ -27,12 +27,12 @@ export default function TransactionDetailModal({
   if (!transaction) return null;
 
   const DetailItem = ({ label, value, icon, fullWidth = false }: { label: string; value: string | number; icon: React.ReactNode, fullWidth?: boolean }) => (
-    <div className={`p-2.5 bg-bg-subtle border border-border rounded-xl ${fullWidth ? 'col-span-2' : ''}`}>
-      <div className="flex items-center gap-2 mb-1.5">
+    <div className={`p-2 bg-bg-subtle border border-border rounded-xl ${fullWidth ? 'col-span-2' : ''}`}>
+      <div className="flex items-center gap-2 mb-1">
         <div className="text-text-muted">{icon}</div>
         <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">{label}</span>
       </div>
-      <p className="text-sm font-bold text-foreground break-words">{value || "-"}</p>
+      <p className="text-[13px] font-bold text-foreground break-words leading-tight">{value || "-"}</p>
     </div>
   );
 
@@ -47,11 +47,11 @@ export default function TransactionDetailModal({
       {/* Modal Content */}
       <div className="relative w-full max-w-sm bg-card-bg rounded-[2rem] shadow-2xl overflow-hidden animate-in zoom-in-95 fade-in duration-300 border border-border">
         
-        <div className="p-5">
-          <div className="flex items-center justify-between mb-4">
+        <div className="p-4">
+          <div className="flex items-center justify-between mb-3">
             <div>
-              <h3 className="text-xl font-black text-foreground tracking-tight">Detail Transaksi</h3>
-              <p className="text-xs font-bold text-text-muted mt-1 uppercase tracking-tighter">ID: {transaction.id}</p>
+              <h3 className="text-lg font-black text-foreground tracking-tight">Detail Transaksi</h3>
+              <p className="text-[10px] font-bold text-text-muted mt-0.5 uppercase tracking-tighter">ID: {transaction.id}</p>
             </div>
             <button 
               onClick={onClose}
@@ -63,14 +63,14 @@ export default function TransactionDetailModal({
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <div className="col-span-2 p-4 bg-slate-950 rounded-2xl text-center mb-1">
-              <p className="text-[9px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-1.5">Nominal Transaksi</p>
-              <h2 className={`text-2xl font-black ${transaction.jenis_transaksi === "Pemasukan" ? 'text-primary' : 'text-red-400'}`}>
+          <div className="grid grid-cols-2 gap-2">
+            <div className="col-span-2 p-3 bg-slate-950 rounded-2xl text-center mb-0.5">
+              <p className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-1">Nominal Transaksi</p>
+              <h2 className={`text-xl font-black ${transaction.jenis_transaksi === "Pemasukan" ? 'text-primary' : 'text-red-400'}`}>
                 {transaction.jenis_transaksi === "Pemasukan" ? "+" : "-"} {formatCurrency(transaction.nominal)}
               </h2>
-              <div className="mt-3 flex justify-center">
-                <span className={`text-[8px] font-black uppercase px-2.5 py-1 rounded-full border ${
+              <div className="mt-2 flex justify-center">
+                <span className={`text-[7px] font-black uppercase px-2 py-0.5 rounded-full border ${
                   transaction.jenis_transaksi === "Pemasukan" 
                     ? 'border-primary/30 text-primary bg-primary/10' 
                     : 'border-red-500/30 text-red-400 bg-red-500/10'
@@ -125,10 +125,10 @@ export default function TransactionDetailModal({
               icon={<svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>}
             />
           </div>
-          <div className="mt-4">
+          <div className="mt-3">
             <button 
               onClick={onClose}
-              className="w-full py-2.5 bg-primary text-white font-bold rounded-xl hover:brightness-110 transition-all shadow-lg shadow-primary/20 active:scale-95 text-xs"
+              className="w-full py-2 bg-primary text-white font-bold rounded-xl hover:brightness-110 transition-all shadow-lg shadow-primary/20 active:scale-95 text-[11px]"
             >
               Tutup Detail
             </button>
