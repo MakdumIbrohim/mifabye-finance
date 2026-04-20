@@ -92,3 +92,15 @@ export const calculateChartData = (transactions: Transaction[]) => {
     expense: (r.expense / maxVal) * 100
   }));
 };
+
+/**
+ * Stable Indonesian month names to avoid hydration mismatches
+ */
+export const INDONESIAN_MONTHS = [
+  "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+  "Juli", "Agustus", "September", "Oktober", "November", "Desember"
+];
+
+export const getCurrentMonthName = () => {
+  return INDONESIAN_MONTHS[new Date().getMonth()];
+};

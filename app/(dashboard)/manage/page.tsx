@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Transaction, formatCurrency } from "@/lib/finance-utils";
+import { Transaction, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import SearchableSelect from "@/components/SearchableSelect";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
@@ -11,7 +11,10 @@ import { JokiServices } from "@/constants/services";
 import { PaymentMethods } from "@/constants/payment-methods";
 
 export default function ManagePage() {
-  const { transactions, isLoading, refreshData } = useFinance();
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
+  const { transactions, isLoading, lastCount, refreshData } = useFinance();
   const [isProcessing, setIsProcessing] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
@@ -101,6 +104,8 @@ export default function ManagePage() {
       return matchesFilter && matchesSearch;
     }).reverse();
   }, [transactions, filter, search]);
+
+  const skeletonSize = transactions.length > 0 ? filteredTransactions.length : lastCount;
 
   return (
     <div className="space-y-8 pb-10">
@@ -266,13 +271,24 @@ export default function ManagePage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {isLoading ? (
-                Array(5).fill(0).map((_, i) => (
+              {!isMounted ? (
+                Array(3).fill(0).map((_, i) => (
                   <tr key={i}>
                     <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
                     <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg ml-auto"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-20 skeleton-shimmer rounded-lg mx-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                  </tr>
+                ))
+              ) : isLoading ? (
+                Array(skeletonSize).fill(0).map((_, i) => (
+                  <tr key={i}>
+                    <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
                   </tr>
                 ))
               ) : filteredTransactions.map((t) => (
@@ -298,7 +314,7 @@ export default function ManagePage() {
                     <span className="text-[10px] font-bold text-primary bg-primary-light px-2 py-1 rounded-lg">
                       {t.produk_layanan || "-"}
                     </span>
-                    <p className="text-[9px] text-text-muted mt-1">{new Date(t.tanggal).toLocaleDateString("id-ID")}</p>
+                    <p className="text-[9px] text-text-muted mt-1">{isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID") : "-"}</p>
                   </td>
                   <td className="px-6 py-4">
                     <p className={`text-sm font-bold ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>{formatCurrency(t.nominal)}</p>

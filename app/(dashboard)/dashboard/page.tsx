@@ -8,17 +8,20 @@ import { PaymentMethods } from "@/constants/payment-methods";
 import SearchableSelect from "@/components/SearchableSelect";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
-import { Transaction, calculateChartData, formatCurrency } from "@/lib/finance-utils";
+import { Transaction, calculateChartData, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import { useFinance } from "@/context/FinanceContext";
 
 export default function DashboardPage() {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const [transactionType, setTransactionType] = useState<"in" | "out">("in");
   const [hoveredDayIndex, setHoveredDayIndex] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
-  const { transactions, isLoading, refreshData } = useFinance();
+  const { transactions, isLoading, lastCount, refreshData } = useFinance();
 
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -117,6 +120,8 @@ export default function DashboardPage() {
   const expensePoints = generatePath(chartData as any, "expense");
 
   const recentTransactions = [...transactions].reverse().slice(0, 5);
+
+  const dashboardSkeletonSize = transactions.length > 0 ? recentTransactions.length : lastCount;
 
   const toTitleCase = (str: string) => {
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
@@ -461,8 +466,16 @@ export default function DashboardPage() {
             <div className="overflow-x-auto">
               <table className="w-full text-left min-w-[800px]">
                 <tbody className="divide-y divide-border">
-                  {isLoading ? (
-                    Array(5).fill(0).map((_, i) => (
+                  {!isMounted ? (
+                    Array(3).fill(0).map((_, i) => (
+                      <tr key={i}>
+                        <td className="px-6 py-4"><div className="h-10 w-40 skeleton-shimmer rounded-lg"></div></td>
+                        <td className="px-6 py-4"><div className="h-6 w-20 skeleton-shimmer rounded-lg"></div></td>
+                        <td className="px-6 py-4"><div className="h-8 w-24 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                      </tr>
+                    ))
+                  ) : isLoading ? (
+                    Array(Math.min(dashboardSkeletonSize, 5)).fill(0).map((_, i) => (
                       <tr key={i}>
                         <td className="px-6 py-4"><div className="h-10 w-40 skeleton-shimmer rounded-lg"></div></td>
                         <td className="px-6 py-4"><div className="h-6 w-20 skeleton-shimmer rounded-lg"></div></td>
@@ -498,7 +511,7 @@ export default function DashboardPage() {
                         </td>
                         <td className="px-6 py-4 text-center">
                           <span className={`text-[10px] font-bold uppercase py-1 px-2 rounded-lg tracking-tight bg-bg-subtle text-text-muted`}>
-                            {new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short" })}
+                            {isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short" }) : "-"}
                           </span>
                         </td>
                         <td className="px-6 py-4 text-right">

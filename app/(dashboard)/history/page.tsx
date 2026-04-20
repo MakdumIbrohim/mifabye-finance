@@ -1,18 +1,21 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { Transaction, formatCurrency } from "@/lib/finance-utils";
+import { Transaction, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
 import ExportModal from "@/components/ExportModal";
 import { useFinance } from "@/context/FinanceContext";
 import { exportToCSV, exportToExcel, exportToPDF } from "@/lib/export-utils";
 
 export default function HistoryPage() {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
   const [search, setSearch] = useState("");
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [showExportModal, setShowExportModal] = useState(false);
-  const { transactions, isLoading } = useFinance();
+  const { transactions, isLoading, lastCount } = useFinance();
 
   // Tiered Date Filters
   const [selectedYear, setSelectedYear] = useState<string>("");
@@ -133,6 +136,8 @@ export default function HistoryPage() {
     return matchesFilter && matchesSearch && matchesYear && matchesMonth && matchesWeek && matchesDay;
   }).reverse(); // Most recent first
 
+  const skeletonSize = transactions.length > 0 ? filteredTransactions.length : lastCount;
+
   const resetDateFilters = () => {
     setSelectedYear("");
     setSelectedMonth("");
@@ -203,7 +208,7 @@ export default function HistoryPage() {
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan ({getCurrentMonthName()})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-primary">
               {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyIncome)}
@@ -212,7 +217,7 @@ export default function HistoryPage() {
           </div>
         </div>
         <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran ({new Date().toLocaleDateString('id-ID', { month: 'long' })})</p>
+          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran ({getCurrentMonthName()})</p>
           <div className="flex items-end justify-between">
             <h2 className="text-3xl font-bold text-red-500">
               {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyExpense)}
@@ -376,8 +381,18 @@ export default function HistoryPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
-              {isLoading ? (
-                Array(6).fill(0).map((_, i) => (
+              {!isMounted ? (
+                Array(3).fill(0).map((_, i) => (
+                  <tr key={i}>
+                    <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                  </tr>
+                ))
+              ) : isLoading ? (
+                Array(skeletonSize).fill(0).map((_, i) => (
                   <tr key={i}>
                     <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
                     <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
@@ -413,7 +428,7 @@ export default function HistoryPage() {
                     </td>
                     <td className="px-6 py-4">
                       <p className="text-xs font-bold text-text-muted">
-                        {new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" })}
+                        {isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }) : "-"}
                       </p>
                     </td>
                     <td className="px-6 py-4 max-w-xs">
