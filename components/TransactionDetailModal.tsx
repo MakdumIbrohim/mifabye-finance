@@ -64,13 +64,17 @@ export default function TransactionDetailModal({
           </div>
 
           <div className="grid grid-cols-2 gap-2">
-            <div className="col-span-2 p-3 bg-slate-950 rounded-2xl text-center mb-0.5">
-              <p className="text-[8px] font-bold text-slate-500 uppercase tracking-[0.2em] mb-1">Nominal Transaksi</p>
+            <div className={`col-span-2 p-4 rounded-2xl text-center mb-1 border transition-colors ${
+              transaction.jenis_transaksi === "Pemasukan" 
+                ? 'bg-primary/[0.03] border-primary/10' 
+                : 'bg-red-500/[0.03] border-red-500/10'
+            }`}>
+              <p className="text-[8px] font-bold text-text-muted uppercase tracking-[0.2em] mb-1">Nominal Transaksi</p>
               <h2 className={`text-xl font-black ${transaction.jenis_transaksi === "Pemasukan" ? 'text-primary' : 'text-red-400'}`}>
                 {transaction.jenis_transaksi === "Pemasukan" ? "+" : "-"} {formatCurrency(transaction.nominal)}
               </h2>
-              <div className="mt-2 flex justify-center">
-                <span className={`text-[7px] font-black uppercase px-2 py-0.5 rounded-full border ${
+              <div className="mt-2.5 flex justify-center">
+                <span className={`text-[7px] font-black uppercase px-2.5 py-1 rounded-full border ${
                   transaction.jenis_transaksi === "Pemasukan" 
                     ? 'border-primary/30 text-primary bg-primary/10' 
                     : 'border-red-500/30 text-red-400 bg-red-500/10'
