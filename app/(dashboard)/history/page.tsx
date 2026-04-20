@@ -69,7 +69,10 @@ export default function HistoryPage() {
       // Days for this week combo
       const weekKey = `${y}-${m}-${week}`;
       if (!daysByWeek[weekKey]) daysByWeek[weekKey] = new Set();
-      daysByWeek[weekKey].add(d.toString());
+      
+      const dayName = dateObj.toLocaleDateString("id-ID", { weekday: 'long' });
+      // Store as "date|dayName" to keep both pieces of info
+      daysByWeek[weekKey].add(`${d}|${dayName}`);
     });
 
     return {
@@ -372,10 +375,13 @@ export default function HistoryPage() {
                 <option value="">Pilih Hari</option>
                 {selectedWeek && filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`] && 
                   Array.from(filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`])
-                    .sort((a, b) => parseInt(a) - parseInt(b))
-                    .map(d => (
-                      <option key={d} value={d}>Tanggal {d}</option>
-                    ))
+                    .sort((a, b) => parseInt(a.split('|')[0]) - parseInt(b.split('|')[0]))
+                    .map(val => {
+                      const [d, name] = val.split('|');
+                      return (
+                        <option key={d} value={d}>{name}, {d}</option>
+                      );
+                    })
                 }
               </select>
               <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
