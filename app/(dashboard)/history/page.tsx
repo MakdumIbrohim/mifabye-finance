@@ -397,6 +397,13 @@ export default function HistoryPage() {
         </div>
 
         {/* Table Content */}
+        <div className="flex items-center gap-2 px-6 py-3 bg-primary/[0.03] border-b border-border">
+          <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <p className="text-[10px] font-bold text-primary uppercase tracking-wider">Tip: Klik pada baris tabel untuk melihat detail transaksi lengkap</p>
+        </div>
+
         <div className="overflow-x-auto">
           <table className="w-full text-left min-w-[1000px]">
             <thead>
