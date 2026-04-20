@@ -77,9 +77,7 @@ export default function HistoryPage() {
 
     return {
       years: Array.from(years).sort((a, b) => b.localeCompare(a)),
-      monthsByYear,
-      weeksByMonth,
-      daysByWeek
+      monthsByYear
     };
   }, [transactions]);
 
@@ -351,13 +349,11 @@ export default function HistoryPage() {
                     className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedMonth ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
                   >
                     <option value="">Pilih Pekan</option>
-                    {selectedMonth && filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`] && 
-                      Array.from(filterOptions.weeksByMonth[`${selectedYear}-${selectedMonth}`])
-                        .sort((a, b) => parseInt(a) - parseInt(b))
-                        .map(w => (
-                          <option key={w} value={w}>Pekan ke-{w}</option>
-                        ))
-                    }
+                    {selectedMonth && (
+                      [1, 2, 3, 4, 5].map(w => (
+                        <option key={w} value={w}>Pekan ke-{w}</option>
+                      ))
+                    )}
                   </select>
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -375,16 +371,25 @@ export default function HistoryPage() {
                     className={`appearance-none bg-bg-subtle border border-border rounded-lg py-1.5 pl-3 pr-8 text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 cursor-pointer transition-all ${!selectedWeek ? "opacity-40 grayscale cursor-not-allowed" : ""}`}
                   >
                     <option value="">Pilih Hari</option>
-                    {selectedWeek && filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`] && 
-                      Array.from(filterOptions.daysByWeek[`${selectedYear}-${selectedMonth}-${selectedWeek}`])
-                        .sort((a, b) => parseInt(a.split('|')[0]) - parseInt(b.split('|')[0]))
-                        .map(val => {
-                          const [d, name] = val.split('|');
-                          return (
-                            <option key={d} value={d}>{name}, {d}</option>
-                          );
-                        })
-                    }
+                    {selectedWeek && (() => {
+                      const days = [];
+                      const year = parseInt(selectedYear);
+                      const month = parseInt(selectedMonth);
+                      const week = parseInt(selectedWeek);
+                      
+                      const lastDay = new Date(year, month + 1, 0).getDate();
+                      for (let d = 1; d <= lastDay; d++) {
+                        const dObj = new Date(year, month, d);
+                        if (getWeekOfMonth(dObj) === week) {
+                          const dayName = dObj.toLocaleDateString("id-ID", { weekday: 'long' });
+                          days.push({ d, dayName });
+                        }
+                      }
+                      
+                      return days.map(({ d, dayName }) => (
+                        <option key={d} value={d.toString()}>{dayName}, {d}</option>
+                      ));
+                    })()}
                   </select>
                   <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
