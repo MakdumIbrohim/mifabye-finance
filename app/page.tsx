@@ -266,15 +266,15 @@ export default function LandingPage() {
                 <div className="space-y-4">
                   <div className="group/pay">
                     <p className={`text-[10px] font-bold uppercase mb-1 ${isDarkMode ? "text-slate-500" : "text-text-muted"}`}>Bank BCA</p>
-                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-primary transition-colors ${isDarkMode ? "text-slate-200" : "text-foreground"}`}>1921366201</p>
+                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-primary transition-colors ${isDarkMode ? "text-slate-200" : "text-slate-900"}`}>1921366201</p>
                   </div>
                   <div className="group/pay">
                     <p className={`text-[10px] font-bold uppercase mb-1 ${isDarkMode ? "text-slate-500" : "text-text-muted"}`}>E-Wallet DANA</p>
-                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-orange-500 transition-colors ${isDarkMode ? "text-slate-200" : "text-foreground"}`}>085854894312</p>
+                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-orange-500 transition-colors ${isDarkMode ? "text-slate-200" : "text-slate-900"}`}>085854894312</p>
                   </div>
                   <div className="group/pay">
                     <p className={`text-[10px] font-bold uppercase mb-1 ${isDarkMode ? "text-slate-500" : "text-text-muted"}`}>SeaBank</p>
-                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-teal-500 transition-colors ${isDarkMode ? "text-slate-200" : "text-foreground"}`}>901368029605</p>
+                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-teal-500 transition-colors ${isDarkMode ? "text-slate-200" : "text-slate-900"}`}>901368029605</p>
                   </div>
                 </div>
               </div>
