@@ -222,7 +222,7 @@ export default function LandingPage() {
                   <div className={`p-5 ${svc.color} text-white`}>
                     <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
                   </div>
-                  <div className="p-6 space-y-4">
+                  <div className={`p-6 space-y-4 ${isDarkMode ? "bg-slate-900" : "bg-white"}`}>
                     <div className="space-y-4">
                       {itemsToShow.map((item, i) => (
                         <div key={i} className={`flex items-center justify-between gap-4 border-b pb-3 last:border-0 last:pb-0 animate-fade-in ${isDarkMode ? "border-slate-800" : "border-border"}`} style={{ animationDelay: `${i * 0.05}s` }}>
