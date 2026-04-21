@@ -19,8 +19,8 @@ const services = [
     items: [
       { name: "Makalah", price: "Rp 5.000/Halaman" },
       { name: "Esai", price: "Rp 5.000/Halaman" },
-      { name: "Artikel", price: "mulai Rp 30.000" },
-      { name: "Artikel Jurnal", price: "mulai Rp 50.000" },
+      { name: "Artikel", price: "Mulai Rp 30.000" },
+      { name: "Artikel Jurnal", price: "Mulai Rp 50.000" },
       { name: "Proposal", price: "Rp 5.000/Halaman" },
       { name: "Laporan", price: "Rp 5.000/Halaman" },
       { name: "Resume/Review", price: "Rp 5.000/Halaman" },
