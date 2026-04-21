@@ -148,19 +148,19 @@ export default function LandingPage() {
             <p className="text-sm font-bold text-text-muted uppercase tracking-widest pt-2">Layanan Terbaik & Terjangkau</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
             {services.map((svc, idx) => {
               const isExpanded = expandedCategories.includes(svc.category);
               const itemsToShow = isExpanded ? svc.items : svc.items.slice(0, 3);
               const hasMore = svc.items.length > 3;
 
               return (
-                <div key={idx} className="subtle-card !p-0 overflow-hidden flex flex-col group h-full">
+                <div key={idx} className="subtle-card !p-0 overflow-hidden flex flex-col group transition-all duration-300">
                   <div className={`p-5 ${svc.color} text-white`}>
                     <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
                   </div>
-                  <div className="p-6 space-y-4 flex-1 bg-white">
-                    <div className="space-y-4 transition-all duration-300">
+                  <div className="p-6 space-y-4 bg-white">
+                    <div className="space-y-4">
                       {itemsToShow.map((item, i) => (
                         <div key={i} className="flex items-center justify-between gap-4 border-b border-border pb-3 last:border-0 last:pb-0 animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
                           <span className="text-sm font-bold text-slate-600 leading-tight">{item.name}</span>
