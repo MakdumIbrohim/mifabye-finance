@@ -8,8 +8,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Mifabyte.id - Premium Joki & Finance",
-  description: "Modern dashboard for managing joki services and finances.",
+  title: "Mifabyte.id - Solusi Tugas & Layanan Digital Akademik Terpercaya",
+  description: "Bantu ringankan beban tugas sekolah, kuliah, dan kebutuhan desain profesional Anda dengan harga terjangkau.",
 };
 
 import { ThemeProvider } from "@/context/ThemeContext";
