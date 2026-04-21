@@ -172,7 +172,7 @@ export default function LandingPage() {
                     {hasMore && (
                       <button 
                         onClick={() => toggleCategory(svc.category)}
-                        className="w-full mt-4 py-2 border-t border-border text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:bg-primary/5 transition-all rounded-b-xl group/btn"
+                        className="relative z-20 w-full mt-4 py-4 border-t border-border text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:bg-primary/5 active:bg-primary/10 transition-all rounded-b-xl group/btn"
                       >
                         {isExpanded ? "Sembunyikan" : `Lihat ${svc.items.length - 3} Lainnya`}
                         <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
