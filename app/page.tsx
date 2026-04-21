@@ -74,6 +74,15 @@ const services = [
 
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
+  const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
+
+  const toggleCategory = (category: string) => {
+    setExpandedCategories(prev => 
+      prev.includes(category) 
+        ? prev.filter(c => c !== category) 
+        : [...prev, category]
+    );
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -140,21 +149,41 @@ export default function LandingPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((svc, idx) => (
-              <div key={idx} className="subtle-card !p-0 overflow-hidden flex flex-col group h-full">
-                <div className={`p-5 ${svc.color} text-white`}>
-                  <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
-                </div>
-                <div className="p-6 space-y-4 flex-1 bg-white">
-                  {svc.items.map((item, i) => (
-                    <div key={i} className="flex items-center justify-between gap-4 border-b border-border pb-3 group-last:border-0 last:pb-0">
-                      <span className="text-sm font-bold text-slate-600 leading-tight">{item.name}</span>
-                      <span className="text-xs font-black text-primary bg-primary/5 px-2.5 py-1 rounded-lg whitespace-nowrap">{item.price}</span>
+            {services.map((svc, idx) => {
+              const isExpanded = expandedCategories.includes(svc.category);
+              const itemsToShow = isExpanded ? svc.items : svc.items.slice(0, 3);
+              const hasMore = svc.items.length > 3;
+
+              return (
+                <div key={idx} className="subtle-card !p-0 overflow-hidden flex flex-col group h-full">
+                  <div className={`p-5 ${svc.color} text-white`}>
+                    <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
+                  </div>
+                  <div className="p-6 space-y-4 flex-1 bg-white">
+                    <div className="space-y-4 transition-all duration-300">
+                      {itemsToShow.map((item, i) => (
+                        <div key={i} className="flex items-center justify-between gap-4 border-b border-border pb-3 last:border-0 last:pb-0 animate-fade-in" style={{ animationDelay: `${i * 0.05}s` }}>
+                          <span className="text-sm font-bold text-slate-600 leading-tight">{item.name}</span>
+                          <span className="text-xs font-black text-primary bg-primary/5 px-2.5 py-1 rounded-lg whitespace-nowrap">{item.price}</span>
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                    
+                    {hasMore && (
+                      <button 
+                        onClick={() => toggleCategory(svc.category)}
+                        className="w-full mt-4 py-2 border-t border-border text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:bg-primary/5 transition-all rounded-b-xl group/btn"
+                      >
+                        {isExpanded ? "Sembunyikan" : `Lihat ${svc.items.length - 3} Lainnya`}
+                        <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
 
             <div className="lg:col-span-1 p-8 space-y-10">
               <div className="space-y-4">
