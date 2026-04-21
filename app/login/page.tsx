@@ -234,11 +234,11 @@ function LoginContent() {
               </div>
             </div>
 
-            <div className="flex items-center gap-4 pt-4">
+            <div className="flex flex-col items-center gap-8 pt-4">
               <button
                 type="submit"
                 disabled={isLoading}
-                className="flex-1 bg-[#125EC8] hover:bg-[#0a3d82] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
+                className="w-full bg-[#125EC8] hover:bg-[#0a3d82] text-white py-3 rounded-full text-xs font-bold shadow-lg shadow-primary/20 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70"
               >
                 {isLoading ? (
                   <span className="flex items-center gap-1">
@@ -253,6 +253,13 @@ function LoginContent() {
                   "MASUK SEKARANG"
                 )}
               </button>
+
+              <div className="w-full pt-8 border-t border-slate-100">
+                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.25em] text-center leading-relaxed">
+                  Akses Terbatas: <br />
+                  <span className="text-slate-300">Halaman ini hanya untuk Administrator</span>
+                </p>
+              </div>
             </div>
           </form>
         </div>
