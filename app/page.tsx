@@ -104,8 +104,8 @@ export default function LandingPage() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/80 backdrop-blur-md border-b border-border py-3 shadow-sm" : "py-6"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-              <span className="text-white font-bold text-xl font-mono">M</span>
+            <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center shadow-lg shadow-primary/5 overflow-hidden p-1.5 border border-border">
+              <img src="/assets/mifabyte.png" alt="Mifabyte Logo" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-xl font-black tracking-tight text-foreground">Mifabyte<span className="text-primary">.id</span></h1>
           </div>
