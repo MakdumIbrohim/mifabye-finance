@@ -139,6 +139,64 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* Information Section - Digital Academic Service */}
+        <section className="max-w-4xl mx-auto mb-32 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+          <div className="flex flex-col items-center gap-4 mb-12">
+            <div className="bg-orange-500 text-white px-10 py-4 rounded-2xl font-black text-3xl md:text-4xl tracking-wider shadow-xl shadow-orange-500/20 transform -rotate-1 w-full max-w-lg text-center">
+              LAYANAN DIGITAL
+            </div>
+            <div className="bg-primary text-white px-10 py-5 rounded-2xl font-black text-4xl md:text-6xl tracking-widest shadow-xl shadow-primary/20 transform rotate-1 w-full max-w-2xl text-center">
+              AKADEMIK
+            </div>
+          </div>
+
+          <div className="text-center space-y-12">
+            <p className="text-lg md:text-xl font-bold text-slate-700 leading-relaxed max-w-3xl mx-auto">
+              Tugas menumpuk ? Deadline mepet ? Tenang, kami siap membantu ! Dengan layanan digital akademik, tugas selesai dengan cepat dan berkualitas.
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white/50 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-border shadow-2xl shadow-primary/5">
+              <div className="space-y-8">
+                <div className="inline-block bg-orange-500 text-white px-6 py-2 rounded-xl font-black text-sm uppercase tracking-widest transform -rotate-2">
+                  Layanan yang kami sediakan
+                </div>
+                
+                <div className="space-y-6 text-left">
+                  {[
+                    "Mengerjakan semua jenis tugas akademik",
+                    "Siap kejar deadline",
+                    "Privasi aman & Terpercaya",
+                    "Cepat dan Tepat"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4 group cursor-default">
+                      <div className="flex-shrink-0 text-lime-500 transform group-hover:scale-125 transition-transform">
+                        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <span className="text-lg md:text-xl font-black text-slate-800 tracking-tight">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="hidden md:block relative">
+                <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+                <div className="relative subtle-card p-4 rotate-3 hover:rotate-0 transition-transform duration-500 bg-slate-900 border-none">
+                  <div className="aspect-video rounded-xl bg-slate-800 overflow-hidden flex items-center justify-center p-8">
+                    <div className="text-center space-y-4">
+                      <div className="w-16 h-16 bg-white rounded-full mx-auto flex items-center justify-center p-3">
+                         <img src="/assets/mifabyte.png" alt="Mifa" className="w-full h-full object-contain" />
+                      </div>
+                      <p className="text-xs font-black text-white/40 tracking-[0.4em] uppercase">Mifabyteid</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Pricing Grid */}
         <section id="harga" className="max-w-7xl mx-auto space-y-12 mb-32">
           <div className="flex flex-col items-center text-center space-y-3">
