@@ -118,42 +118,33 @@ export default function LandingPage() {
       </nav>
 
       <main className="relative pt-32 pb-20 px-6">
-        {/* Hero Section */}
-        <section className="max-w-4xl mx-auto text-center mb-24 space-y-6 animate-fade-in">
-          <div className="inline-block px-4 py-1.5 bg-primary/10 rounded-full mb-2">
-            <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Professional Service</span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-black text-foreground tracking-tight leading-[1.1]">
-            Solusi Tugas & Desain <br />
-            <span className="text-primary">Terpercaya Sejak 2026.</span>
-          </h2>
-          <p className="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed font-medium">
-            Mifabyte hadir untuk membantu meringankan beban tugas sekolah, kuliah, hingga kebutuhan desain profesional Anda dengan harga mahasiswa.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
-            <a href="#harga" className="btn-primary !px-8 !py-4 shadow-xl shadow-primary/30">Lihat Daftar Harga</a>
-            <a href="https://wa.me/6285854894312" target="_blank" className="px-8 py-4 bg-white border border-border rounded-2xl font-bold text-sm hover:bg-bg-subtle transition-all flex items-center gap-2">
-              <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.312l-.539 2.022 2.067-.541c.937.51 1.999.851 3.215.851 3.181 0 5.765-2.586 5.766-5.764 0-3.18-2.585-5.766-5.766-5.766zm3.365 8.163c-.146.411-.851.764-1.171.815-.296.046-.677.068-1.097-.066-.248-.079-.564-.187-.978-.358-1.766-.729-2.906-2.529-2.994-2.646-.088-.117-.717-.953-.717-1.816 0-.862.453-1.287.614-1.463.161-.176.351-.22.468-.22.117 0 .234.001.336.005.109.004.255-.041.4.307.146.351.5.1.5.219 0 .118-.117.219-.219.336-.102.117-.215.263-.307.351-.102.102-.208.214-.088.423.119.208.53.873 1.139 1.414.783.695 1.442.911 1.646 1.015.205.103.322.088.439-.044.117-.132.5-.585.634-.783.134-.197.268-.166.453-.098.185.068 1.171.552 1.371.65.201.098.334.146.383.23.051.083.051.482-.095.893z"/></svg>
-              Chat WhatsApp
-            </a>
-          </div>
-        </section>
-
-        {/* Information Section - Digital Academic Service */}
-        <section className="max-w-4xl mx-auto mb-32 animate-fade-in" style={{ animationDelay: "0.2s" }}>
+        {/* New Hero Section - Digital Academic Service */}
+        <section className="max-w-4xl mx-auto mb-32 animate-fade-in">
           <div className="flex flex-col items-center gap-4 mb-12">
-            <div className="bg-orange-500 text-white px-10 py-4 rounded-2xl font-black text-3xl md:text-4xl tracking-wider shadow-xl shadow-orange-500/20 transform -rotate-1 w-full max-w-lg text-center">
+            <div className="inline-block px-4 py-1.5 bg-primary/10 rounded-full mb-4">
+              <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Professional Service</span>
+            </div>
+            <div className="bg-orange-500 text-white px-10 py-4 rounded-2xl font-black text-3xl md:text-5xl tracking-wider shadow-xl shadow-orange-500/20 transform -rotate-1 w-full max-w-lg text-center">
               LAYANAN DIGITAL
             </div>
-            <div className="bg-primary text-white px-10 py-5 rounded-2xl font-black text-4xl md:text-6xl tracking-widest shadow-xl shadow-primary/20 transform rotate-1 w-full max-w-2xl text-center">
+            <div className="bg-primary text-white px-10 py-5 rounded-2xl font-black text-4xl md:text-7xl tracking-widest shadow-xl shadow-primary/20 transform rotate-1 w-full max-w-2xl text-center">
               AKADEMIK
             </div>
           </div>
 
           <div className="text-center space-y-12">
-            <p className="text-lg md:text-xl font-bold text-slate-700 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-lg md:text-2xl font-bold text-slate-700 leading-relaxed max-w-3xl mx-auto">
               Tugas menumpuk ? Deadline mepet ? Tenang, kami siap membantu ! Dengan layanan digital akademik, tugas selesai dengan cepat dan berkualitas.
             </p>
+
+            {/* CTA Buttons integrated into Hero */}
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+              <a href="#harga" className="btn-primary !px-8 !py-4 shadow-xl shadow-primary/30 text-base">Lihat Daftar Harga</a>
+              <a href="https://wa.me/6285854894312" target="_blank" className="px-8 py-4 bg-white border border-border rounded-2xl font-bold text-sm hover:bg-bg-subtle transition-all flex items-center gap-2 shadow-lg shadow-black/5">
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.312l-.539 2.022 2.067-.541c.937.51 1.999.851 3.215.851 3.181 0 5.765-2.586 5.766-5.764 0-3.18-2.585-5.766-5.766-5.766zm3.365 8.163c-.146.411-.851.764-1.171.815-.296.046-.677.068-1.097-.066-.248-.079-.564-.187-.978-.358-1.766-.729-2.906-2.529-2.994-2.646-.088-.117-.717-.953-.717-1.816 0-.862.453-1.287.614-1.463.161-.176.351-.22.468-.22.117 0 .234.001.336.005.109.004.255-.041.4.307.146.351.5.1.5.219 0 .118-.117.219-.219.336-.102.117-.215.263-.307.351-.102.102-.208.214-.088.423.119.208.53.873 1.139 1.414.783.695 1.442.911 1.646 1.015.205.103.322.088.439-.044.117-.132.5-.585.634-.783.134-.197.268-.166.453-.098.185.068 1.171.552 1.371.65.201.098.334.146.383.23.051.083.051.482-.095.893z"/></svg>
+                Konsultasi WhatsApp
+              </a>
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white/50 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-border shadow-2xl shadow-primary/5">
               <div className="space-y-8">
@@ -182,10 +173,10 @@ export default function LandingPage() {
 
               <div className="hidden md:block relative">
                 <div className="absolute inset-0 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-                <div className="relative subtle-card p-4 rotate-3 hover:rotate-0 transition-transform duration-500 bg-slate-900 border-none">
+                <div className="relative subtle-card p-4 rotate-3 hover:rotate-0 transition-transform duration-500 bg-slate-900 border-none shadow-2xl shadow-primary/20">
                   <div className="aspect-video rounded-xl bg-slate-800 overflow-hidden flex items-center justify-center p-8">
                     <div className="text-center space-y-4">
-                      <div className="w-16 h-16 bg-white rounded-full mx-auto flex items-center justify-center p-3">
+                      <div className="w-16 h-16 bg-white rounded-full mx-auto flex items-center justify-center p-3 shadow-xl">
                          <img src="/assets/mifabyte.png" alt="Mifa" className="w-full h-full object-contain" />
                       </div>
                       <p className="text-xs font-black text-white/40 tracking-[0.4em] uppercase">Mifabyteid</p>
