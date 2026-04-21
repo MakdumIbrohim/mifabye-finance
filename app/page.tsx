@@ -8,28 +8,28 @@ const services = [
     category: "1. Jasa Tulis",
     color: "bg-blue-600",
     items: [
-      { name: "Buku Kecil A5", price: "Rp 3.000/halaman" },
-      { name: "Buku Besar", price: "Rp 5.000/halaman" },
-      { name: "Kertas Folio", price: "Rp 7.000/halaman" },
+      { name: "Buku Kecil A5", price: "Rp 3.000/Halaman" },
+      { name: "Buku Besar", price: "Rp 5.000/Halaman" },
+      { name: "Kertas Folio", price: "Rp 7.000/Halaman" },
     ]
   },
   {
     category: "2. Jasa Tugas",
     color: "bg-blue-600",
     items: [
-      { name: "Makalah", price: "Rp 5.000/halaman" },
-      { name: "Esai", price: "Rp 5.000/halaman" },
+      { name: "Makalah", price: "Rp 5.000/Halaman" },
+      { name: "Esai", price: "Rp 5.000/Halaman" },
       { name: "Artikel", price: "mulai Rp 30.000" },
       { name: "Artikel Jurnal", price: "mulai Rp 50.000" },
-      { name: "Proposal", price: "Rp 5.000/halaman" },
-      { name: "Laporan", price: "Rp 5.000/halaman" },
-      { name: "Resume/Review", price: "Rp 5.000/halaman" },
-      { name: "PPT (Tanpa Animasi)", price: "Rp 2.000/slide" },
+      { name: "Proposal", price: "Rp 5.000/Halaman" },
+      { name: "Laporan", price: "Rp 5.000/Halaman" },
+      { name: "Resume/Review", price: "Rp 5.000/Halaman" },
+      { name: "PPT (Tanpa Animasi)", price: "Rp 2.000/Slide" },
       { name: "Pembuatan Kuesioner", price: "Rp 10.000" },
       { name: "Membuat Cerpen (Cust)", price: "Rp 15.000" },
       { name: "Membuat Cerpen (Mifa)", price: "Rp 25.000" },
-      { name: "Buat Modul (Word)", price: "Rp 5.000/hal" },
-      { name: "Buat Modul (Canva)", price: "Rp 10.000/hal" },
+      { name: "Buat Modul (Word)", price: "Rp 5.000/Halaman" },
+      { name: "Buat Modul (Canva)", price: "Rp 10.000/Halaman" },
       { name: "Soal SD-Mahasiswa", price: "Menyesuaikan" },
     ]
   },
@@ -37,23 +37,23 @@ const services = [
     category: "3. Jasa Ketik",
     color: "bg-blue-600",
     items: [
-      { name: "Microsoft Word", price: "Rp 3.000/halaman" },
-      { name: "Excel", price: "Rp 3.000/halaman" },
-      { name: "Bahasa Inggris", price: "Rp 3.000/halaman" },
-      { name: "Rumus Matematika (Word)", price: "Rp 3.000/halaman" },
+      { name: "Microsoft Word", price: "Rp 3.000/Halaman" },
+      { name: "Excel", price: "Rp 3.000/Halaman" },
+      { name: "Bahasa Inggris", price: "Rp 3.000/Halaman" },
+      { name: "Rumus Matematika (Word)", price: "Rp 3.000/Halaman" },
     ]
   },
   {
     category: "4. Jasa Formatting File",
     color: "bg-blue-600",
     items: [
-      { name: "Daftar Isi/Gambar/Tabel", price: "Rp 5.000/halaman" },
-      { name: "Merapikan Isi File", price: "Rp 1.000/halaman" },
-      { name: "Penomoran Halaman", price: "Rp 1.000/2 hal" },
-      { name: "Koreksi Typo", price: "Rp 1.000/2 hal" },
-      { name: "Add Dapus (Mendeley)", price: "Rp 2.000/sumber" },
-      { name: "Add Dapus (Manual)", price: "Rp 3.000/sumber" },
-      { name: "Cari Sumber & Dapus", price: "Rp 5.000/sumber" },
+      { name: "Daftar Isi/Gambar/Tabel", price: "Rp 5.000/Halaman" },
+      { name: "Merapikan Isi File", price: "Rp 1.000/Halaman" },
+      { name: "Penomoran Halaman", price: "Rp 1.000/2   Halaman" },
+      { name: "Koreksi Typo", price: "Rp 1.000/2 Halaman" },
+      { name: "Add Dapus (Mendeley)", price: "Rp 2.000/Sumber" },
+      { name: "Add Dapus (Manual)", price: "Rp 3.000/Sumber" },
+      { name: "Cari Sumber & Dapus", price: "Rp 5.000/Sumber" },
     ]
   },
   {
@@ -64,10 +64,10 @@ const services = [
       { name: "Surat Lamaran Kerja", price: "Rp 10.000 - Rp 20.000" },
       { name: "Buat Poster", price: "Rp 10.000 - Rp 40.000" },
       { name: "Undangan Pernikahan Web", price: "Rp 50.000 - Rp 150.000" },
-      { name: "Sertifikat Digital", price: "Rp 10.000/sertif" },
-      { name: "Feed IG Menarik", price: "Rp 10.000/feed" },
+      { name: "Sertifikat Digital", price: "Rp 10.000/Sertifikat" },
+      { name: "Feed IG Menarik", price: "Rp 10.000/Feed" },
       { name: "Mind Map / Flowchart", price: "Rp 5.000 - Rp 10.000" },
-      { name: "Edit Foto Sederhana", price: "Rp 5.000/foto" },
+      { name: "Edit Foto Sederhana", price: "Rp 5.000/Foto" },
     ]
   }
 ];
@@ -156,36 +156,34 @@ export default function LandingPage() {
               </div>
             ))}
 
-            {/* Ketentuan & Payment as a special card */}
-            <div className="lg:col-span-1 space-y-8">
-              <div id="ketentuan" className="subtle-card p-6 bg-orange-50 border-orange-200">
-                <h3 className="text-sm font-black text-orange-600 uppercase tracking-widest mb-4 flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
-                  Ketentuan
-                </h3>
-                <p className="text-sm font-bold text-orange-800 leading-relaxed">
-                  Melunasi payment sebelum file dikirim atau paling tidak melakukan <span className="underline decoration-2">DP 50%</span> sebagai tanda jadi.
+            <div className="lg:col-span-1 p-8 space-y-10">
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 text-orange-600">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em]">Ketentuan Layanan</h3>
+                </div>
+                <p className="text-sm font-bold text-slate-600 leading-relaxed italic">
+                  "Melunasi payment sebelum file dikirim atau paling tidak melakukan <span className="text-orange-600 underline underline-offset-4 decoration-2">DP 50%</span> sebagai tanda jadi."
                 </p>
               </div>
 
-              <div className="subtle-card p-6 bg-slate-900 text-white border-none space-y-6">
-                <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white/50">Metode Pembayaran</h3>
+              <div className="space-y-6">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-primary/40 border-b border-primary/10 pb-2">Metode Pembayaran</h3>
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold opacity-60 uppercase">BCA</span>
-                    <span className="text-sm font-mono font-black">1921366201</span>
+                  <div className="group/pay">
+                    <p className="text-[10px] font-bold text-text-muted uppercase mb-1">Bank BCA</p>
+                    <p className="text-lg font-black text-foreground font-mono tracking-tighter group-hover:text-primary transition-colors">1921366201</p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold opacity-60 uppercase">DANA</span>
-                    <span className="text-sm font-mono font-black">085854894312</span>
+                  <div className="group/pay">
+                    <p className="text-[10px] font-bold text-text-muted uppercase mb-1">E-Wallet DANA</p>
+                    <p className="text-lg font-black text-foreground font-mono tracking-tighter group-hover:text-orange-500 transition-colors">085854894312</p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold opacity-60 uppercase">SeaBank</span>
-                    <span className="text-sm font-mono font-black">901368029605</span>
+                  <div className="group/pay">
+                    <p className="text-[10px] font-bold text-text-muted uppercase mb-1">SeaBank</p>
+                    <p className="text-lg font-black text-foreground font-mono tracking-tighter group-hover:text-teal-500 transition-colors">901368029605</p>
                   </div>
-                </div>
-                <div className="pt-4 border-t border-white/10 flex justify-center">
-                  <img src="/mifa-logo.png" alt="Mifa" className="h-6 opacity-30 invert" onError={(e) => e.currentTarget.style.display = 'none'} />
                 </div>
               </div>
             </div>
@@ -195,9 +193,9 @@ export default function LandingPage() {
         {/* Footer */}
         <footer className="max-w-4xl mx-auto text-center border-t border-border pt-12">
           <div className="flex items-center justify-center gap-6 mb-8">
-            <a href="https://instagram.com/mifabyte.id" target="_blank" className="flex items-center gap-2 text-sm font-bold text-text-muted hover:text-pink-500 transition-colors">
+            <a href="https://www.instagram.com/mifabyte" target="_blank" className="flex items-center gap-2 text-sm font-bold text-text-muted hover:text-pink-500 transition-colors">
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-              @mifabyte.id
+              @mifabyte
             </a>
             <div className="w-1 h-1 rounded-full bg-border" />
             <a href="https://wa.me/6285854894312" target="_blank" className="flex items-center gap-2 text-sm font-bold text-text-muted hover:text-green-500 transition-colors">
