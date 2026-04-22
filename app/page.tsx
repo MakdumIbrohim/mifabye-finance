@@ -75,10 +75,10 @@ const services = [
     color: "bg-primary",
     badge: "START FROM RP300.000",
     items: [
-      { name: "Web Programming", price: "mulai Rp 300.000" },
-      { name: "Custom Development", price: "mulai Rp 300.000" },
-      { name: "Mobile Programming", price: "mulai Rp 300.000" },
-      { name: "Software Licensing", price: "mulai Rp 300.000" },
+      { name: "Web Programming", price: "Mulai Rp 300.000" },
+      { name: "Custom Development", price: "Mulai Rp 300.000" },
+      { name: "Mobile Programming", price: "Mulai Rp 300.000" },
+      { name: "Software Licensing", price: "Mulai Rp 300.000" },
     ]
   }
 ];
