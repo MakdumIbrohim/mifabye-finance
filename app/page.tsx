@@ -296,7 +296,7 @@ export default function LandingPage() {
                       <div className={`mt-6 p-3 rounded-xl border flex items-start gap-3 transition-all ${isDarkMode ? "bg-primary/10 border-primary/20" : "bg-primary/5 border-primary/10"}`}>
                         <svg className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                         <p className={`text-[11px] font-bold leading-relaxed ${isDarkMode ? "text-primary/90" : "text-primary"}`}>
-                          Harga dapat berubah tergantung kompleksitas aplikasi.
+                          Harga dapat berubah tergantung kompleksitas aplikasi & kesepakatan bersama.
                         </p>
                       </div>
                     )}
