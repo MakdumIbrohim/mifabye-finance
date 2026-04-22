@@ -229,7 +229,7 @@ export default function LandingPage() {
               const hasMore = svc.items.length > 3;
 
               return (
-                <div key={idx} className={`relative subtle-card !p-0 overflow-visible flex flex-col group transition-all duration-300 border ${isDarkMode ? "bg-slate-900 border-slate-800 shadow-black/40" : "bg-white border-border shadow-primary/5"}`}>
+                <div key={idx} className={`relative !p-0 overflow-visible flex flex-col group transition-all duration-300 rounded-[1.5rem] ${isDarkMode ? "bg-slate-900 shadow-2xl shadow-black/40" : "bg-white shadow-xl shadow-primary/5"}`}>
                   {/* Minimum Offer Badge / Price Tag */}
                   {svc.badge && (
                     <div className="absolute -top-5 -right-6 z-30 transform rotate-12 pointer-events-none drop-shadow-2xl">
@@ -263,12 +263,17 @@ export default function LandingPage() {
                   <div className={`p-5 ${svc.color} text-white rounded-t-[1.5rem]`}>
                     <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
                   </div>
-                  <div className={`p-6 space-y-4 ${isDarkMode ? "bg-slate-900" : "bg-white"}`}>
+                   <div className={`p-6 space-y-4 ${isDarkMode ? "bg-slate-900" : "bg-white"} rounded-b-[1.5rem]`}>
                     <div className="space-y-4">
                       {itemsToShow.map((item, i) => (
-                        <div key={i} className={`flex items-center justify-between gap-4 border-b pb-3 last:border-0 last:pb-0 animate-fade-in ${isDarkMode ? "border-slate-800" : "border-border"}`} style={{ animationDelay: `${i * 0.05}s` }}>
-                          <span className={`text-sm font-bold leading-tight ${isDarkMode ? "text-slate-300" : "text-slate-600"}`}>{item.name}</span>
-                          <span className={`text-xs font-black px-2.5 py-1 rounded-lg whitespace-nowrap ${isDarkMode ? "text-primary bg-primary/10" : "text-primary bg-primary/5"}`}>{item.price}</span>
+                        <div key={i} className="flex items-center justify-between group/item">
+                          <div className="flex items-center gap-3">
+                            <div className={`w-1.5 h-1.5 rounded-full ${svc.color} opacity-40`} />
+                            <span className={`text-sm font-bold transition-colors ${isDarkMode ? "text-slate-300 group-hover/item:text-white" : "text-slate-700 group-hover/item:text-primary"}`}>{item.name}</span>
+                          </div>
+                          <span className={`text-xs font-black px-2.5 py-1 rounded-lg transition-all ${isDarkMode ? "bg-white/5 text-slate-400 group-hover/item:bg-primary/20 group-hover/item:text-primary" : "bg-bg-subtle text-text-muted group-hover/item:bg-primary group-hover/item:text-white"}`}>
+                            {item.price}
+                          </span>
                         </div>
                       ))}
                     </div>
@@ -276,7 +281,7 @@ export default function LandingPage() {
                     {hasMore && (
                       <button
                         onClick={() => toggleCategory(svc.category)}
-                        className={`relative z-20 w-full mt-4 py-4 border-t text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all rounded-b-xl group/btn ${isDarkMode ? "border-slate-800 hover:bg-white/5 active:bg-white/10" : "border-border hover:bg-primary/5 active:bg-primary/10"}`}
+                        className={`relative z-20 w-full mt-4 py-4 text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all rounded-b-xl group/btn ${isDarkMode ? "hover:bg-white/5 active:bg-white/10" : "hover:bg-primary/5 active:bg-primary/10"}`}
                       >
                         {isExpanded ? "Sembunyikan" : `Lihat ${svc.items.length - 3} Lainnya`}
                         <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">

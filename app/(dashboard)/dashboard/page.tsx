@@ -359,7 +359,14 @@ export default function DashboardPage() {
                     placeholder="Cari Layanan Joki..."
                     options={JokiServices}
                     value={formData.layanan}
-                    onChange={(val) => setFormData({ ...formData, layanan: val })}
+                    onChange={(val) => {
+                      const selectedService = JokiServices.find(s => s.value === val);
+                      setFormData({ 
+                        ...formData, 
+                        layanan: val,
+                        jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toString() : formData.jumlah 
+                      });
+                    }}
                   />
                 </>
               ) : null}
@@ -373,6 +380,10 @@ export default function DashboardPage() {
                   value={formData.jumlah}
                   onChange={(e) => setFormData({...formData, jumlah: e.target.value})}
                 />
+                <p className="mt-1.5 text-[9px] text-text-muted italic flex items-center gap-1.5 px-1">
+                  <svg className="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  Harga dapat dikustomisasi sesuai kesepakatan antara penyedia layanan joki dan client.
+                </p>
               </div>
 
               <SearchableSelect

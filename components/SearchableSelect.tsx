@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 interface SearchableSelectProps {
   label: string;
   placeholder: string;
-  options: string[];
+  options: (string | { label: string, value: string })[];
   value: string;
   onChange: (value: string) => void;
 }
@@ -31,21 +31,25 @@ export default function SearchableSelect({
     return str.replace(/\b\w/g, (char) => char.toUpperCase());
   };
 
+  const getOptionLabel = (opt: string | { label: string, value: string }) => 
+    typeof opt === 'string' ? opt : opt.label;
+
+  const getOptionValue = (opt: string | { label: string, value: string }) => 
+    typeof opt === 'string' ? opt : opt.value;
+
   const filteredOptions = options.filter((opt) => {
-    // If the input is focused and the search matches the current value, 
-    // we show ALL options to allow the user to see what else they can pick.
-    // If they start typing (search != value), we filter normally.
     const isShowingAll = isOpen && search === value;
     if (isShowingAll) return true;
 
-    const optionLabel = (opt || "").toString().toLowerCase();
+    const optionLabel = getOptionLabel(opt).toLowerCase();
     const searchQuery = (search || "").toString().toLowerCase();
     return optionLabel.includes(searchQuery);
   });
 
-  const handleSelect = (option: string) => {
-    onChange(option);
-    setSearch(option);
+  const handleSelect = (option: string | { label: string, value: string }) => {
+    const val = getOptionValue(option);
+    onChange(val);
+    setSearch(getOptionLabel(option));
     setIsOpen(false);
   };
 
@@ -78,31 +82,35 @@ export default function SearchableSelect({
         <>
           <div className="absolute z-50 w-full mt-2 bg-card-bg border border-border rounded-xl shadow-xl max-h-60 overflow-y-auto subtle-card p-1">
             {filteredOptions.length > 0 ? (
-              filteredOptions.map((opt) => (
-                <button
-                  key={opt}
-                  type="button"
-                  onClick={() => handleSelect(opt)}
-                  className="w-full text-left px-4 py-3 text-sm font-medium text-foreground hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
-                >
-                  {opt}
-                  {value === opt && (
-                    <svg
-                      className="w-4 h-4 text-primary"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={3}
-                        d="M5 13l4 4L19 7"
-                      />
-                    </svg>
-                  )}
-                </button>
-              ))
+              filteredOptions.map((opt, i) => {
+                const optLabel = getOptionLabel(opt);
+                const optValue = getOptionValue(opt);
+                return (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => handleSelect(opt)}
+                    className="w-full text-left px-4 py-3 text-sm font-medium text-foreground hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
+                  >
+                    {optLabel}
+                    {value === optValue && (
+                      <svg
+                        className="w-4 h-4 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={3}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                    )}
+                  </button>
+                );
+              })
             ) : (
               <div className="px-4 py-5 text-center">
                 <p className="text-xs text-text-muted font-medium italic">

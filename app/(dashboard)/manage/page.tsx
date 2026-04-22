@@ -195,7 +195,14 @@ export default function ManagePage() {
                     placeholder="Cari Layanan..."
                     options={JokiServices}
                     value={editItem.produk_layanan}
-                    onChange={(val) => setEditItem({ ...editItem, produk_layanan: val })}
+                    onChange={(val) => {
+                      const selectedService = JokiServices.find(s => s.value === val);
+                      setEditItem({ 
+                        ...editItem, 
+                        produk_layanan: val,
+                        nominal: selectedService && selectedService.price > 0 ? selectedService.price : editItem.nominal
+                      });
+                    }}
                   />
                 </div>
                 <div>
@@ -206,6 +213,10 @@ export default function ManagePage() {
                     onChange={(e) => setEditItem({...editItem, nominal: Number(e.target.value)})}
                     className="w-full bg-bg-subtle border border-border rounded-xl p-3 text-sm font-semibold text-foreground"
                   />
+                  <p className="mt-1 text-[8px] text-text-muted italic flex items-center gap-1 px-1">
+                    <svg className="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    Harga dapat dikustomisasi sesuai kesepakatan antara penyedia layanan joki dan client.
+                  </p>
                 </div>
                 <div>
                   <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Status Kas</label>
