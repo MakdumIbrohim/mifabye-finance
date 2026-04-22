@@ -364,7 +364,7 @@ export default function DashboardPage() {
                       setFormData({ 
                         ...formData, 
                         layanan: val,
-                        jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toString() : formData.jumlah 
+                        jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toLocaleString("id-ID") : formData.jumlah 
                       });
                     }}
                   />
@@ -378,7 +378,11 @@ export default function DashboardPage() {
                   placeholder="Rp 0"
                   className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
                   value={formData.jumlah}
-                  onChange={(e) => setFormData({...formData, jumlah: e.target.value})}
+                  onChange={(e) => {
+                    const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                    const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
+                    setFormData({...formData, jumlah: formattedValue});
+                  }}
                 />
                 <p className="mt-1.5 text-[9px] text-text-muted italic flex items-center gap-1.5 px-1">
                   <svg className="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
