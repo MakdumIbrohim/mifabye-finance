@@ -78,7 +78,6 @@ const services = [
       { name: "Custom Development", price: "mulai Rp 300.000" },
       { name: "Mobile Programming", price: "mulai Rp 300.000" },
       { name: "Software Licensing", price: "mulai Rp 300.000" },
-      { name: "Tech Support", price: "Menyesuaikan" },
     ]
   }
 ];
