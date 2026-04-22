@@ -19,16 +19,6 @@ export default function ManagePage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
-  const [showDataToast, setShowDataToast] = useState(false);
-  const [prevLoading, setPrevLoading] = useState(false);
-
-  // Data Loaded Toast Logic
-  useEffect(() => {
-    if (prevLoading && !isLoading) {
-      setShowDataToast(true);
-    }
-    setPrevLoading(isLoading);
-  }, [isLoading, prevLoading]);
 
   // Modal States
   const [deleteId, setDeleteId] = useState<string | null>(null);
@@ -404,13 +394,6 @@ export default function ManagePage() {
           </table>
         </div>
       </div>
-      {/* Toasts */}
-      <Toast 
-        show={showDataToast} 
-        message="Data Berhasil Dimuat dari Cloud!" 
-        onClose={() => setShowDataToast(false)}
-        type="info"
-      />
     </div>
   );
 }

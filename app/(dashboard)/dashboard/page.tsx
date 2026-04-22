@@ -25,8 +25,6 @@ function DashboardContent() {
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   
   const [showLoginToast, setShowLoginToast] = useState(false);
-  const [showDataToast, setShowDataToast] = useState(false);
-  const [prevLoading, setPrevLoading] = useState(false);
   
   const { transactions, isLoading, lastCount, refreshData } = useFinance();
   const searchParams = useSearchParams();
@@ -41,14 +39,6 @@ function DashboardContent() {
       sessionStorage.setItem("login_toast_shown", "true");
     }
   }, [searchParams]);
-
-  // Data Loaded Toast Logic
-  useEffect(() => {
-    if (prevLoading && !isLoading) {
-      setShowDataToast(true);
-    }
-    setPrevLoading(isLoading);
-  }, [isLoading, prevLoading]);
 
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -635,13 +625,6 @@ function DashboardContent() {
         show={showLoginToast} 
         message="Login Berhasil! Selamat datang kembali." 
         onClose={() => setShowLoginToast(false)}
-      />
-      
-      <Toast 
-        show={showDataToast} 
-        message="Data Berhasil Dimuat dari Cloud!" 
-        onClose={() => setShowDataToast(false)}
-        type="info"
       />
     </div>
   );
