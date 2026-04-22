@@ -249,9 +249,9 @@ export default function LandingPage() {
                           <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-inner shadow-black/20" />
 
                           <div className="relative z-10 pr-8 pl-3 flex flex-col items-start text-left">
-                            <span className="text-[9px] font-black text-white/90 leading-none uppercase tracking-widest italic">Minimum Offer</span>
+                            <span className="text-[9px] font-black text-white/90 leading-none uppercase tracking-widest italic">Penawaran Minimum</span>
                             <div className="flex flex-col">
-                              <span className="text-[11px] font-black text-white leading-tight uppercase tracking-tighter">Start From</span>
+                              <span className="text-[11px] font-black text-white leading-tight uppercase tracking-tighter">Mulai Dari</span>
                               <span className="text-[14px] font-black text-white leading-none tracking-tighter drop-shadow-md">RP 300.000</span>
                             </div>
                           </div>
