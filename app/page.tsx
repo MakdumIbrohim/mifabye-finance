@@ -89,9 +89,9 @@ export default function LandingPage() {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleCategory = (category: string) => {
-    setExpandedCategories(prev => 
-      prev.includes(category) 
-        ? prev.filter(c => c !== category) 
+    setExpandedCategories(prev =>
+      prev.includes(category)
+        ? prev.filter(c => c !== category)
         : [...prev, category]
     );
   };
@@ -105,11 +105,11 @@ export default function LandingPage() {
   return (
     <div className={`min-h-screen transition-colors duration-500 ${isDarkMode ? "bg-slate-950 text-white" : "bg-white text-slate-900"} relative overflow-hidden`}>
       {/* Dot Pattern Background */}
-      <div className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${isDarkMode ? "opacity-[0.15]" : "opacity-[0.4]"}`} 
-           style={{ 
-             backgroundImage: `radial-gradient(${isDarkMode ? "#38BDF8" : "#125EC8"} 1px, transparent 1px)`, 
-             backgroundSize: "24px 24px" 
-           }} 
+      <div className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${isDarkMode ? "opacity-[0.15]" : "opacity-[0.4]"}`}
+        style={{
+          backgroundImage: `radial-gradient(${isDarkMode ? "#38BDF8" : "#125EC8"} 1px, transparent 1px)`,
+          backgroundSize: "24px 24px"
+        }}
       />
 
       {/* Navigation */}
@@ -126,9 +126,9 @@ export default function LandingPage() {
               <a href="#harga" className={`text-sm font-bold transition-colors ${isDarkMode ? "text-slate-400 hover:text-primary" : "text-text-muted hover:text-primary"}`}>Pricelist</a>
               <a href="/login" className="btn-primary text-xs !py-2 !px-4">Admin Dashboard</a>
             </div>
-            
+
             {/* Theme Toggle Button */}
-            <button 
+            <button
               onClick={() => setIsDarkMode(!isDarkMode)}
               className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isDarkMode ? "bg-slate-900 text-yellow-400 border border-slate-800" : "bg-slate-100 text-slate-600 border border-slate-200"}`}
             >
@@ -166,7 +166,7 @@ export default function LandingPage() {
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <a href="#harga" className="btn-primary !px-8 !py-4 shadow-xl shadow-primary/30 text-base">Lihat Daftar Harga</a>
               <a href="https://wa.me/6285854894312" target="_blank" className={`px-8 py-4 border rounded-2xl font-bold text-sm transition-all flex items-center gap-2 shadow-lg ${isDarkMode ? "bg-slate-900 border-slate-800 text-white hover:bg-slate-800 shadow-black/20" : "bg-white border-border text-slate-900 hover:bg-bg-subtle shadow-black/5"}`}>
-                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.312l-.539 2.022 2.067-.541c.937.51 1.999.851 3.215.851 3.181 0 5.765-2.586 5.766-5.764 0-3.18-2.585-5.766-5.766-5.766zm3.365 8.163c-.146.411-.851.764-1.171.815-.296.046-.677.068-1.097-.066-.248-.079-.564-.187-.978-.358-1.766-.729-2.906-2.529-2.994-2.646-.088-.117-.717-.953-.717-1.816 0-.862.453-1.287.614-1.463.161-.176.351-.22.468-.22.117 0 .234.001.336.005.109.004.255-.041.4.307.146.351.5.1.5.219 0 .118-.117.219-.219.336-.102.117-.215.263-.307.351-.102.102-.208.214-.088.423.119.208.53.873 1.139 1.414.783.695 1.442.911 1.646 1.015.205.103.322.088.439-.044.117-.132.5-.585.634-.783.134-.197.268-.166.453-.098.185.068 1.171.552 1.371.65.201.098.334.146.383.23.051.083.051.482-.095.893z"/></svg>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.312l-.539 2.022 2.067-.541c.937.51 1.999.851 3.215.851 3.181 0 5.765-2.586 5.766-5.764 0-3.18-2.585-5.766-5.766-5.766zm3.365 8.163c-.146.411-.851.764-1.171.815-.296.046-.677.068-1.097-.066-.248-.079-.564-.187-.978-.358-1.766-.729-2.906-2.529-2.994-2.646-.088-.117-.717-.953-.717-1.816 0-.862.453-1.287.614-1.463.161-.176.351-.22.468-.22.117 0 .234.001.336.005.109.004.255-.041.4.307.146.351.5.1.5.219 0 .118-.117.219-.219.336-.102.117-.215.263-.307.351-.102.102-.208.214-.088.423.119.208.53.873 1.139 1.414.783.695 1.442.911 1.646 1.015.205.103.322.088.439-.044.117-.132.5-.585.634-.783.134-.197.268-.166.453-.098.185.068 1.171.552 1.371.65.201.098.334.146.383.23.051.083.051.482-.095.893z" /></svg>
                 Konsultasi WhatsApp
               </a>
             </div>
@@ -176,7 +176,7 @@ export default function LandingPage() {
                 <div className="inline-block bg-orange-500 text-white px-6 py-2 rounded-xl font-black text-sm uppercase tracking-widest transform -rotate-2">
                   Layanan yang kami sediakan
                 </div>
-                
+
                 <div className="space-y-6 text-left">
                   {[
                     "Mengerjakan semua jenis tugas akademik",
@@ -202,7 +202,7 @@ export default function LandingPage() {
                   <div className={`aspect-video rounded-xl overflow-hidden flex items-center justify-center p-8 transition-colors ${isDarkMode ? "bg-slate-900" : "bg-slate-800"}`}>
                     <div className="text-center space-y-4">
                       <div className="w-16 h-16 bg-white rounded-full mx-auto flex items-center justify-center p-3 shadow-xl">
-                         <img src="/assets/mifabyte.png" alt="Mifa" className="w-full h-full object-contain" />
+                        <img src="/assets/mifabyte.png" alt="Mifa" className="w-full h-full object-contain" />
                       </div>
                       <p className="text-xs font-black text-white/40 tracking-[0.4em] uppercase">Mifabyteid</p>
                     </div>
@@ -235,16 +235,16 @@ export default function LandingPage() {
                     <div className="absolute -top-5 -right-6 z-30 transform rotate-12 pointer-events-none drop-shadow-2xl">
                       <div className="relative">
                         {/* The Tag Shape */}
-                        <div className="bg-gradient-to-br from-cyan-400 to-blue-600 shadow-2xl flex flex-col items-center justify-center text-center relative overflow-hidden" 
-                             style={{ 
-                               clipPath: "polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)",
-                               width: "170px",
-                               height: "70px"
-                             }}>
+                        <div className="bg-gradient-to-br from-cyan-400 to-blue-600 shadow-2xl flex flex-col items-center justify-center text-center relative overflow-hidden"
+                          style={{
+                            clipPath: "polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)",
+                            width: "170px",
+                            height: "70px"
+                          }}>
                           {/* Dotted Inner Border */}
-                          <div className="absolute inset-1 border-2 border-dotted border-white/40 pointer-events-none" 
-                               style={{ clipPath: "polygon(0% 0%, 84% 0%, 98% 50%, 84% 100%, 0% 100%)" }} />
-                          
+                          <div className="absolute inset-1 border-2 border-dotted border-white/40 pointer-events-none"
+                            style={{ clipPath: "polygon(0% 0%, 84% 0%, 98% 50%, 84% 100%, 0% 100%)" }} />
+
                           {/* Tag Hole */}
                           <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-inner shadow-black/20" />
 
@@ -272,9 +272,9 @@ export default function LandingPage() {
                         </div>
                       ))}
                     </div>
-                    
+
                     {hasMore && (
-                      <button 
+                      <button
                         onClick={() => toggleCategory(svc.category)}
                         className={`relative z-20 w-full mt-4 py-4 border-t text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all rounded-b-xl group/btn ${isDarkMode ? "border-slate-800 hover:bg-white/5 active:bg-white/10" : "border-border hover:bg-primary/5 active:bg-primary/10"}`}
                       >
@@ -327,12 +327,12 @@ export default function LandingPage() {
         <footer className={`max-w-4xl mx-auto text-center border-t pt-12 transition-colors duration-300 ${isDarkMode ? "border-slate-800" : "border-border"}`}>
           <div className="flex items-center justify-center gap-6 mb-8">
             <a href="https://www.instagram.com/mifabyte" target="_blank" className={`flex items-center gap-2 text-sm font-bold transition-colors ${isDarkMode ? "text-slate-500 hover:text-pink-500" : "text-text-muted hover:text-pink-500"}`}>
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" /></svg>
               @mifabyte
             </a>
             <div className={`w-1 h-1 rounded-full ${isDarkMode ? "bg-slate-800" : "bg-border"}`} />
             <a href="https://wa.me/6285854894312" target="_blank" className={`flex items-center gap-2 text-sm font-bold transition-colors ${isDarkMode ? "text-slate-500 hover:text-green-500" : "text-text-muted hover:text-green-500"}`}>
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.312l-.539 2.022 2.067-.541c.937.51 1.999.851 3.215.851 3.181 0 5.765-2.586 5.766-5.764 0-3.18-2.585-5.766-5.766-5.766zm3.365 8.163c-.146.411-.851.764-1.171.815-.296.046-.677.068-1.097-.066-.248-.079-.564-.187-.978-.358-1.766-.729-2.906-2.529-2.994-2.646-.088-.117-.717-.953-.717-1.816 0-.862.453-1.287.614-1.463.161-.176.351-.22.468-.22.117 0 .234.001.336.005.109.004.255-.041.4.307.146.351.5.1.5.219 0 .118-.117.219-.219.336-.102.117-.215.263-.307.351-.102.102-.208.214-.088.423.119.208.53.873 1.139 1.414.783.695 1.442.911 1.646 1.015.205.103.322.088.439-.044.117-.132.5-.585.634-.783.134-.197.268-.166.453-.098.185.068 1.171.552 1.371.65.201.098.334.146.383.23.051.083.051.482-.095.893z"/></svg>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.312l-.539 2.022 2.067-.541c.937.51 1.999.851 3.215.851 3.181 0 5.765-2.586 5.766-5.764 0-3.18-2.585-5.766-5.766-5.766zm3.365 8.163c-.146.411-.851.764-1.171.815-.296.046-.677.068-1.097-.066-.248-.079-.564-.187-.978-.358-1.766-.729-2.906-2.529-2.994-2.646-.088-.117-.717-.953-.717-1.816 0-.862.453-1.287.614-1.463.161-.176.351-.22.468-.22.117 0 .234.001.336.005.109.004.255-.041.4.307.146.351.5.1.5.219 0 .118-.117.219-.219.336-.102.117-.215.263-.307.351-.102.102-.208.214-.088.423.119.208.53.873 1.139 1.414.783.695 1.442.911 1.646 1.015.205.103.322.088.439-.044.117-.132.5-.585.634-.783.134-.197.268-.166.453-.098.185.068 1.171.552 1.371.65.201.098.334.146.383.23.051.083.051.482-.095.893z" /></svg>
               085854894312
             </a>
           </div>
