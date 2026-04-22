@@ -276,7 +276,7 @@ export default function ManagePage() {
         </div>
       )}
 
-      <div className="subtle-card p-0 overflow-hidden min-h-[500px]">
+      <div className="subtle-card p-0 overflow-hidden">
         {/* Manage Filter Bar */}
         <div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-bg-subtle">
           <div className="flex bg-card-bg p-1 rounded-xl w-fit border border-border shadow-sm">
