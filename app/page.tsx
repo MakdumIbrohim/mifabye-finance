@@ -385,12 +385,18 @@ export default function LandingPage() {
                     className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-orange-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-500/30"}`}
                   >
                     <div className="flex items-center gap-5">
-                      <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
-                        <img 
-                          src="https://upload.wikimedia.org/wikipedia/commons/f/f2/SeaBank_logo.svg" 
-                          alt="SeaBank" 
-                          className="w-full h-full object-contain p-1"
-                        />
+                      <div className="w-16 h-12 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                        <svg viewBox="0 0 100 100" className="w-full h-full transform scale-110">
+                          {/* Outer Circle */}
+                          <circle cx="50" cy="45" r="40" fill="#FF5C00" />
+                          {/* Inner Border */}
+                          <circle cx="50" cy="45" r="34" fill="none" stroke="white" strokeWidth="2.5" opacity="0.4" />
+                          {/* Letter S */}
+                          <text x="50" y="58" textAnchor="middle" fill="white" fontSize="42" fontWeight="900" style={{ fontFamily: 'Arial, sans-serif' }}>S</text>
+                          {/* Waves */}
+                          <path d="M15 65 Q30 55 45 65 T75 65 T105 65" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
+                          <path d="M15 78 Q30 68 45 78 T75 78 T105 78" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
+                        </svg>
                       </div>
                       <div>
                         <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
