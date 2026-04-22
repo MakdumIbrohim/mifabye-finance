@@ -264,14 +264,16 @@ export default function LandingPage() {
                     <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
                   </div>
                    <div className={`p-6 space-y-4 ${isDarkMode ? "bg-slate-900" : "bg-white"} rounded-b-[1.5rem]`}>
-                    <div className="space-y-4">
+                    <div className="space-y-4 flex-grow">
                       {itemsToShow.map((item, i) => (
-                        <div key={i} className="flex items-center justify-between group/item">
-                          <div className="flex items-center gap-3">
-                            <div className={`w-1.5 h-1.5 rounded-full ${svc.color} opacity-40`} />
-                            <span className={`text-sm font-bold transition-colors ${isDarkMode ? "text-slate-300 group-hover/item:text-white" : "text-slate-700 group-hover/item:text-primary"}`}>{item.name}</span>
+                        <div key={i} className="flex items-start justify-between gap-4 group/item">
+                          <div className="flex items-start gap-3 min-w-0">
+                            <div className={`w-1.5 h-1.5 rounded-full ${svc.color} opacity-40 mt-1.5 flex-shrink-0`} />
+                            <span className={`text-sm font-bold transition-colors leading-tight ${isDarkMode ? "text-slate-300 group-hover/item:text-white" : "text-slate-700 group-hover/item:text-primary"}`}>
+                              {item.name}
+                            </span>
                           </div>
-                          <span className={`text-xs font-black px-2.5 py-1 rounded-lg transition-all ${isDarkMode ? "bg-white/5 text-slate-400 group-hover/item:bg-primary/20 group-hover/item:text-primary" : "bg-bg-subtle text-text-muted group-hover/item:bg-primary group-hover/item:text-white"}`}>
+                          <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg transition-all flex-shrink-0 text-right ${isDarkMode ? "bg-white/5 text-slate-400 group-hover/item:bg-primary/20 group-hover/item:text-primary" : "bg-bg-subtle text-text-muted group-hover/item:bg-primary group-hover/item:text-white"}`}>
                             {item.price}
                           </span>
                         </div>
