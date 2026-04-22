@@ -73,6 +73,7 @@ const services = [
   {
     category: "6. IT Solutions",
     color: "bg-primary",
+    badge: "START FROM RP300.000",
     items: [
       { name: "Web Programming", price: "mulai Rp 300.000" },
       { name: "Custom Development", price: "mulai Rp 300.000" },
@@ -228,8 +229,38 @@ export default function LandingPage() {
               const hasMore = svc.items.length > 3;
 
               return (
-                <div key={idx} className={`subtle-card !p-0 overflow-hidden flex flex-col group transition-all duration-300 border ${isDarkMode ? "bg-slate-900 border-slate-800 shadow-black/40" : "bg-white border-border shadow-primary/5"}`}>
-                  <div className={`p-5 ${svc.color} text-white`}>
+                <div key={idx} className={`relative subtle-card !p-0 overflow-visible flex flex-col group transition-all duration-300 border ${isDarkMode ? "bg-slate-900 border-slate-800 shadow-black/40" : "bg-white border-border shadow-primary/5"}`}>
+                  {/* Minimum Offer Badge / Price Tag */}
+                  {svc.badge && (
+                    <div className="absolute -top-5 -right-6 z-30 transform rotate-12 pointer-events-none drop-shadow-2xl">
+                      <div className="relative">
+                        {/* The Tag Shape */}
+                        <div className="bg-gradient-to-br from-cyan-400 to-blue-600 shadow-2xl flex flex-col items-center justify-center text-center relative overflow-hidden" 
+                             style={{ 
+                               clipPath: "polygon(0% 0%, 85% 0%, 100% 50%, 85% 100%, 0% 100%)",
+                               width: "170px",
+                               height: "70px"
+                             }}>
+                          {/* Dotted Inner Border */}
+                          <div className="absolute inset-1 border-2 border-dotted border-white/40 pointer-events-none" 
+                               style={{ clipPath: "polygon(0% 0%, 84% 0%, 98% 50%, 84% 100%, 0% 100%)" }} />
+                          
+                          {/* Tag Hole */}
+                          <div className="absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 bg-white rounded-full shadow-inner shadow-black/20" />
+
+                          <div className="relative z-10 pr-8 pl-3 flex flex-col items-start text-left">
+                            <span className="text-[9px] font-black text-white/90 leading-none uppercase tracking-widest italic">Minimum Offer</span>
+                            <div className="flex flex-col">
+                              <span className="text-[11px] font-black text-white leading-tight uppercase tracking-tighter">Start From</span>
+                              <span className="text-[14px] font-black text-white leading-none tracking-tighter drop-shadow-md">RP 300.000</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className={`p-5 ${svc.color} text-white rounded-t-[1.5rem]`}>
                     <h3 className="text-lg font-black tracking-tight">{svc.category}</h3>
                   </div>
                   <div className={`p-6 space-y-4 ${isDarkMode ? "bg-slate-900" : "bg-white"}`}>
