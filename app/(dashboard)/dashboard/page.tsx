@@ -164,39 +164,55 @@ function DashboardContent() {
         type={transactionType === "in" ? "primary" : "danger"}
         title={`Konfirmasi ${transactionType === "in" ? "Pemasukan" : "Pengeluaran"}`}
         message={
-          <div className="space-y-3">
-            <p>Harap periksa detail berikut sebelum menyimpan data ke sistem:</p>
-            <div className="bg-subtle p-4 rounded-2xl space-y-2 border border-border-light">
-              <div className="flex justify-between">
+          <div className="space-y-4">
+            <p className="text-sm text-text-muted">Harap periksa detail berikut sebelum menyimpan data ke sistem:</p>
+            
+            <div className="bg-bg-subtle/50 p-5 rounded-3xl space-y-3 border border-border/50">
+              <div className="flex justify-between items-center">
                 <span className="text-text-muted font-medium text-xs">Jenis Transaksi:</span>
-                <span className={`text-xs font-bold uppercase ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
+                <span className={`text-[10px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest ${transactionType === "in" ? "bg-primary/10 text-primary" : "bg-red-100 text-red-600"}`}>
                   {transactionType === "in" ? "Pemasukan" : "Pengeluaran"}
                 </span>
               </div>
-              <div className="flex justify-between">
+              <div className="flex justify-between items-center">
+                <span className="text-text-muted font-medium text-xs">Pihak/Klien:</span>
+                <span className="text-foreground font-black text-xs">{formData.namaKlien || "-"}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-text-muted font-medium text-xs">Layanan/Info:</span>
+                <span className="text-foreground font-black text-xs">{formData.layanan || "Umum"}</span>
+              </div>
+              <div className="flex justify-between items-center pt-2 border-t border-border/30">
                 <span className="text-text-muted font-medium text-xs">Nominal:</span>
-                <span className={`font-bold ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
-                   Rp {Number(formData.jumlah.replace(/[^0-9]/g, "")).toLocaleString("id-ID")}
+                <span className={`text-lg font-black ${transactionType === "in" ? "text-primary" : "text-red-500"}`}>
+                   Rp {formData.jumlah || "0"}
                 </span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-text-muted font-medium text-xs">Pihak/Klien:</span>
-                <span className="text-foreground font-bold text-xs">{formData.namaKlien || "-"}</span>
+            </div>
+
+            {/* Balance Simulation Card */}
+            <div className={`p-5 rounded-3xl border-2 border-dashed space-y-3 transition-all duration-500 ${transactionType === "in" ? "bg-green-50/50 border-green-200" : "bg-red-50/50 border-red-200"}`}>
+              <div className="flex items-center gap-2 mb-1">
+                <div className={`w-1.5 h-1.5 rounded-full ${transactionType === "in" ? "bg-green-500" : "bg-red-500"}`} />
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Estimasi Saldo Kas</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-text-muted font-medium text-xs">Layanan:</span>
-                <span className="text-foreground font-bold text-xs">{formData.layanan || "Umum"}</span>
+              
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-bold text-slate-500">Saldo Sebelum:</span>
+                <span className="text-xs font-black text-slate-700">{formatCurrency(totalBalance)}</span>
               </div>
-              <div className="flex justify-between">
-                <span className="text-text-muted font-medium text-xs">Instansi:</span>
-                <span className="text-foreground font-bold text-xs">{formData.instansi || "-"}</span>
-              </div>
-              <div className="flex justify-between border-t border-border pt-2 mt-2">
-                <span className="text-text-muted font-medium text-xs">Pembayaran via:</span>
-                <span className="text-primary font-bold text-xs">{formData.metodePembayaran}</span>
+              
+              <div className="flex justify-between items-center pt-3 border-t border-slate-200/50">
+                <span className="text-xs font-bold text-slate-500">Saldo Sesudah:</span>
+                <span className={`text-base font-black ${transactionType === "in" ? "text-green-600" : "text-red-600"}`}>
+                  {formatCurrency(totalBalance + (transactionType === "in" ? (Number(formData.jumlah.replace(/[^0-9]/g, "")) || 0) : -(Number(formData.jumlah.replace(/[^0-9]/g, "")) || 0)))}
+                </span>
               </div>
             </div>
-            <p className="text-[10px] text-text-muted italic font-medium pt-2">Tindakan ini akan tercatat permanen di Google Sheets.</p>
+
+            <p className="text-[10px] text-center text-text-muted italic px-4 leading-relaxed">
+              *Tindakan ini akan tercatat permanen di Google Sheets. Pastikan data sudah sesuai.
+            </p>
           </div>
         }
       />
