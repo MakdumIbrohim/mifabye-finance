@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 const services = [
   {
     category: "1. Jasa Tulis",
-    color: "bg-blue-600",
+    color: "bg-primary",
     items: [
       { name: "Buku Kecil A5", price: "Rp 3.000/Halaman" },
       { name: "Buku Besar", price: "Rp 5.000/Halaman" },
@@ -15,12 +15,12 @@ const services = [
   },
   {
     category: "2. Jasa Tugas",
-    color: "bg-blue-600",
+    color: "bg-primary",
     items: [
       { name: "Makalah", price: "Rp 5.000/Halaman" },
       { name: "Esai", price: "Rp 5.000/Halaman" },
-      { name: "Artikel", price: "Mulai Rp 30.000" },
-      { name: "Artikel Jurnal", price: "Mulai Rp 50.000" },
+      { name: "Artikel", price: "mulai Rp 30.000" },
+      { name: "Artikel Jurnal", price: "mulai Rp 50.000" },
       { name: "Proposal", price: "Rp 5.000/Halaman" },
       { name: "Laporan", price: "Rp 5.000/Halaman" },
       { name: "Resume/Review", price: "Rp 5.000/Halaman" },
@@ -35,7 +35,7 @@ const services = [
   },
   {
     category: "3. Jasa Ketik",
-    color: "bg-blue-600",
+    color: "bg-primary",
     items: [
       { name: "Microsoft Word", price: "Rp 3.000/Halaman" },
       { name: "Excel", price: "Rp 3.000/Halaman" },
@@ -45,7 +45,7 @@ const services = [
   },
   {
     category: "4. Jasa Formatting File",
-    color: "bg-blue-600",
+    color: "bg-primary",
     items: [
       { name: "Daftar Isi/Gambar/Tabel", price: "Rp 5.000/Halaman" },
       { name: "Merapikan Isi File", price: "Rp 1.000/Halaman" },
@@ -58,7 +58,7 @@ const services = [
   },
   {
     category: "5. Jasa Edit",
-    color: "bg-blue-600",
+    color: "bg-primary",
     items: [
       { name: "CV Professional", price: "Rp 10.000" },
       { name: "Surat Lamaran Kerja", price: "Rp 10.000 - Rp 20.000" },
@@ -68,6 +68,17 @@ const services = [
       { name: "Feed IG Menarik", price: "Rp 10.000/Feed" },
       { name: "Mind Map / Flowchart", price: "Rp 5.000 - Rp 10.000" },
       { name: "Edit Foto Sederhana", price: "Rp 5.000/Foto" },
+    ]
+  },
+  {
+    category: "6. IT Solutions",
+    color: "bg-primary",
+    items: [
+      { name: "Web Programming", price: "mulai Rp 300.000" },
+      { name: "Custom Development", price: "mulai Rp 300.000" },
+      { name: "Mobile Programming", price: "mulai Rp 300.000" },
+      { name: "Software Licensing", price: "mulai Rp 300.000" },
+      { name: "Tech Support", price: "Menyesuaikan" },
     ]
   }
 ];
