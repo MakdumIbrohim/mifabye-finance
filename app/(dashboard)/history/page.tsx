@@ -230,7 +230,7 @@ export default function HistoryPage() {
         </div>
       </div>
 
-      <div className="subtle-card p-0 overflow-hidden">
+      <div className="subtle-card p-0 overflow-hidden w-full max-w-full">
         {/* Filter Bar */}
         <div className="p-6 border-b border-border space-y-6">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -255,8 +255,8 @@ export default function HistoryPage() {
               </button>
             </div>
 
-            <div className="flex items-center gap-4 flex-1 justify-end">
-              <div className="relative flex-1 max-w-md">
+            <div className="flex flex-col sm:flex-row items-center gap-4 flex-1 justify-end w-full">
+              <div className="relative w-full sm:max-w-xs">
                 <input 
                   type="text" 
                   placeholder="Cari klien..." 
@@ -268,15 +268,14 @@ export default function HistoryPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-
               <button 
                 onClick={() => setShowExportModal(true)}
-                className="flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-xs hover:opacity-90 transition-all shadow-sm shadow-primary/10 active:scale-95"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 bg-primary text-white px-5 py-2.5 rounded-xl font-bold text-xs hover:opacity-90 transition-all shadow-sm shadow-primary/10 active:scale-95 whitespace-nowrap"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                 </svg>
-                Unduh Laporan
+                Laporan
               </button>
             </div>
           </div>
@@ -433,36 +432,30 @@ export default function HistoryPage() {
           <p className="text-[10px] font-bold text-primary uppercase tracking-wider">Tip: Klik pada baris tabel untuk melihat detail transaksi lengkap</p>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[1000px]">
+        <div className="overflow-x-auto custom-scrollbar pb-2">
+          <table className="w-full text-left min-w-[900px]">
             <thead>
-              <tr className="bg-bg-subtle border-b border-border text-text-muted">
-                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Klien & Instansi</th>
-                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Layanan Joki</th>
-                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Tanggal</th>
-                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider">Catatan</th>
-                <th className="px-6 py-4 text-[11px] font-bold uppercase tracking-wider text-right">Jumlah (IDR)</th>
+              <tr className="border-b border-border text-text-muted text-[10px] uppercase font-black tracking-[0.2em] bg-bg-subtle/50">
+                <th className="px-6 py-4">Data Transaksi</th>
+                <th className="px-6 py-4">Layanan & Info</th>
+                <th className="px-6 py-4 text-right">Nominal (IDR)</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border">
               {!isMounted ? (
                 Array(3).fill(0).map((_, i) => (
                   <tr key={i}>
-                    <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-12 w-64 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-40 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-32 skeleton-shimmer rounded-lg ml-auto"></div></td>
                   </tr>
                 ))
               ) : isLoading ? (
                 Array(skeletonSize).fill(0).map((_, i) => (
                   <tr key={i}>
-                    <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-12 w-64 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-40 skeleton-shimmer rounded-lg"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-32 skeleton-shimmer rounded-lg ml-auto"></div></td>
                   </tr>
                 ))
               ) : filteredTransactions.length > 0 ? (
@@ -470,53 +463,61 @@ export default function HistoryPage() {
                   <tr 
                     key={t.id} 
                     onClick={() => setSelectedTransaction(t)}
-                    className="hover:bg-primary/[0.04] transition-colors group cursor-pointer active:scale-[0.99]"
+                    className="hover:bg-primary/[0.04] transition-all group cursor-pointer active:scale-[0.995]"
                   >
-                    <td className="px-6 py-4">
-                      <p className="text-sm font-bold text-foreground">{t.nama_klien}</p>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
-                          t.jenis_transaksi === "Pemasukan" 
-                            ? "bg-primary/10 text-primary border-primary/20" 
-                            : "bg-red-500/10 text-red-500 border-red-500/20"
-                        }`}>
-                          {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
-                        </span>
-                        <p className="text-[10px] text-text-muted font-medium">ID: {t.id} | {t.asal_instansi}</p>
+                    <td className="px-6 py-5">
+                      <div className="flex items-center gap-4">
+                        <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${t.jenis_transaksi === "Pemasukan" ? "bg-primary-light text-primary" : "bg-red-50 text-red-500"}`}>
+                          {t.jenis_transaksi === "Pemasukan" ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M16 17l-4 4m0 0l-4-4m4 4V3" /></svg> : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7l4-4m0 0l4 4m-4-4v18" /></svg>}
+                        </div>
+                        <div>
+                          <p className="text-sm font-black text-foreground mb-1">{t.nama_klien}</p>
+                          <div className="flex items-center gap-2">
+                            <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
+                              t.jenis_transaksi === "Pemasukan" 
+                                ? "bg-primary/10 text-primary border-primary/20" 
+                                : "bg-red-500/10 text-red-500 border-red-500/20"
+                            }`}>
+                              {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
+                            </span>
+                            <p className="text-[10px] text-text-muted font-bold tracking-tight">{t.id} • {t.asal_instansi}</p>
+                          </div>
+                        </div>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className="text-xs font-semibold text-primary px-2.5 py-1 bg-primary-light rounded-lg">
-                        {t.produk_layanan || "-"}
-                      </span>
+                    <td className="px-6 py-5">
+                      <div className="flex flex-col gap-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-[10px] font-black text-primary bg-primary/5 border border-primary/10 px-2 py-0.5 rounded-lg">
+                            {t.produk_layanan || "Umum"}
+                          </span>
+                          <span className="text-[10px] font-bold text-text-muted">
+                            {isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID", { day: 'numeric', month: 'short', year: 'numeric' }) : "-"}
+                          </span>
+                        </div>
+                        <p className="text-[10px] text-text-muted italic max-w-[200px] truncate font-medium">
+                          {t.catatan || "-"}
+                        </p>
+                      </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <p className="text-xs font-bold text-text-muted">
-                        {isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID", { day: "numeric", month: "short", year: "numeric" }) : "-"}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 max-w-xs">
-                      <p className="text-xs text-text-muted truncate hover:whitespace-normal transition-all" title={t.catatan}>
-                        {t.catatan || "-"}
-                      </p>
-                    </td>
-                    <td className="px-6 py-4 text-right">
-                      <p className={`text-sm font-bold ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>
+                    <td className="px-6 py-5 text-right">
+                      <p className={`text-base font-black ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>
                         {t.jenis_transaksi === "Pemasukan" ? "+" : "-"}{formatCurrency(t.nominal)}
                       </p>
+                      <p className="text-[10px] font-bold text-text-muted/60 mt-1">{t.metode_pembayaran}</p>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={5} className="px-6 py-32 text-center">
+                  <td colSpan={3} className="px-6 py-32 text-center">
                     <div className="flex flex-col items-center gap-3">
                       <div className="p-4 bg-bg-subtle rounded-full text-text-muted">
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                       </div>
-                      <p className="text-sm text-text-muted font-medium">Data transaksi belum tersedia.</p>
+                      <p className="text-sm text-text-muted font-black uppercase tracking-widest">Data Kosong</p>
                     </div>
                   </td>
                 </tr>

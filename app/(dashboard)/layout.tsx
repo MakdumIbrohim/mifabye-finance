@@ -41,9 +41,9 @@ function DashboardContent({ children }: { children: React.ReactNode }) {
       
       <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       
-      <div className="flex-1 md:ml-64 flex flex-col">
+      <div className="flex-1 md:ml-64 flex flex-col min-w-0">
         <Header onOpenMenu={() => setIsMobileMenuOpen(true)} />
-        <main className="flex-1 p-4 md:p-8">
+        <main className="flex-1 p-4 md:p-8 overflow-x-hidden">
           <div className="max-w-7xl mx-auto">
             {children}
           </div>

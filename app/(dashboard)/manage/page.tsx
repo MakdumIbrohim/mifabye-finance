@@ -276,7 +276,7 @@ export default function ManagePage() {
         </div>
       )}
 
-      <div className="subtle-card p-0 overflow-hidden">
+      <div className="subtle-card p-0 overflow-hidden w-full max-w-full">
         {/* Manage Filter Bar */}
         <div className="p-6 border-b border-border flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-bg-subtle">
           <div className="flex bg-card-bg p-1 rounded-xl w-fit border border-border shadow-sm">
@@ -302,10 +302,10 @@ export default function ManagePage() {
           </svg>
           <p className="text-[10px] font-bold text-primary uppercase tracking-wider">Tip: Klik baris untuk detail transaksi lengkap</p>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left min-w-[1000px]">
+        <div className="overflow-x-auto custom-scrollbar pb-2">
+          <table className="w-full text-left min-w-[900px]">
             <thead>
-              <tr className="border-b border-border text-text-muted text-[10px] uppercase font-bold tracking-widest bg-bg-subtle">
+              <tr className="border-b border-border text-text-muted text-[10px] uppercase font-black tracking-[0.2em] bg-bg-subtle/50">
                 <th className="px-6 py-4">Data Transaksi</th>
                 <th className="px-6 py-4">Layanan</th>
                 <th className="px-6 py-4">Nominal</th>
@@ -319,8 +319,7 @@ export default function ManagePage() {
                     <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
                     <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
                     <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg mx-auto"></div></td>
                   </tr>
                 ))
               ) : isLoading ? (
@@ -329,46 +328,58 @@ export default function ManagePage() {
                     <td className="px-6 py-6"><div className="h-10 w-48 skeleton-shimmer rounded-lg"></div></td>
                     <td className="px-6 py-6"><div className="h-6 w-32 skeleton-shimmer rounded-lg"></div></td>
                     <td className="px-6 py-6"><div className="h-6 w-24 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-6 w-40 skeleton-shimmer rounded-lg"></div></td>
-                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg ml-auto"></div></td>
+                    <td className="px-6 py-6"><div className="h-8 w-28 skeleton-shimmer rounded-lg mx-auto"></div></td>
                   </tr>
                 ))
               ) : filteredTransactions.map((t) => (
                 <tr 
                   key={t.id} 
                   onClick={() => setSelectedTransaction(t)}
-                  className="hover:bg-primary/[0.02] transition-colors group cursor-pointer active:scale-[0.995]"
+                  className="hover:bg-primary/[0.04] transition-all group cursor-pointer active:scale-[0.995]"
                 >
-                  <td className="px-6 py-4">
-                    <p className="text-sm font-bold text-foreground">{t.nama_klien}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
-                        t.jenis_transaksi === "Pemasukan" 
-                          ? "bg-primary/10 text-primary border-primary/20" 
-                          : "bg-red-500/10 text-red-500 border-red-500/20"
-                      }`}>
-                        {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
-                      </span>
-                      <p className="text-[10px] text-text-muted font-medium">{t.id} • {t.asal_instansi}</p>
+                  <td className="px-6 py-5">
+                    <div className="flex items-center gap-4">
+                      <div className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${t.jenis_transaksi === "Pemasukan" ? "bg-primary-light text-primary" : "bg-red-50 text-red-500"}`}>
+                        {t.jenis_transaksi === "Pemasukan" ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M16 17l-4 4m0 0l-4-4m4 4V3" /></svg> : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7l4-4m0 0l4 4m-4-4v18" /></svg>}
+                      </div>
+                      <div>
+                        <p className="text-sm font-black text-foreground mb-1">{t.nama_klien}</p>
+                        <div className="flex items-center gap-2">
+                          <span className={`text-[8px] font-black uppercase px-1.5 py-0.5 rounded-md border ${
+                            t.jenis_transaksi === "Pemasukan" 
+                              ? "bg-primary/10 text-primary border-primary/20" 
+                              : "bg-red-500/10 text-red-500 border-red-500/20"
+                          }`}>
+                            {t.jenis_transaksi === "Pemasukan" ? "Pemasukan" : "Pengeluaran"}
+                          </span>
+                          <p className="text-[10px] text-text-muted font-bold tracking-tight">{t.id} • {t.asal_instansi}</p>
+                        </div>
+                      </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className="text-[10px] font-bold text-primary bg-primary-light px-2 py-1 rounded-lg">
-                      {t.produk_layanan || "-"}
-                    </span>
-                    <p className="text-[9px] text-text-muted mt-1">{isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID") : "-"}</p>
+                  <td className="px-6 py-5">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] font-black text-primary bg-primary/5 border border-primary/10 px-2.5 py-1 rounded-xl w-fit">
+                        {t.produk_layanan || "-"}
+                      </span>
+                      <p className="text-[9px] font-bold text-text-muted mt-1 px-1">
+                        {isMounted ? new Date(t.tanggal).toLocaleDateString("id-ID", { day: 'numeric', month: 'long', year: 'numeric' }) : "-"}
+                      </p>
+                    </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <p className={`text-sm font-bold ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>{formatCurrency(t.nominal)}</p>
+                  <td className="px-6 py-5">
+                    <p className={`text-base font-black ${t.jenis_transaksi === "Pemasukan" ? "text-primary" : "text-red-500"}`}>
+                      {t.jenis_transaksi === "Pemasukan" ? "+" : "-"}{formatCurrency(t.nominal)}
+                    </p>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-center gap-2">
+                  <td className="px-6 py-5">
+                    <div className="flex items-center justify-center gap-3">
                       <button 
                          onClick={(e) => {
                            e.stopPropagation();
                            setEditItem(t);
                          }}
-                         className="p-2 text-text-muted hover:text-primary hover:bg-primary-light rounded-xl transition-all"
+                         className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-primary hover:bg-primary/10 rounded-2xl transition-all border border-transparent hover:border-primary/20"
                          title="Edit Data"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
@@ -378,7 +389,7 @@ export default function ManagePage() {
                           e.stopPropagation();
                           setDeleteId(t.id);
                         }}
-                        className="p-2 text-text-muted hover:text-red-500 hover:bg-red-500/10 rounded-xl transition-all"
+                        className="w-10 h-10 flex items-center justify-center text-text-muted hover:text-red-500 hover:bg-red-50/50 rounded-2xl transition-all border border-transparent hover:border-red-200"
                         title="Hapus Data"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
