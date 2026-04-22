@@ -319,19 +319,74 @@ export default function LandingPage() {
               </div>
 
               <div className="space-y-6">
-                <h3 className={`text-[10px] font-black uppercase tracking-[0.3em] border-b pb-2 ${isDarkMode ? "text-primary/60 border-primary/20" : "text-primary/40 border-primary/10"}`}>Metode Pembayaran</h3>
-                <div className="space-y-4">
-                  <div className="group/pay">
-                    <p className={`text-[10px] font-bold uppercase mb-1 ${isDarkMode ? "text-slate-500" : "text-text-muted"}`}>Bank BCA</p>
-                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-primary transition-colors ${isDarkMode ? "text-slate-200" : "text-slate-900"}`}>1921366201</p>
+                <div className="flex items-center justify-between border-b pb-4 border-primary/10">
+                  <h3 className={`text-[10px] font-black uppercase tracking-[0.3em] ${isDarkMode ? "text-primary/60" : "text-primary/40"}`}>Metode Pembayaran</h3>
+                  <span className="text-[9px] font-bold text-slate-400 italic">Klik nomor untuk salin</span>
+                </div>
+                
+                <div className="grid grid-cols-1 gap-4">
+                  {/* BCA */}
+                  <div 
+                    onClick={() => {
+                      navigator.clipboard.writeText("1921366201");
+                      const el = document.getElementById('bca-copy');
+                      if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
+                    }}
+                    className={`group/pay relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/50 border-slate-800 hover:border-primary/50" : "bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-primary/30"}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xs italic shadow-lg shadow-blue-600/20">BCA</div>
+                      <div>
+                        <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>Bank BCA</p>
+                        <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
+                      </div>
+                    </div>
+                    <button id="bca-copy" className="text-[10px] font-black uppercase text-primary px-3 py-1.5 rounded-lg bg-primary/5 group-hover/pay:bg-primary group-hover/pay:text-white transition-all">Salin</button>
                   </div>
-                  <div className="group/pay">
-                    <p className={`text-[10px] font-bold uppercase mb-1 ${isDarkMode ? "text-slate-500" : "text-text-muted"}`}>E-Wallet DANA</p>
-                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-orange-500 transition-colors ${isDarkMode ? "text-slate-200" : "text-slate-900"}`}>085854894312</p>
+
+                  {/* DANA */}
+                  <div 
+                    onClick={() => {
+                      navigator.clipboard.writeText("085854894312");
+                      const el = document.getElementById('dana-copy');
+                      if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
+                    }}
+                    className={`group/pay relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/50 border-slate-800 hover:border-blue-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-blue-500/30"}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#008CFF] flex items-center justify-center p-2 shadow-lg shadow-blue-500/20">
+                        <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 7h2v6h-2V7zm0 8h2v2h-2v-2z" className="opacity-0" />
+                          <text x="50%" y="65%" textAnchor="middle" fontSize="8" fontWeight="900" fill="white">DANA</text>
+                        </svg>
+                      </div>
+                      <div>
+                        <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>E-Wallet DANA</p>
+                        <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
+                      </div>
+                    </div>
+                    <button id="dana-copy" className="text-[10px] font-black uppercase text-blue-500 px-3 py-1.5 rounded-lg bg-blue-500/5 group-hover/pay:bg-blue-500 group-hover/pay:text-white transition-all">Salin</button>
                   </div>
-                  <div className="group/pay">
-                    <p className={`text-[10px] font-bold uppercase mb-1 ${isDarkMode ? "text-slate-500" : "text-text-muted"}`}>SeaBank</p>
-                    <p className={`text-lg font-black font-mono tracking-tighter group-hover:text-teal-500 transition-colors ${isDarkMode ? "text-slate-200" : "text-slate-900"}`}>901368029605</p>
+
+                  {/* SeaBank */}
+                  <div 
+                    onClick={() => {
+                      navigator.clipboard.writeText("901368029605");
+                      const el = document.getElementById('sea-copy');
+                      if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
+                    }}
+                    className={`group/pay relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/50 border-slate-800 hover:border-orange-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-orange-500/30"}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-[#FF5722] flex items-center justify-center p-1 shadow-lg shadow-orange-500/20">
+                        <span className="text-[8px] font-black text-white leading-tight text-center">SEA BANK</span>
+                      </div>
+                      <div>
+                        <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
+                        <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
+                      </div>
+                    </div>
+                    <button id="sea-copy" className="text-[10px] font-black uppercase text-orange-500 px-3 py-1.5 rounded-lg bg-orange-500/5 group-hover/pay:bg-orange-500 group-hover/pay:text-white transition-all">Salin</button>
                   </div>
                 </div>
               </div>
