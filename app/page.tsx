@@ -332,16 +332,22 @@ export default function LandingPage() {
                       const el = document.getElementById('bca-copy');
                       if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
                     }}
-                    className={`group/pay relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/50 border-slate-800 hover:border-primary/50" : "bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-primary/30"}`}
+                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-primary/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-primary/30"}`}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xs italic shadow-lg shadow-blue-600/20">BCA</div>
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                        <img 
+                          src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" 
+                          alt="BCA" 
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
                       <div>
-                        <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>Bank BCA</p>
+                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>Bank BCA</p>
                         <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
                       </div>
                     </div>
-                    <button id="bca-copy" className="text-[10px] font-black uppercase text-primary px-3 py-1.5 rounded-lg bg-primary/5 group-hover/pay:bg-primary group-hover/pay:text-white transition-all">Salin</button>
+                    <button id="bca-copy" className="text-[10px] font-black uppercase text-primary px-3 py-1.5 rounded-xl bg-primary/5 group-hover/pay:bg-primary group-hover/pay:text-white transition-all shadow-sm">Salin</button>
                   </div>
 
                   {/* DANA */}
@@ -351,21 +357,22 @@ export default function LandingPage() {
                       const el = document.getElementById('dana-copy');
                       if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
                     }}
-                    className={`group/pay relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/50 border-slate-800 hover:border-blue-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-blue-500/30"}`}
+                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-blue-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-500/30"}`}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#008CFF] flex items-center justify-center p-2 shadow-lg shadow-blue-500/20">
-                        <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="currentColor">
-                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM11 7h2v6h-2V7zm0 8h2v2h-2v-2z" className="opacity-0" />
-                          <text x="50%" y="65%" textAnchor="middle" fontSize="8" fontWeight="900" fill="white">DANA</text>
-                        </svg>
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                        <img 
+                          src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" 
+                          alt="DANA" 
+                          className="w-full h-full object-contain"
+                        />
                       </div>
                       <div>
-                        <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>E-Wallet DANA</p>
+                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>E-Wallet DANA</p>
                         <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
                       </div>
                     </div>
-                    <button id="dana-copy" className="text-[10px] font-black uppercase text-blue-500 px-3 py-1.5 rounded-lg bg-blue-500/5 group-hover/pay:bg-blue-500 group-hover/pay:text-white transition-all">Salin</button>
+                    <button id="dana-copy" className="text-[10px] font-black uppercase text-blue-500 px-3 py-1.5 rounded-xl bg-blue-500/5 group-hover/pay:bg-blue-500 group-hover/pay:text-white transition-all shadow-sm">Salin</button>
                   </div>
 
                   {/* SeaBank */}
@@ -375,18 +382,22 @@ export default function LandingPage() {
                       const el = document.getElementById('sea-copy');
                       if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
                     }}
-                    className={`group/pay relative p-4 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/50 border-slate-800 hover:border-orange-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-md hover:border-orange-500/30"}`}
+                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-orange-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-500/30"}`}
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#FF5722] flex items-center justify-center p-1 shadow-lg shadow-orange-500/20">
-                        <span className="text-[8px] font-black text-white leading-tight text-center">SEA BANK</span>
+                    <div className="flex items-center gap-5">
+                      <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                        <img 
+                          src="https://upload.wikimedia.org/wikipedia/commons/f/f2/SeaBank_logo.svg" 
+                          alt="SeaBank" 
+                          className="w-full h-full object-contain p-1"
+                        />
                       </div>
                       <div>
-                        <p className={`text-[10px] font-black uppercase tracking-widest mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
+                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
                         <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
                       </div>
                     </div>
-                    <button id="sea-copy" className="text-[10px] font-black uppercase text-orange-500 px-3 py-1.5 rounded-lg bg-orange-500/5 group-hover/pay:bg-orange-500 group-hover/pay:text-white transition-all">Salin</button>
+                    <button id="sea-copy" className="text-[10px] font-black uppercase text-orange-600 px-3 py-1.5 rounded-xl bg-orange-600/5 group-hover/pay:bg-orange-600 group-hover/pay:text-white transition-all shadow-sm">Salin</button>
                   </div>
                 </div>
               </div>
