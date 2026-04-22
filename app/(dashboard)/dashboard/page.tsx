@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
@@ -10,8 +11,9 @@ import ConfirmationModal from "@/components/ConfirmationModal";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
 import { Transaction, calculateChartData, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import { useFinance } from "@/context/FinanceContext";
+import Toast from "@/components/Toast";
 
-export default function DashboardPage() {
+function DashboardContent() {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => setIsMounted(true), []);
 
@@ -21,7 +23,32 @@ export default function DashboardPage() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  
+  const [showLoginToast, setShowLoginToast] = useState(false);
+  const [showDataToast, setShowDataToast] = useState(false);
+  const [prevLoading, setPrevLoading] = useState(false);
+  
   const { transactions, isLoading, lastCount, refreshData } = useFinance();
+  const searchParams = useSearchParams();
+
+  // Login Toast Logic
+  useEffect(() => {
+    const loginStatus = searchParams.get("login");
+    const hasShown = sessionStorage.getItem("login_toast_shown");
+
+    if (loginStatus === "success" && !hasShown) {
+      setShowLoginToast(true);
+      sessionStorage.setItem("login_toast_shown", "true");
+    }
+  }, [searchParams]);
+
+  // Data Loaded Toast Logic
+  useEffect(() => {
+    if (prevLoading && !isLoading) {
+      setShowDataToast(true);
+    }
+    setPrevLoading(isLoading);
+  }, [isLoading, prevLoading]);
 
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -603,6 +630,27 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+      {/* Toasts */}
+      <Toast 
+        show={showLoginToast} 
+        message="Login Berhasil! Selamat datang kembali." 
+        onClose={() => setShowLoginToast(false)}
+      />
+      
+      <Toast 
+        show={showDataToast} 
+        message="Data Berhasil Dimuat dari Cloud!" 
+        onClose={() => setShowDataToast(false)}
+        type="info"
+      />
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-bg-main" />}>
+      <DashboardContent />
+    </Suspense>
   );
 }

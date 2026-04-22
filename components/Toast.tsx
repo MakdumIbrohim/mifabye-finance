@@ -17,25 +17,12 @@ export default function Toast({
   duration = 3000,
   onClose,
 }: ToastProps) {
-  const [progress, setProgress] = useState(100);
-
   useEffect(() => {
     if (show) {
-      setProgress(100);
-      const startTime = Date.now();
-      
-      const interval = setInterval(() => {
-        const elapsedTime = Date.now() - startTime;
-        const remaining = Math.max(0, 100 - (elapsedTime / duration) * 100);
-        setProgress(remaining);
-        
-        if (elapsedTime >= duration) {
-          clearInterval(interval);
-          onClose();
-        }
-      }, 10);
-
-      return () => clearInterval(interval);
+      const timer = setTimeout(() => {
+        onClose();
+      }, duration);
+      return () => clearTimeout(timer);
     }
   }, [show, duration, onClose]);
 
@@ -73,6 +60,15 @@ export default function Toast({
 
   return (
     <div className="fixed top-8 left-1/2 -translate-x-1/2 z-[200] animate-in fade-in slide-in-from-top-8 duration-500 ease-out">
+      <style>{`
+        @keyframes shrink-width {
+          from { width: 100%; }
+          to { width: 0%; }
+        }
+        .animate-progress {
+          animation: shrink-width ${duration}ms linear forwards;
+        }
+      `}</style>
       <div className={`relative overflow-hidden min-w-[320px] max-w-md ${bgColors[type]} backdrop-blur-md border px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4`}>
         <div className="shrink-0 bg-white p-2 rounded-full shadow-sm">
           {icons[type]}
@@ -82,8 +78,7 @@ export default function Toast({
         {/* Progress Bar Container */}
         <div className="absolute bottom-0 left-0 w-full h-1 bg-black/5">
           <div 
-            className={`h-full ${barColors[type]} transition-all ease-linear`}
-            style={{ width: `${progress}%` }}
+            className={`h-full ${barColors[type]} animate-progress`}
           />
         </div>
       </div>
