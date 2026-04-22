@@ -189,10 +189,6 @@ function DashboardContent() {
                   <span className="text-foreground font-black text-xs">{formData.namaKlien || "-"}</span>
                 </div>
               )}
-              <div className="flex justify-between items-center">
-                <span className="text-text-muted font-medium text-xs">Layanan/Info:</span>
-                <span className="text-foreground font-black text-xs">{formData.layanan || "Umum"}</span>
-              </div>
               <div className="flex justify-between items-start gap-4">
                 <span className="text-text-muted font-medium text-xs shrink-0">Catatan:</span>
                 <span className="text-foreground font-black text-xs text-right break-words max-w-[180px] italic">{formData.catatan || "-"}</span>
