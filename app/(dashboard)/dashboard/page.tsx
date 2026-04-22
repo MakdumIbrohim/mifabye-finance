@@ -169,18 +169,33 @@ function DashboardContent() {
             
             <div className="bg-bg-subtle/50 p-5 rounded-3xl space-y-3 border border-border/50">
               <div className="flex justify-between items-center">
+                <span className="text-text-muted font-medium text-xs">Tanggal:</span>
+                <span className="text-foreground font-black text-xs">
+                  {(() => {
+                    const [y, m, d] = formData.tanggal.split("-");
+                    return `${parseInt(d)} ${INDONESIAN_MONTHS[parseInt(m) - 1]} ${y}`;
+                  })()}
+                </span>
+              </div>
+              <div className="flex justify-between items-center">
                 <span className="text-text-muted font-medium text-xs">Jenis Transaksi:</span>
                 <span className={`text-[10px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest ${transactionType === "in" ? "bg-primary/10 text-primary" : "bg-red-100 text-red-600"}`}>
                   {transactionType === "in" ? "Pemasukan" : "Pengeluaran"}
                 </span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-text-muted font-medium text-xs">Pihak/Klien:</span>
-                <span className="text-foreground font-black text-xs">{formData.namaKlien || "-"}</span>
-              </div>
+              {transactionType === "in" && (
+                <div className="flex justify-between items-center">
+                  <span className="text-text-muted font-medium text-xs">Pihak/Klien:</span>
+                  <span className="text-foreground font-black text-xs">{formData.namaKlien || "-"}</span>
+                </div>
+              )}
               <div className="flex justify-between items-center">
                 <span className="text-text-muted font-medium text-xs">Layanan/Info:</span>
                 <span className="text-foreground font-black text-xs">{formData.layanan || "Umum"}</span>
+              </div>
+              <div className="flex justify-between items-start gap-4">
+                <span className="text-text-muted font-medium text-xs shrink-0">Catatan:</span>
+                <span className="text-foreground font-black text-xs text-right break-words max-w-[180px] italic">{formData.catatan || "-"}</span>
               </div>
               <div className="flex justify-between items-center pt-2 border-t border-border/30">
                 <span className="text-text-muted font-medium text-xs">Nominal:</span>
