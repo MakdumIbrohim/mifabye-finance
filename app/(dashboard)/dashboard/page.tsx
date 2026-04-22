@@ -373,17 +373,20 @@ export default function DashboardPage() {
 
               <div>
                 <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Nominal Jumlah</label>
-                <input
-                  type="text"
-                  placeholder="Rp 0"
-                  className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-                  value={formData.jumlah}
-                  onChange={(e) => {
-                    const rawValue = e.target.value.replace(/[^0-9]/g, "");
-                    const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
-                    setFormData({...formData, jumlah: formattedValue});
-                  }}
-                />
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted font-bold text-sm">Rp</span>
+                  <input
+                    type="text"
+                    placeholder="0"
+                    className="w-full bg-subtle border border-border rounded-xl p-3 pl-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+                    value={formData.jumlah}
+                    onChange={(e) => {
+                      const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                      const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
+                      setFormData({...formData, jumlah: formattedValue});
+                    }}
+                  />
+                </div>
                 <div className="mt-3 p-3 rounded-xl border flex items-start gap-3 bg-primary/5 border-primary/10">
                   <svg className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   <p className="text-[10px] font-bold leading-relaxed text-primary">
