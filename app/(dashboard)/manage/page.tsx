@@ -245,6 +245,15 @@ export default function ManagePage() {
                     onChange={(val) => setEditItem({ ...editItem, metode_pembayaran: val })}
                   />
                 </div>
+                <div className="md:col-span-2">
+                  <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Catatan</label>
+                  <textarea
+                    value={editItem.catatan}
+                    onChange={(e) => setEditItem({...editItem, catatan: e.target.value})}
+                    placeholder="Contoh: Order makalah 10 halaman"
+                    className="w-full bg-bg-subtle border border-border rounded-xl p-3 text-sm font-medium h-24 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                  />
+                </div>
               </div>
 
               <div className="mt-8 flex gap-3">

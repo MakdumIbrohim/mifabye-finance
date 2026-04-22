@@ -397,7 +397,7 @@ export default function DashboardPage() {
               <div>
                 <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Catatan</label>
                 <textarea
-                  placeholder="Keterangan tambahan..."
+                  placeholder="Contoh: Order makalah 10 halaman"
                   className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
                   value={formData.catatan}
                   onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
