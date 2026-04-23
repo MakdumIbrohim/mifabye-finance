@@ -335,7 +335,11 @@ export default function LandingPage() {
                   {/* BCA */}
                   <div 
                     onClick={() => handleCopy('bca', '1921366201')}
-                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-primary/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-primary/30"}`}
+                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${
+                      isDarkMode 
+                        ? "bg-blue-900/10 border-blue-900/30 hover:border-blue-500/50" 
+                        : "bg-blue-50/50 border-blue-100 hover:border-blue-300 shadow-sm hover:shadow-lg"
+                    }`}
                   >
                     <div className="flex items-center gap-5">
                       <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
@@ -362,7 +366,11 @@ export default function LandingPage() {
                   {/* DANA */}
                   <div 
                     onClick={() => handleCopy('dana', '085854894312')}
-                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-blue-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-500/30"}`}
+                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${
+                      isDarkMode 
+                        ? "bg-sky-900/10 border-sky-900/30 hover:border-sky-500/50" 
+                        : "bg-sky-50/50 border-sky-100 hover:border-sky-300 shadow-sm hover:shadow-lg"
+                    }`}
                   >
                     <div className="flex items-center gap-5">
                       <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
@@ -389,7 +397,11 @@ export default function LandingPage() {
                   {/* SeaBank */}
                   <div 
                     onClick={() => handleCopy('sea', '901368029605')}
-                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-orange-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-500/30"}`}
+                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${
+                      isDarkMode 
+                        ? "bg-orange-900/10 border-orange-900/30 hover:border-orange-500/50" 
+                        : "bg-orange-50/50 border-orange-100 hover:border-orange-300 shadow-sm hover:shadow-lg"
+                    }`}
                   >
                     <div className="flex items-center gap-5">
                       <div className="w-16 h-12 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
