@@ -17,18 +17,26 @@ function LoginContent() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    // 1. Protection: If already logged in, go to dashboard
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        router.replace("/dashboard");
+      }
+    });
+
+    // 2. Handle Logout Toast
     const logoutStatus = searchParams.get("logout");
     const hasShown = sessionStorage.getItem("logout_toast_shown");
 
     if (logoutStatus === "success" && !hasShown) {
       setShowLogoutToast(true);
       sessionStorage.setItem("logout_toast_shown", "true");
-      // Clean up URL immediately
       router.replace("/login");
     } else if (logoutStatus === "success" && hasShown) {
-      // Just clean up URL if it somehow comes back but we already saw it
       router.replace("/login");
     }
+
+    return () => unsubscribe();
   }, [searchParams, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -42,7 +50,7 @@ function LoginContent() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push("/dashboard?login=success");
+      router.replace("/dashboard?login=success");
     } catch (err: any) {
       console.error("Login error:", err);
       switch (err.code) {

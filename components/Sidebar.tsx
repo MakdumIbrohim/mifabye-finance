@@ -72,7 +72,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       // Reset toast flags
       sessionStorage.removeItem("login_toast_shown");
       sessionStorage.removeItem("logout_toast_shown");
-      router.push("/login?logout=success");
+      router.replace("/login?logout=success");
     } catch (error) {
       console.error("Logout error:", error);
       setIsLoggingOut(false);
