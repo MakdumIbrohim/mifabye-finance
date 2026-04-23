@@ -87,6 +87,13 @@ export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   const toggleCategory = (category: string) => {
     setExpandedCategories(prev =>
@@ -327,11 +334,7 @@ export default function LandingPage() {
                 <div className="grid grid-cols-1 gap-4">
                   {/* BCA */}
                   <div 
-                    onClick={() => {
-                      navigator.clipboard.writeText("1921366201");
-                      const el = document.getElementById('bca-copy');
-                      if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
-                    }}
+                    onClick={() => handleCopy('bca', '1921366201')}
                     className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-primary/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-primary/30"}`}
                   >
                     <div className="flex items-center gap-5">
@@ -347,16 +350,18 @@ export default function LandingPage() {
                         <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
                       </div>
                     </div>
-                    <button id="bca-copy" className="text-[10px] font-black uppercase text-primary px-3 py-1.5 rounded-xl bg-primary/5 group-hover/pay:bg-primary group-hover/pay:text-white transition-all shadow-sm">Salin</button>
+                    <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm ${copiedId === 'bca' ? "bg-green-500 text-white" : "bg-primary/5 text-primary group-hover/pay:bg-primary group-hover/pay:text-white"}`}>
+                      {copiedId === 'bca' ? (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      ) : (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      )}
+                    </button>
                   </div>
 
                   {/* DANA */}
                   <div 
-                    onClick={() => {
-                      navigator.clipboard.writeText("085854894312");
-                      const el = document.getElementById('dana-copy');
-                      if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
-                    }}
+                    onClick={() => handleCopy('dana', '085854894312')}
                     className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-blue-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-500/30"}`}
                   >
                     <div className="flex items-center gap-5">
@@ -372,16 +377,18 @@ export default function LandingPage() {
                         <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
                       </div>
                     </div>
-                    <button id="dana-copy" className="text-[10px] font-black uppercase text-blue-500 px-3 py-1.5 rounded-xl bg-blue-500/5 group-hover/pay:bg-blue-500 group-hover/pay:text-white transition-all shadow-sm">Salin</button>
+                    <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm ${copiedId === 'dana' ? "bg-green-500 text-white" : "bg-blue-500/5 text-blue-500 group-hover/pay:bg-blue-500 group-hover/pay:text-white"}`}>
+                      {copiedId === 'dana' ? (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      ) : (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      )}
+                    </button>
                   </div>
 
                   {/* SeaBank */}
                   <div 
-                    onClick={() => {
-                      navigator.clipboard.writeText("901368029605");
-                      const el = document.getElementById('sea-copy');
-                      if (el) { el.innerText = 'Tersalin!'; setTimeout(() => el.innerText = 'Salin', 2000); }
-                    }}
+                    onClick={() => handleCopy('sea', '901368029605')}
                     className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-orange-500/50" : "bg-white border-slate-100 shadow-sm hover:shadow-xl hover:border-orange-500/30"}`}
                   >
                     <div className="flex items-center gap-5">
@@ -403,7 +410,13 @@ export default function LandingPage() {
                         <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
                       </div>
                     </div>
-                    <button id="sea-copy" className="text-[10px] font-black uppercase text-orange-600 px-3 py-1.5 rounded-xl bg-orange-600/5 group-hover/pay:bg-orange-600 group-hover/pay:text-white transition-all shadow-sm">Salin</button>
+                    <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm ${copiedId === 'sea' ? "bg-green-500 text-white" : "bg-orange-600/5 text-orange-600 group-hover/pay:bg-orange-600 group-hover/pay:text-white"}`}>
+                      {copiedId === 'sea' ? (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      ) : (
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
