@@ -375,24 +375,24 @@ export default function LandingPage() {
                 {/* BCA */}
                 <div 
                   onClick={() => handleCopy('bca', '1921366201')}
-                  className={`group/pay relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${
+                  className={`group/pay relative p-4 md:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 ${
                     isDarkMode ? "bg-blue-900/10 border-blue-900/30" : "bg-blue-50/50 border-blue-100 hover:bg-blue-50"
                   }`}
                 >
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-11 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                  <div className="flex items-center gap-3 md:gap-5 min-w-0">
+                    <div className="w-10 h-8 md:w-14 md:h-11 flex-shrink-0 flex items-center justify-center p-1.5 rounded-lg bg-white shadow-sm border border-slate-100 overflow-hidden">
                       <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA" className="w-full h-full object-contain" />
                     </div>
-                    <div>
-                      <p className={`text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>BCA</p>
-                      <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
+                    <div className="min-w-0">
+                      <p className={`text-[8px] md:text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>BCA</p>
+                      <p className={`text-sm md:text-lg font-black font-mono tracking-tighter truncate ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
                     </div>
                   </div>
-                  <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${copiedId === 'bca' ? "bg-green-500 text-white" : "bg-primary/5 text-primary group-hover/pay:bg-primary group-hover/pay:text-white"}`}>
+                  <button className={`w-8 h-8 md:w-10 md:h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all ${copiedId === 'bca' ? "bg-green-500 text-white" : "bg-primary/5 text-primary group-hover/pay:bg-primary group-hover/pay:text-white"}`}>
                     {copiedId === 'bca' ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                     )}
                   </button>
                 </div>
@@ -400,24 +400,24 @@ export default function LandingPage() {
                 {/* DANA */}
                 <div 
                   onClick={() => handleCopy('dana', '085854894312')}
-                  className={`group/pay relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${
+                  className={`group/pay relative p-4 md:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 ${
                     isDarkMode ? "bg-sky-900/10 border-sky-900/30" : "bg-sky-50/50 border-sky-100 hover:bg-sky-50"
                   }`}
                 >
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-11 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                  <div className="flex items-center gap-3 md:gap-5 min-w-0">
+                    <div className="w-10 h-8 md:w-14 md:h-11 flex-shrink-0 flex items-center justify-center p-1.5 rounded-lg bg-white shadow-sm border border-slate-100 overflow-hidden">
                       <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" className="w-full h-full object-contain" />
                     </div>
-                    <div>
-                      <p className={`text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>DANA</p>
-                      <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
+                    <div className="min-w-0">
+                      <p className={`text-[8px] md:text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>DANA</p>
+                      <p className={`text-sm md:text-lg font-black font-mono tracking-tighter truncate ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
                     </div>
                   </div>
-                  <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${copiedId === 'dana' ? "bg-green-500 text-white" : "bg-blue-500/5 text-blue-500 group-hover/pay:bg-blue-500 group-hover/pay:text-white"}`}>
+                  <button className={`w-8 h-8 md:w-10 md:h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all ${copiedId === 'dana' ? "bg-green-500 text-white" : "bg-blue-500/5 text-blue-500 group-hover/pay:bg-blue-500 group-hover/pay:text-white"}`}>
                     {copiedId === 'dana' ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                     )}
                   </button>
                 </div>
@@ -425,12 +425,12 @@ export default function LandingPage() {
                 {/* SeaBank */}
                 <div 
                   onClick={() => handleCopy('sea', '901368029605')}
-                  className={`group/pay relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${
+                  className={`group/pay relative p-4 md:p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-3 ${
                     isDarkMode ? "bg-orange-900/10 border-orange-900/30" : "bg-orange-50/50 border-orange-100 hover:bg-orange-50"
                   }`}
                 >
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-11 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                  <div className="flex items-center gap-3 md:gap-5 min-w-0">
+                    <div className="w-10 h-8 md:w-14 md:h-11 flex-shrink-0 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
                       <svg viewBox="0 0 100 100" className="w-full h-full transform scale-110">
                         <circle cx="50" cy="45" r="40" fill="#FF5C00" />
                         <circle cx="50" cy="45" r="34" fill="none" stroke="white" strokeWidth="2.5" opacity="0.4" />
@@ -439,16 +439,16 @@ export default function LandingPage() {
                         <path d="M15 78 Q30 68 45 78 T75 78 T105 78" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
                       </svg>
                     </div>
-                    <div>
-                      <p className={`text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
-                      <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
+                    <div className="min-w-0">
+                      <p className={`text-[8px] md:text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
+                      <p className={`text-sm md:text-lg font-black font-mono tracking-tighter truncate ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
                     </div>
                   </div>
-                  <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${copiedId === 'sea' ? "bg-green-500 text-white" : "bg-orange-600/5 text-orange-600 group-hover/pay:bg-orange-600 group-hover/pay:text-white"}`}>
+                  <button className={`w-8 h-8 md:w-10 md:h-10 flex-shrink-0 flex items-center justify-center rounded-xl transition-all ${copiedId === 'sea' ? "bg-green-500 text-white" : "bg-orange-600/5 text-orange-600 group-hover/pay:bg-orange-600 group-hover/pay:text-white"}`}>
                     {copiedId === 'sea' ? (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                     ) : (
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                      <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
                     )}
                   </button>
                 </div>
