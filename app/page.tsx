@@ -312,124 +312,145 @@ export default function LandingPage() {
               );
             })}
 
-            <div className={`lg:col-span-1 p-8 space-y-10 transition-colors duration-300 ${isDarkMode ? "text-slate-400" : "text-slate-600"}`}>
-              <div className="space-y-4">
-                <div className="flex items-center gap-2 text-orange-600">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em]">Ketentuan Layanan</h3>
-                </div>
-                <p className={`text-sm font-bold leading-relaxed italic ${isDarkMode ? "text-slate-400" : "text-slate-600"}`}>
-                  "Melunasi payment sebelum file dikirim atau paling tidak melakukan <span className="text-orange-600 underline underline-offset-4 decoration-2">DP 50%</span> sebagai tanda jadi."
+          </div>
+        </section>
+
+        {/* How to Order & Payment Section */}
+        <section id="cara-order" className="max-w-7xl mx-auto px-6 mb-32">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4 uppercase">Langkah Mudah Pemesanan</h2>
+            <div className="flex items-center justify-center gap-3">
+              <div className="h-[2px] w-12 bg-primary/20" />
+              <p className={`text-[10px] md:text-xs font-black uppercase tracking-[0.3em] ${isDarkMode ? "text-primary/60" : "text-primary/40"}`}>
+                Alur kerja profesional untuk hasil maksimal
+              </p>
+              <div className="h-[2px] w-12 bg-primary/20" />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Step 1 */}
+            <div className={`group/step p-10 rounded-[3rem] border transition-all duration-500 ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-primary/30" : "bg-white border-slate-100 shadow-sm hover:shadow-xl"}`}>
+              <div className="w-16 h-16 rounded-3xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover/step:scale-110 transition-transform duration-500">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+              </div>
+              <span className="text-[10px] font-black text-primary uppercase tracking-[0.4em] mb-3 block">Langkah 01</span>
+              <h3 className="text-2xl font-black mb-5 uppercase tracking-tight">Hubungi Admin</h3>
+              <p className={`text-sm font-bold leading-relaxed ${isDarkMode ? "text-slate-400" : "text-slate-500"}`}>
+                Klik tombol WhatsApp untuk berkonsultasi mengenai tugas atau proyek IT Anda secara langsung dengan tim kami.
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className={`group/step p-10 rounded-[3rem] border transition-all duration-500 ${isDarkMode ? "bg-slate-900/40 border-slate-800 hover:border-orange-500/30" : "bg-white border-slate-100 shadow-sm hover:shadow-xl"}`}>
+              <div className="w-16 h-16 rounded-3xl bg-orange-500/10 flex items-center justify-center text-orange-600 mb-8 group-hover/step:scale-110 transition-transform duration-500">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+              </div>
+              <span className="text-[10px] font-black text-orange-600 uppercase tracking-[0.4em] mb-3 block">Langkah 02</span>
+              <h3 className="text-2xl font-black mb-5 uppercase tracking-tight">Kesepakatan</h3>
+              <p className={`text-sm font-bold leading-relaxed ${isDarkMode ? "text-slate-400" : "text-slate-500"}`}>
+                Setelah detail tugas jelas, kita akan menentukan harga dan estimasi waktu pengerjaan yang disepakati bersama.
+              </p>
+              <div className={`mt-8 p-5 rounded-2xl border border-dashed ${isDarkMode ? "bg-orange-500/5 border-orange-500/20" : "bg-orange-50/50 border-orange-200"}`}>
+                <p className={`text-[11px] font-black italic leading-relaxed ${isDarkMode ? "text-orange-400" : "text-orange-600"}`}>
+                  "Pembayaran dilakukan di awal atau minimal DP 50% sebelum pengerjaan dimulai."
                 </p>
               </div>
+            </div>
 
-              <div className="space-y-6">
-                <div className="flex items-center justify-between border-b pb-4 border-primary/10">
-                  <h3 className={`text-[10px] font-black uppercase tracking-[0.3em] ${isDarkMode ? "text-primary/60" : "text-primary/40"}`}>Metode Pembayaran</h3>
-                  <span className="text-[9px] font-bold text-slate-400 italic">Klik nomor untuk salin</span>
+            {/* Step 3: Payment (The Floating Action Card) */}
+            <div className={`p-10 rounded-[3rem] border-2 transition-all duration-500 relative overflow-hidden ${isDarkMode ? "bg-slate-900 border-primary/30" : "bg-white border-primary shadow-2xl shadow-primary/20 lg:scale-105 z-10"}`}>
+              <div className="absolute top-0 right-0 p-6">
+                <div className="px-4 py-1.5 rounded-full bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/30">Final Step</div>
+              </div>
+
+              <div className="w-16 h-16 rounded-3xl bg-green-500/10 flex items-center justify-center text-green-600 mb-8">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+              </div>
+              
+              <span className="text-[10px] font-black text-green-600 uppercase tracking-[0.4em] mb-3 block">Langkah 03</span>
+              <h3 className="text-2xl font-black mb-8 uppercase tracking-tight">Pembayaran</h3>
+              
+              <div className="space-y-4">
+                {/* BCA */}
+                <div 
+                  onClick={() => handleCopy('bca', '1921366201')}
+                  className={`group/pay relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${
+                    isDarkMode ? "bg-blue-900/10 border-blue-900/30" : "bg-blue-50/50 border-blue-100 hover:bg-blue-50"
+                  }`}
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-11 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" alt="BCA" className="w-full h-full object-contain" />
+                    </div>
+                    <div>
+                      <p className={`text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>BCA</p>
+                      <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
+                    </div>
+                  </div>
+                  <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${copiedId === 'bca' ? "bg-green-500 text-white" : "bg-primary/5 text-primary group-hover/pay:bg-primary group-hover/pay:text-white"}`}>
+                    {copiedId === 'bca' ? (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    )}
+                  </button>
                 </div>
-                
-                <div className="grid grid-cols-1 gap-4">
-                  {/* BCA */}
-                  <div 
-                    onClick={() => handleCopy('bca', '1921366201')}
-                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${
-                      isDarkMode 
-                        ? "bg-blue-900/10 border-blue-900/30 hover:border-blue-500/50" 
-                        : "bg-blue-50/50 border-blue-100 hover:border-blue-300 shadow-sm hover:shadow-lg"
-                    }`}
-                  >
-                    <div className="flex items-center gap-5">
-                      <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
-                        <img 
-                          src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" 
-                          alt="BCA" 
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                      <div>
-                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>Bank BCA</p>
-                        <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>1921366201</p>
-                      </div>
-                    </div>
-                    <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm ${copiedId === 'bca' ? "bg-green-500 text-white" : "bg-primary/5 text-primary group-hover/pay:bg-primary group-hover/pay:text-white"}`}>
-                      {copiedId === 'bca' ? (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
-                      ) : (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                      )}
-                    </button>
-                  </div>
 
-                  {/* DANA */}
-                  <div 
-                    onClick={() => handleCopy('dana', '085854894312')}
-                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${
-                      isDarkMode 
-                        ? "bg-sky-900/10 border-sky-900/30 hover:border-sky-500/50" 
-                        : "bg-sky-50/50 border-sky-100 hover:border-sky-300 shadow-sm hover:shadow-lg"
-                    }`}
-                  >
-                    <div className="flex items-center gap-5">
-                      <div className="w-16 h-12 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
-                        <img 
-                          src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" 
-                          alt="DANA" 
-                          className="w-full h-full object-contain"
-                        />
-                      </div>
-                      <div>
-                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>E-Wallet DANA</p>
-                        <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
-                      </div>
+                {/* DANA */}
+                <div 
+                  onClick={() => handleCopy('dana', '085854894312')}
+                  className={`group/pay relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${
+                    isDarkMode ? "bg-sky-900/10 border-sky-900/30" : "bg-sky-50/50 border-sky-100 hover:bg-sky-50"
+                  }`}
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-11 flex items-center justify-center p-2 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" className="w-full h-full object-contain" />
                     </div>
-                    <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm ${copiedId === 'dana' ? "bg-green-500 text-white" : "bg-blue-500/5 text-blue-500 group-hover/pay:bg-blue-500 group-hover/pay:text-white"}`}>
-                      {copiedId === 'dana' ? (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
-                      ) : (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                      )}
-                    </button>
+                    <div>
+                      <p className={`text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>DANA</p>
+                      <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>085854894312</p>
+                    </div>
                   </div>
+                  <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${copiedId === 'dana' ? "bg-green-500 text-white" : "bg-blue-500/5 text-blue-500 group-hover/pay:bg-blue-500 group-hover/pay:text-white"}`}>
+                    {copiedId === 'dana' ? (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    )}
+                  </button>
+                </div>
 
-                  {/* SeaBank */}
-                  <div 
-                    onClick={() => handleCopy('sea', '901368029605')}
-                    className={`group/pay relative p-5 rounded-3xl border transition-all duration-500 cursor-pointer flex items-center justify-between ${
-                      isDarkMode 
-                        ? "bg-orange-900/10 border-orange-900/30 hover:border-orange-500/50" 
-                        : "bg-orange-50/50 border-orange-100 hover:border-orange-300 shadow-sm hover:shadow-lg"
-                    }`}
-                  >
-                    <div className="flex items-center gap-5">
-                      <div className="w-16 h-12 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
-                        <svg viewBox="0 0 100 100" className="w-full h-full transform scale-110">
-                          {/* Outer Circle */}
-                          <circle cx="50" cy="45" r="40" fill="#FF5C00" />
-                          {/* Inner Border */}
-                          <circle cx="50" cy="45" r="34" fill="none" stroke="white" strokeWidth="2.5" opacity="0.4" />
-                          {/* Letter S */}
-                          <text x="50" y="58" textAnchor="middle" fill="white" fontSize="42" fontWeight="900" style={{ fontFamily: 'Arial, sans-serif' }}>S</text>
-                          {/* Waves */}
-                          <path d="M15 65 Q30 55 45 65 T75 65 T105 65" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
-                          <path d="M15 78 Q30 68 45 78 T75 78 T105 78" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
-                        </svg>
-                      </div>
-                      <div>
-                        <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-0.5 ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
-                        <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
-                      </div>
+                {/* SeaBank */}
+                <div 
+                  onClick={() => handleCopy('sea', '901368029605')}
+                  className={`group/pay relative p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between ${
+                    isDarkMode ? "bg-orange-900/10 border-orange-900/30" : "bg-orange-50/50 border-orange-100 hover:bg-orange-50"
+                  }`}
+                >
+                  <div className="flex items-center gap-5">
+                    <div className="w-14 h-11 flex items-center justify-center p-1.5 rounded-xl bg-white shadow-sm border border-slate-100 overflow-hidden">
+                      <svg viewBox="0 0 100 100" className="w-full h-full transform scale-110">
+                        <circle cx="50" cy="45" r="40" fill="#FF5C00" />
+                        <circle cx="50" cy="45" r="34" fill="none" stroke="white" strokeWidth="2.5" opacity="0.4" />
+                        <text x="50" y="58" textAnchor="middle" fill="white" fontSize="42" fontWeight="900" style={{ fontFamily: 'Arial, sans-serif' }}>S</text>
+                        <path d="M15 65 Q30 55 45 65 T75 65 T105 65" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
+                        <path d="M15 78 Q30 68 45 78 T75 78 T105 78" fill="none" stroke="#3458D1" strokeWidth="8" strokeLinecap="round" transform="translate(-10, 5)" />
+                      </svg>
                     </div>
-                    <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm ${copiedId === 'sea' ? "bg-green-500 text-white" : "bg-orange-600/5 text-orange-600 group-hover/pay:bg-orange-600 group-hover/pay:text-white"}`}>
-                      {copiedId === 'sea' ? (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
-                      ) : (
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
-                      )}
-                    </button>
+                    <div>
+                      <p className={`text-[10px] font-black uppercase tracking-wider ${isDarkMode ? "text-slate-500" : "text-slate-400"}`}>SeaBank</p>
+                      <p className={`text-lg font-black font-mono tracking-tighter ${isDarkMode ? "text-slate-100" : "text-slate-900"}`}>901368029605</p>
+                    </div>
                   </div>
+                  <button className={`w-10 h-10 flex items-center justify-center rounded-xl transition-all ${copiedId === 'sea' ? "bg-green-500 text-white" : "bg-orange-600/5 text-orange-600 group-hover/pay:bg-orange-600 group-hover/pay:text-white"}`}>
+                    {copiedId === 'sea' ? (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+                    ) : (
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                    )}
+                  </button>
                 </div>
               </div>
             </div>
