@@ -261,11 +261,11 @@ function DashboardContent() {
       </section>
 
       {/* Full-Width Balance Card */}
-      <div className="bg-gradient-to-br from-[#125EC8] to-[#0a2a5e] p-8 rounded-[2.5rem] shadow-2xl shadow-[#125EC8]/30 text-white relative overflow-hidden group border border-white/10">
-        {/* Background Decorations */}
-        <div className="absolute -right-16 -top-16 w-80 h-80 bg-white/10 rounded-full blur-[80px] pointer-events-none" />
-        <div className="absolute left-1/4 top-0 w-40 h-40 bg-white/5 rounded-full blur-[60px] pointer-events-none" />
-        <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/5 border border-white/20 rounded-full -mr-16 -mb-16 pointer-events-none" />
+      <div className="bg-[#0f172a] p-8 rounded-[2.5rem] shadow-2xl shadow-primary/10 text-white relative overflow-hidden group border border-white/5">
+        {/* Background Decorations - Subtle Blue Glows */}
+        <div className="absolute -right-20 -top-20 w-96 h-96 bg-primary/20 rounded-full blur-[100px] pointer-events-none group-hover:bg-primary/30 transition-all duration-700" />
+        <div className="absolute -left-10 -bottom-10 w-64 h-64 bg-primary/10 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute right-0 bottom-0 w-32 h-32 bg-white/5 border border-white/10 rounded-full -mr-16 -mb-16 pointer-events-none" />
         
         <div className="relative">
           {/* Header Card */}
