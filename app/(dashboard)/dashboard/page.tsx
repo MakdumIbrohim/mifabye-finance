@@ -306,7 +306,7 @@ function DashboardContent() {
           {/* Income & Expense Row */}
           <div className="flex flex-wrap items-center gap-x-12 gap-y-6 pt-8 border-t border-white/10">
             <div className="space-y-1.5">
-              <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Pemasukan</p>
+              <p className="text-[15px] font-black uppercase tracking-widest text-white/40">Pemasukan</p>
               <p className="text-lg font-black text-emerald-400 flex items-center gap-2">
                 <span className="text-xs opacity-60">+</span>
                 {isLoading ? <LoadingDots /> : (showBalance ? `Rp ${totalIncome.toLocaleString("id-ID")}` : "••••••")}
@@ -314,7 +314,7 @@ function DashboardContent() {
             </div>
             
             <div className="space-y-1.5">
-              <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Pengeluaran</p>
+              <p className="text-[15px] font-black uppercase tracking-widest text-white/40">Pengeluaran</p>
               <p className="text-lg font-black text-rose-400 flex items-center gap-2">
                 <span className="text-xs opacity-60">-</span>
                 {isLoading ? <LoadingDots /> : (showBalance ? `Rp ${totalExpense.toLocaleString("id-ID")}` : "••••••")}
@@ -327,7 +327,7 @@ function DashboardContent() {
             <div className="w-4 h-4 flex items-center justify-center bg-emerald-500/20 rounded-md">
               <svg className="w-2.5 h-2.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
             </div>
-            <span className="text-[9px] font-bold text-white/40 tracking-wider">
+            <span className="text-[12px] font-bold text-white/40 tracking-wider">
               Terakhir sinkron: <span className="text-white/70">{lastUpdated || "Menyinkronkan..."}</span>
             </span>
           </div>
