@@ -23,6 +23,8 @@ function DashboardContent() {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState<Transaction | null>(null);
   const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [showBalance, setShowBalance] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState("");
   
   const [showLoginToast, setShowLoginToast] = useState(false);
   
@@ -39,6 +41,14 @@ function DashboardContent() {
       sessionStorage.setItem("login_toast_shown", "true");
     }
   }, [searchParams]);
+
+  // Set initial sync time
+  useEffect(() => {
+    if (!isLoading && transactions.length > 0) {
+      const now = new Date();
+      setLastUpdated(`${now.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`);
+    }
+  }, [isLoading, transactions]);
 
   // Get today's date in Jakarta timezone (YYYY-MM-DD)
   const getTodayJakarta = () => {
@@ -251,81 +261,70 @@ function DashboardContent() {
       </section>
 
       {/* Full-Width Balance Card */}
-      <div className="bg-gradient-to-br from-slate-900 to-primary p-8 rounded-[2.5rem] shadow-xl shadow-primary/20 text-white relative overflow-hidden group">
-        <div className="absolute -right-10 -top-10 w-64 h-64 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-700" />
-        <div className="absolute left-10 -bottom-10 w-48 h-48 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/30 transition-all duration-700" />
+      <div className="bg-[#1a1f2c] p-8 rounded-[2.5rem] shadow-2xl shadow-primary/20 text-white relative overflow-hidden group border border-white/5">
+        {/* Background Decorations */}
+        <div className="absolute -right-16 -top-16 w-80 h-80 bg-primary/20 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute left-1/4 top-0 w-40 h-40 bg-blue-500/10 rounded-full blur-[60px] pointer-events-none" />
+        <div className="absolute right-0 bottom-0 w-32 h-32 bg-primary/5 border border-white/10 rounded-full -mr-16 -mb-16 pointer-events-none" />
         
-        <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-8">
-          <div>
-            <div className="flex items-center gap-2 mb-3 opacity-80">
-              <div className="p-1.5 bg-white/10 rounded-lg">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                </svg>
-              </div>
-              <span className="text-xs font-bold uppercase tracking-[0.2em]">Total Saldo Keuangan Mifabyte</span>
+        <div className="relative">
+          {/* Header Card */}
+          <div className="flex justify-between items-start mb-8">
+            <div className="space-y-1">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/50">Total Saldo</p>
             </div>
-            <h2 className="text-5xl font-black tracking-tighter flex items-baseline">
-              {isLoading ? (
-                <>
-                  <span className="text-3xl opacity-70 mr-2">Rp</span>
-                  <LoadingDots />
-                </>
+            <button 
+              onClick={() => setShowBalance(!showBalance)}
+              className="w-10 h-10 rounded-2xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all border border-white/10 backdrop-blur-sm"
+              title={showBalance ? "Sembunyikan Saldo" : "Tampilkan Saldo"}
+            >
+              {showBalance ? (
+                <svg className="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
               ) : (
-                <>
-                  <span className="text-3xl opacity-70 mr-2">Rp</span>
-                  {totalBalance.toLocaleString("id-ID")}
-                </>
+                <svg className="w-5 h-5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" /></svg>
+              )}
+            </button>
+          </div>
+
+          {/* Balance Amount */}
+          <div className="mb-10">
+            <h2 className="text-4xl md:text-5xl font-black tracking-tight flex items-baseline gap-2">
+              <span className="text-2xl md:text-3xl font-bold opacity-60">Rp</span>
+              {isLoading ? (
+                <LoadingDots />
+              ) : (
+                showBalance ? totalBalance.toLocaleString("id-ID") : "••••••••"
               )}
             </h2>
           </div>
 
-          <div className="flex flex-wrap gap-6 md:gap-12 p-6 bg-white/5 backdrop-blur-md rounded-3xl border border-white/10">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-teal-400/20 flex items-center justify-center text-teal-400">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pemasukan</p>
-                <p className="text-xl font-black text-teal-300 flex items-baseline">
-                  {isLoading ? (
-                    <>
-                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
-                      <LoadingDots />
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
-                      {totalIncome.toLocaleString("id-ID")}
-                    </>
-                  )}
-                </p>
-              </div>
+          {/* Income & Expense Row */}
+          <div className="flex flex-wrap items-center gap-x-12 gap-y-6 pt-8 border-t border-white/10">
+            <div className="space-y-1.5">
+              <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Pemasukan</p>
+              <p className="text-lg font-black text-emerald-400 flex items-center gap-2">
+                <span className="text-xs opacity-60">+</span>
+                {isLoading ? <LoadingDots /> : (showBalance ? `Rp ${totalIncome.toLocaleString("id-ID")}` : "••••••")}
+              </p>
             </div>
             
-            <div className="w-px h-12 bg-white/10 hidden md:block" />
-
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full bg-red-400/20 flex items-center justify-center text-red-400">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
-              </div>
-              <div>
-                <p className="text-[10px] font-bold opacity-60 uppercase tracking-widest mb-0.5">Total Pengeluaran</p>
-                <p className="text-xl font-black text-red-300 flex items-baseline">
-                  {isLoading ? (
-                    <>
-                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
-                      <LoadingDots />
-                    </>
-                  ) : (
-                    <>
-                      <span className="text-sm opacity-70 mr-1.5">Rp</span>
-                      {totalExpense.toLocaleString("id-ID")}
-                    </>
-                  )}
-                </p>
-              </div>
+            <div className="space-y-1.5">
+              <p className="text-[9px] font-black uppercase tracking-widest text-white/40">Pengeluaran</p>
+              <p className="text-lg font-black text-rose-400 flex items-center gap-2">
+                <span className="text-xs opacity-60">-</span>
+                {isLoading ? <LoadingDots /> : (showBalance ? `Rp ${totalExpense.toLocaleString("id-ID")}` : "••••••")}
+              </p>
             </div>
+          </div>
+
+          {/* Footer Card */}
+          <div className="mt-8 flex items-center gap-2 px-3 py-1.5 bg-white/5 rounded-full w-fit border border-white/5">
+            <div className="w-4 h-4 flex items-center justify-center bg-emerald-500/20 rounded-md">
+              <svg className="w-2.5 h-2.5 text-emerald-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
+            </div>
+            <span className="text-[9px] font-bold text-white/40 tracking-wider">
+              Terakhir sinkron: <span className="text-white/70">{lastUpdated || "Menyinkronkan..."}</span>
+            </span>
           </div>
         </div>
       </div>
