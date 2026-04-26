@@ -115,12 +115,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         })}
       </nav>
 
-      <div className="pt-6 border-t border-border mt-auto">
         <button 
           onClick={handleLogout}
           disabled={isLoggingOut}
-          className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-bold rounded-2xl transition-all group ${
-            isLoggingOut ? "text-slate-400 cursor-not-allowed bg-slate-50" : "text-text-muted hover:bg-red-500/10 hover:text-red-500"
+          className={`w-full flex items-center gap-3 px-4 py-3 text-sm font-black rounded-2xl transition-all group ${
+            isLoggingOut ? "text-slate-400 cursor-not-allowed bg-slate-50" : "text-red-500 hover:bg-red-500/10"
           }`}
         >
           {isLoggingOut ? (
@@ -133,14 +132,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </>
           ) : (
             <>
-              <svg className="w-5 h-5 text-text-muted group-hover:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
               Keluar (Logout)
             </>
           )}
         </button>
-      </div>
     </div>
   );
 
