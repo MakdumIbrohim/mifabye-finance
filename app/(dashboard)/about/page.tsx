@@ -92,7 +92,8 @@ export default function AboutPage() {
             "Fitri Aulia",
             "Makdum Ibrohim",
             "Muslimah Kurniawati",
-            "Tamara Adjuah"
+            "Tamara Adjuah",
+            "Nabil Qitubillah"
           ].map((name, i) => (
             <div key={i} className="subtle-card p-4 flex items-center gap-4 group hover:border-primary/30 transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-bg-subtle flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
