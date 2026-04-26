@@ -405,10 +405,6 @@ function DashboardContent() {
 
               {/* Group 1: Informasi Klien */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-1 h-3 bg-primary rounded-full" />
-                  <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Informasi Klien</h4>
-                </div>
 
                 <div>
                   <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Tanggal Transaksi</label>
@@ -446,10 +442,6 @@ function DashboardContent() {
 
               {/* Group 2: Detail Transaksi */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="w-1 h-3 bg-primary rounded-full" />
-                  <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Detail Transaksi</h4>
-                </div>
 
                 {transactionType === "in" ? (
                   <SearchableSelect
@@ -484,6 +476,14 @@ function DashboardContent() {
                       }}
                     />
                   </div>
+                  {transactionType === "in" && (
+                    <div className="mt-2.5 p-2.5 rounded-xl border flex items-start gap-2.5 bg-primary/[0.03] border-primary/10">
+                      <svg className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <p className="text-[9px] font-bold leading-relaxed text-primary uppercase tracking-tight">
+                        Harga dapat dikustomisasi sesuai kesepakatan antara tim dan klien.
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <SearchableSelect
