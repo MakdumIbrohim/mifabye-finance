@@ -163,11 +163,11 @@ export default function ManagePage() {
               </div>
               
               {editItem.jenis_transaksi === "Pengeluaran" && (
-                <div className="mx-1 mb-6 p-4 rounded-[1.25rem] border border-red-500/10 bg-red-500/[0.03] flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
-                  <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
-                    <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div className="mx-1 mb-6 p-4 rounded-[1.25rem] border border-primary/10 bg-primary/[0.03] flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                   </div>
-                  <p className="text-[10px] font-black text-red-600/80 leading-relaxed uppercase tracking-widest">
+                  <p className="text-[10px] font-black text-primary/80 leading-relaxed uppercase tracking-widest">
                     Mode Pengeluaran Aktif: Field Nama Klien, Instansi, dan Jenis Layanan dikosongkan & dikunci secara otomatis.
                   </p>
                 </div>
@@ -295,13 +295,17 @@ export default function ManagePage() {
               </div>
 
               <div className="mt-8 flex gap-3">
-                <button type="button" onClick={() => setEditItem(null)} className="flex-1 py-3 font-bold text-[11px] uppercase tracking-wider text-text-muted hover:bg-bg-subtle rounded-xl transition-all">Batal</button>
+                <button 
+                  type="button" 
+                  onClick={() => setEditItem(null)} 
+                  className="flex-1 py-3 font-bold text-[11px] uppercase tracking-wider text-red-500 hover:bg-red-50 border border-red-100 rounded-xl transition-all"
+                >
+                  Batal
+                </button>
                 <button 
                   type="submit" 
                   disabled={isProcessing} 
-                  className={`flex-1 py-3 text-white font-bold text-[11px] uppercase tracking-wider rounded-xl shadow-lg transition-all ${
-                    editItem.jenis_transaksi === "Pengeluaran" ? "bg-red-500 shadow-red-500/20" : "bg-primary shadow-primary/20"
-                  } hover:opacity-90 active:scale-95`}
+                  className="flex-1 py-3 bg-primary text-white font-bold text-[11px] uppercase tracking-wider rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all"
                 >
                    {isProcessing ? "Menyimpan..." : "Simpan Perubahan"}
                 </button>
