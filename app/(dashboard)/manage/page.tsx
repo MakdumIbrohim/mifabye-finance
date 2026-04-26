@@ -162,106 +162,119 @@ export default function ManagePage() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Nama Klien</label>
-                  <input
-                    type="text"
-                    value={editItem.nama_klien}
-                    onChange={(e) => setEditItem({...editItem, nama_klien: e.target.value})}
-                    className="w-full bg-bg-subtle border border-border rounded-xl p-3 text-sm font-semibold text-foreground"
-                  />
-                </div>
-                <div>
-                  <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Tanggal</label>
-                  <input
-                    type="date"
-                    value={new Date(editItem.tanggal).toLocaleDateString('en-CA')}
-                    onChange={(e) => setEditItem({...editItem, tanggal: e.target.value})}
-                    className="w-full bg-bg-subtle border border-border rounded-xl p-3 text-sm font-semibold text-foreground"
-                  />
-                </div>
-                <div className="md:col-span-2">
-                   <SearchableSelect
-                    label="Asal Instansi"
-                    placeholder="Cari Kampus..."
-                    options={IndonesianUniversities}
-                    value={editItem.asal_instansi}
-                    onChange={(val) => setEditItem({ ...editItem, asal_instansi: val })}
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <SearchableSelect
-                    label="Jenis Layanan"
-                    placeholder="Cari Layanan..."
-                    options={JokiServices}
-                    value={editItem.produk_layanan}
-                    onChange={(val) => {
-                      const selectedService = JokiServices.find(s => s.value === val);
-                      setEditItem({ 
-                        ...editItem, 
-                        produk_layanan: val,
-                        nominal: selectedService && selectedService.price > 0 ? selectedService.price : editItem.nominal
-                      });
-                    }}
-                  />
-                </div>
-                <div>
-                  <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Nominal</label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted font-bold text-sm">Rp</span>
-                    <input
-                      type="text"
-                      value={editItem.nominal ? Number(editItem.nominal).toLocaleString("id-ID") : ""}
-                      onChange={(e) => {
-                        const rawValue = e.target.value.replace(/[^0-9]/g, "");
-                        setEditItem({...editItem, nominal: rawValue ? Number(rawValue) : 0});
-                      }}
-                      className="w-full bg-bg-subtle border border-border rounded-xl p-3 pl-10 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                    />
+              <div className="space-y-6">
+                {/* Section 1: Informasi Dasar */}
+                <div className="bg-bg-subtle/50 p-5 rounded-[1.5rem] border border-border/50">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-1 h-3 bg-primary rounded-full" />
+                    <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Informasi Klien & Waktu</h4>
                   </div>
-                  <div className="mt-3 p-3 rounded-xl border flex items-start gap-3 bg-primary/5 border-primary/10">
-                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <p className="text-[10px] font-bold leading-relaxed text-primary">
-                      Harga dapat dikustomisasi sesuai kesepakatan antara penyedia layanan joki dan client.
-                    </p>
-                  </div>
-                </div>
-                <div>
-                  <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Status Kas</label>
-                  <div className="relative group">
-                    <select
-                      value={editItem.jenis_transaksi}
-                      onChange={(e) => setEditItem({...editItem, jenis_transaksi: e.target.value})}
-                      className="appearance-none w-full bg-bg-subtle border border-border rounded-xl p-3 pr-10 text-sm font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
-                    >
-                      <option value="Pemasukan">Pemasukan</option>
-                      <option value="Pengeluaran">Pengeluaran</option>
-                    </select>
-                    <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                      </svg>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nama Klien</label>
+                      <input
+                        type="text"
+                        value={editItem.nama_klien}
+                        onChange={(e) => setEditItem({...editItem, nama_klien: e.target.value})}
+                        className="w-full bg-card-bg border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Tanggal</label>
+                      <input
+                        type="date"
+                        value={new Date(editItem.tanggal).toLocaleDateString('en-CA')}
+                        onChange={(e) => setEditItem({...editItem, tanggal: e.target.value})}
+                        className="w-full bg-card-bg border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                       <SearchableSelect
+                        label="Asal Instansi"
+                        placeholder="Cari Kampus..."
+                        options={IndonesianUniversities}
+                        value={editItem.asal_instansi}
+                        onChange={(val) => setEditItem({ ...editItem, asal_instansi: val })}
+                      />
                     </div>
                   </div>
                 </div>
-                <div className="md:col-span-2">
-                   <SearchableSelect
-                    label="Metode Pembayaran"
-                    placeholder="Pilih Metode..."
-                    options={PaymentMethods}
-                    value={editItem.metode_pembayaran}
-                    onChange={(val) => setEditItem({ ...editItem, metode_pembayaran: val })}
-                  />
-                </div>
-                <div className="md:col-span-2">
-                  <label className="text-[10px] font-bold text-text-muted uppercase mb-2 block tracking-tight">Catatan</label>
-                  <textarea
-                    value={editItem.catatan}
-                    onChange={(e) => setEditItem({...editItem, catatan: e.target.value})}
-                    placeholder="Contoh: Order makalah 10 halaman"
-                    className="w-full bg-bg-subtle border border-border rounded-xl p-3 text-sm font-medium h-24 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-                  />
+
+                {/* Section 2: Detail Transaksi */}
+                <div className="bg-bg-subtle/50 p-5 rounded-[1.5rem] border border-border/50">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="w-1 h-3 bg-primary rounded-full" />
+                    <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Detail Transaksi & Pembayaran</h4>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="md:col-span-2">
+                      <SearchableSelect
+                        label="Jenis Layanan"
+                        placeholder="Cari Layanan..."
+                        options={JokiServices}
+                        value={editItem.produk_layanan}
+                        onChange={(val) => {
+                          const selectedService = JokiServices.find(s => s.value === val);
+                          setEditItem({ 
+                            ...editItem, 
+                            produk_layanan: val,
+                            nominal: selectedService && selectedService.price > 0 ? selectedService.price : editItem.nominal
+                          });
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nominal</label>
+                      <div className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted font-bold text-xs">Rp</span>
+                        <input
+                          type="text"
+                          value={editItem.nominal ? Number(editItem.nominal).toLocaleString("id-ID") : ""}
+                          onChange={(e) => {
+                            const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                            setEditItem({...editItem, nominal: rawValue ? Number(rawValue) : 0});
+                          }}
+                          className="w-full bg-card-bg border border-border rounded-xl p-2.5 pl-9 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Status Kas</label>
+                      <div className="relative group">
+                        <select
+                          value={editItem.jenis_transaksi}
+                          onChange={(e) => setEditItem({...editItem, jenis_transaksi: e.target.value})}
+                          className="appearance-none w-full bg-card-bg border border-border rounded-xl p-2.5 pr-9 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+                        >
+                          <option value="Pemasukan">Pemasukan</option>
+                          <option value="Pengeluaran">Pengeluaran</option>
+                        </select>
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-text-muted group-hover:text-primary transition-colors">
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="md:col-span-2">
+                       <SearchableSelect
+                        label="Metode Pembayaran"
+                        placeholder="Pilih Metode..."
+                        options={PaymentMethods}
+                        value={editItem.metode_pembayaran}
+                        onChange={(val) => setEditItem({ ...editItem, metode_pembayaran: val })}
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Catatan</label>
+                      <textarea
+                        value={editItem.catatan}
+                        onChange={(e) => setEditItem({...editItem, catatan: e.target.value})}
+                        placeholder="Contoh: Order makalah 10 halaman"
+                        className="w-full bg-card-bg border border-border rounded-xl p-3 text-xs font-medium h-20 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
 
