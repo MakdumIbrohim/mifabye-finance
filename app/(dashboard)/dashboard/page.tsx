@@ -356,16 +356,21 @@ function DashboardContent() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         <div className="lg:col-span-4 space-y-6">
+          {/* Transaction Form Section - Back to Sidebar */}
           <div className="subtle-card p-6">
-            <h3 className="text-sm font-bold text-foreground mb-4 uppercase tracking-tight">Catat Transaksi</h3>
-            <div className="flex bg-subtle p-1 rounded-xl mb-6 border border-border">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-sm font-black text-foreground uppercase tracking-wider">Catat Transaksi</h3>
+              <div className="w-1 h-4 bg-primary rounded-full" />
+            </div>
+            
+            <div className="flex bg-subtle p-1 rounded-xl mb-6 border border-border shadow-sm">
               <button
                 type="button"
                 onClick={() => setTransactionType("in")}
-                className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
-                  transactionType === "in" ? "bg-card-bg text-primary shadow-sm shadow-primary/10" : "text-text-muted hover:text-foreground"
+                className={`flex-1 py-2 text-[10px] font-black uppercase rounded-lg transition-all ${
+                  transactionType === "in" ? "bg-card-bg text-primary shadow-sm border border-primary/5" : "text-text-muted hover:text-foreground"
                 }`}
               >
                 Pemasukan
@@ -373,8 +378,8 @@ function DashboardContent() {
               <button
                 type="button"
                 onClick={() => setTransactionType("out")}
-                className={`flex-1 py-2 text-[10px] font-bold uppercase rounded-lg transition-all ${
-                  transactionType === "out" ? "bg-card-bg text-red-500 shadow-sm shadow-red-500/10" : "text-text-muted hover:text-foreground"
+                className={`flex-1 py-2 text-[10px] font-black uppercase rounded-lg transition-all ${
+                  transactionType === "out" ? "bg-card-bg text-red-500 shadow-sm border border-red-500/5" : "text-text-muted hover:text-foreground"
                 }`}
               >
                 Pengeluaran
@@ -384,7 +389,7 @@ function DashboardContent() {
             <form onSubmit={handlePreSubmit} className="space-y-6">
               {status && (
                 <div className={`p-3 rounded-xl text-xs font-bold flex items-center justify-between gap-2 animate-in fade-in slide-in-from-top-2 ${
-                  status.type === "success" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"
+                  status.type === "success" ? "bg-green-50 text-green-600 border border-green-100" : "bg-red-50 text-red-600 border border-red-100"
                 }`}>
                   <div className="flex items-center gap-2">
                     <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -392,122 +397,111 @@ function DashboardContent() {
                     </svg>
                     <span>{status.message}</span>
                   </div>
-                  <button 
-                    type="button" 
-                    onClick={() => setStatus(null)}
-                    className="p-1 hover:bg-black/5 rounded-lg transition-colors"
-                    title="Tutup"
-                  >
-                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                  <button type="button" onClick={() => setStatus(null)} className="p-1 hover:bg-black/5 rounded-lg transition-colors">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
                   </button>
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
-                {/* Section 1: Informasi Klien & Waktu */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-1 h-3 bg-primary rounded-full" />
-                    <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Informasi Klien</h4>
-                  </div>
-
-                  <div>
-                    <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Tanggal Transaksi</label>
-                    <input
-                      type="date"
-                      className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
-                      value={formData.tanggal}
-                      onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
-                    />
-                  </div>
-
-                  {transactionType === "in" && (
-                    <>
-                      <div>
-                        <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nama Klien</label>
-                        <input
-                          type="text"
-                          placeholder="Nama Pelanggan"
-                          className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                          value={formData.namaKlien}
-                          onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
-                        />
-                      </div>
-                      
-                      <SearchableSelect
-                        label="Asal Instansi"
-                        placeholder="Cari Kampus..."
-                        options={IndonesianUniversities}
-                        value={formData.instansi}
-                        onChange={(val) => setFormData({ ...formData, instansi: val })}
-                      />
-                    </>
-                  )}
+              {/* Group 1: Informasi Klien */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-1 h-3 bg-primary rounded-full" />
+                  <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Informasi Klien</h4>
                 </div>
 
-                {/* Section 2: Detail Transaksi */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 mb-1">
-                    <div className="w-1 h-3 bg-primary rounded-full" />
-                    <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Detail Transaksi</h4>
-                  </div>
+                <div>
+                  <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Tanggal Transaksi</label>
+                  <input
+                    type="date"
+                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
+                    value={formData.tanggal}
+                    onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
+                  />
+                </div>
 
-                  {transactionType === "in" ? (
+                {transactionType === "in" && (
+                  <>
+                    <div>
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nama Klien</label>
+                      <input
+                        type="text"
+                        placeholder="Nama Pelanggan"
+                        className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        value={formData.namaKlien}
+                        onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
+                      />
+                    </div>
+                    
                     <SearchableSelect
-                      label="Pilih Layanan"
-                      placeholder="Cari Layanan Joki..."
-                      options={JokiServices}
-                      value={formData.layanan}
-                      onChange={(val) => {
-                        const selectedService = JokiServices.find(s => s.value === val);
-                        setFormData({ 
-                          ...formData, 
-                          layanan: val,
-                          jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toLocaleString("id-ID") : formData.jumlah 
-                        });
+                      label="Asal Instansi"
+                      placeholder="Cari Kampus..."
+                      options={IndonesianUniversities}
+                      value={formData.instansi}
+                      onChange={(val) => setFormData({ ...formData, instansi: val })}
+                    />
+                  </>
+                )}
+              </div>
+
+              {/* Group 2: Detail Transaksi */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 mb-1">
+                  <div className="w-1 h-3 bg-primary rounded-full" />
+                  <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Detail Transaksi</h4>
+                </div>
+
+                {transactionType === "in" ? (
+                  <SearchableSelect
+                    label="Pilih Layanan"
+                    placeholder="Cari Layanan Joki..."
+                    options={JokiServices}
+                    value={formData.layanan}
+                    onChange={(val) => {
+                      const selectedService = JokiServices.find(s => s.value === val);
+                      setFormData({ 
+                        ...formData, 
+                        layanan: val,
+                        jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toLocaleString("id-ID") : formData.jumlah 
+                      });
+                    }}
+                  />
+                ) : null}
+
+                <div>
+                  <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nominal Jumlah</label>
+                  <div className="relative">
+                    <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted font-bold text-[10px]">Rp</span>
+                    <input
+                      type="text"
+                      placeholder="0"
+                      className="w-full bg-subtle border border-border rounded-xl p-2.5 pl-8 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      value={formData.jumlah}
+                      onChange={(e) => {
+                        const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                        const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
+                        setFormData({...formData, jumlah: formattedValue});
                       }}
                     />
-                  ) : null}
-
-                  <div className="grid grid-cols-1 gap-4">
-                    <div>
-                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nominal Jumlah</label>
-                      <div className="relative">
-                        <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted font-bold text-[10px]">Rp</span>
-                        <input
-                          type="text"
-                          placeholder="0"
-                          className="w-full bg-subtle border border-border rounded-xl p-2.5 pl-8 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                          value={formData.jumlah}
-                          onChange={(e) => {
-                            const rawValue = e.target.value.replace(/[^0-9]/g, "");
-                            const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
-                            setFormData({...formData, jumlah: formattedValue});
-                          }}
-                        />
-                      </div>
-                    </div>
                   </div>
+                </div>
 
-                  <SearchableSelect
-                    label="Metode Pembayaran"
-                    placeholder="Pilih Metode..."
-                    options={PaymentMethods}
-                    value={formData.metodePembayaran}
-                    onChange={(val) => setFormData({ ...formData, metodePembayaran: val })}
+                <SearchableSelect
+                  label="Metode Pembayaran"
+                  placeholder="Pilih Metode..."
+                  options={PaymentMethods}
+                  value={formData.metodePembayaran}
+                  onChange={(val) => setFormData({ ...formData, metodePembayaran: val })}
+                />
+
+                <div>
+                  <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Catatan Singkat</label>
+                  <textarea
+                    placeholder={transactionType === "in" ? "Contoh: Order makalah 10 halaman" : "Contoh: Pengeluaran untuk canva pro"}
+                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-medium h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                    value={formData.catatan}
+                    onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
                   />
-
-                  <div>
-                    <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Catatan Singkat</label>
-                    <textarea
-                      placeholder={transactionType === "in" ? "Contoh: Order makalah 10 halaman" : "Contoh: Pengeluaran untuk canva pro"}
-                      className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-medium h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
-                      value={formData.catatan}
-                      onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
-                    />
-                  </div>
                 </div>
               </div>
 
@@ -520,11 +514,7 @@ function DashboardContent() {
                   transactionType === "in" ? "bg-primary text-white" : "bg-red-500 text-white hover:bg-red-600 shadow-red-500/20"
                 }`}
               >
-                {isSubmitting ? (
-                  "Menunggu..."
-                ) : (
-                  `Konfirmasi ${transactionType === "in" ? "Pemasukan" : "Pengeluaran"}`
-                )}
+                {isSubmitting ? "Menunggu..." : `Konfirmasi ${transactionType === "in" ? "Pemasukan" : "Pengeluaran"}`}
               </button>
             </form>
           </div>
@@ -613,7 +603,7 @@ function DashboardContent() {
             )}
           </div>
 
-          {/* Table Section */}
+          {/* Table Section - Back below chart */}
           <div className="subtle-card overflow-hidden">
             <div className="p-6 border-b border-border flex items-center justify-between">
               <h3 className="text-sm font-bold text-foreground uppercase tracking-tight">Transaksi Terbaru</h3>
@@ -624,25 +614,11 @@ function DashboardContent() {
                 </svg>
               </Link>
             </div>
-            <div className="flex items-center gap-2 px-6 py-3 bg-primary/[0.03] border-b border-border">
-              <svg className="w-3.5 h-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-[10px] font-bold text-primary uppercase tracking-wider">Tip: Klik baris untuk detail</p>
-            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left min-w-[800px]">
                 <tbody className="divide-y divide-border">
-                  {!isMounted ? (
-                    Array(3).fill(0).map((_, i) => (
-                      <tr key={i}>
-                        <td className="px-6 py-4"><div className="h-10 w-40 skeleton-shimmer rounded-lg"></div></td>
-                        <td className="px-6 py-4"><div className="h-6 w-20 skeleton-shimmer rounded-lg"></div></td>
-                        <td className="px-6 py-4"><div className="h-8 w-24 skeleton-shimmer rounded-lg ml-auto"></div></td>
-                      </tr>
-                    ))
-                  ) : isLoading ? (
-                    Array(Math.min(dashboardSkeletonSize, 5)).fill(0).map((_, i) => (
+                  {!isMounted || isLoading ? (
+                    Array(8).fill(0).map((_, i) => (
                       <tr key={i}>
                         <td className="px-6 py-4"><div className="h-10 w-40 skeleton-shimmer rounded-lg"></div></td>
                         <td className="px-6 py-4"><div className="h-6 w-20 skeleton-shimmer rounded-lg"></div></td>
@@ -658,7 +634,7 @@ function DashboardContent() {
                       >
                         <td className="px-6 py-4">
                           <div className="flex items-center gap-3">
-                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${t.jenis_transaksi === "Pemasukan" ? "bg-primary-light text-primary" : "bg-red-50 text-red-500"}`}>
+                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${t.jenis_transaksi === "Pemasukan" ? "bg-primary/10 text-primary" : "bg-red-50 text-red-500"}`}>
                               {t.jenis_transaksi === "Pemasukan" ? <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 17l-4 4m0 0l-4-4m4 4V3" /></svg> : <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7l4-4m0 0l4 4m-4-4v18" /></svg>}
                             </div>
                             <div>
@@ -699,6 +675,7 @@ function DashboardContent() {
           </div>
         </div>
       </div>
+
       {/* Toasts */}
       <Toast 
         show={showLoginToast} 
