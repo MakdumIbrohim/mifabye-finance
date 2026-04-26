@@ -381,7 +381,7 @@ function DashboardContent() {
               </button>
             </div>
 
-            <form onSubmit={handlePreSubmit} className="space-y-4">
+            <form onSubmit={handlePreSubmit} className="space-y-6">
               {status && (
                 <div className={`p-3 rounded-xl text-xs font-bold flex items-center justify-between gap-2 animate-in fade-in slide-in-from-top-2 ${
                   status.type === "success" ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"
@@ -405,103 +405,117 @@ function DashboardContent() {
                 </div>
               )}
 
-              <div>
-                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Tanggal Transaksi</label>
-                <input
-                  type="date"
-                  className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold cursor-pointer"
-                  value={formData.tanggal}
-                  onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
-                />
-              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                {/* Section 1: Informasi Klien & Waktu */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-1 h-3 bg-primary rounded-full" />
+                    <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Informasi Klien</h4>
+                  </div>
 
-              {transactionType === "in" ? (
-                <>
                   <div>
-                    <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Nama Klien</label>
+                    <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Tanggal Transaksi</label>
                     <input
-                      type="text"
-                      placeholder="Nama Pelanggan"
-                      className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-                      value={formData.namaKlien}
-                      onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
+                      type="date"
+                      className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
+                      value={formData.tanggal}
+                      onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
                     />
                   </div>
-                  
-                  <SearchableSelect
-                    label="Asal Instansi"
-                    placeholder="Cari Kampus/Sekolah..."
-                    options={IndonesianUniversities}
-                    value={formData.instansi}
-                    onChange={(val) => setFormData({ ...formData, instansi: val })}
-                  />
 
-                  <SearchableSelect
-                    label="Pilih Layanan"
-                    placeholder="Cari Layanan Joki..."
-                    options={JokiServices}
-                    value={formData.layanan}
-                    onChange={(val) => {
-                      const selectedService = JokiServices.find(s => s.value === val);
-                      setFormData({ 
-                        ...formData, 
-                        layanan: val,
-                        jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toLocaleString("id-ID") : formData.jumlah 
-                      });
-                    }}
-                  />
-                </>
-              ) : null}
-
-              <div>
-                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Nominal Jumlah</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted font-bold text-sm">Rp</span>
-                  <input
-                    type="text"
-                    placeholder="0"
-                    className="w-full bg-subtle border border-border rounded-xl p-3 pl-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
-                    value={formData.jumlah}
-                    onChange={(e) => {
-                      const rawValue = e.target.value.replace(/[^0-9]/g, "");
-                      const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
-                      setFormData({...formData, jumlah: formattedValue});
-                    }}
-                  />
+                  {transactionType === "in" && (
+                    <>
+                      <div>
+                        <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nama Klien</label>
+                        <input
+                          type="text"
+                          placeholder="Nama Pelanggan"
+                          className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          value={formData.namaKlien}
+                          onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
+                        />
+                      </div>
+                      
+                      <SearchableSelect
+                        label="Asal Instansi"
+                        placeholder="Cari Kampus..."
+                        options={IndonesianUniversities}
+                        value={formData.instansi}
+                        onChange={(val) => setFormData({ ...formData, instansi: val })}
+                      />
+                    </>
+                  )}
                 </div>
-                {transactionType === "in" && (
-                  <div className="mt-3 p-3 rounded-xl border flex items-start gap-3 bg-primary/5 border-primary/10">
-                    <svg className="w-4 h-4 flex-shrink-0 mt-0.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    <p className="text-[10px] font-bold leading-relaxed text-primary">
-                      Harga dapat dikustomisasi sesuai kesepakatan antara penyedia layanan joki dan client.
-                    </p>
+
+                {/* Section 2: Detail Transaksi */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="w-1 h-3 bg-primary rounded-full" />
+                    <h4 className="text-[9px] font-black uppercase tracking-[0.2em] text-text-muted">Detail Transaksi</h4>
                   </div>
-                )}
-              </div>
 
-              <SearchableSelect
-                label="Metode Pembayaran"
-                placeholder="Pilih Metode..."
-                options={PaymentMethods}
-                value={formData.metodePembayaran}
-                onChange={(val) => setFormData({ ...formData, metodePembayaran: val })}
-              />
+                  {transactionType === "in" ? (
+                    <SearchableSelect
+                      label="Pilih Layanan"
+                      placeholder="Cari Layanan Joki..."
+                      options={JokiServices}
+                      value={formData.layanan}
+                      onChange={(val) => {
+                        const selectedService = JokiServices.find(s => s.value === val);
+                        setFormData({ 
+                          ...formData, 
+                          layanan: val,
+                          jumlah: selectedService && selectedService.price > 0 ? selectedService.price.toLocaleString("id-ID") : formData.jumlah 
+                        });
+                      }}
+                    />
+                  ) : null}
 
-              <div>
-                <label className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-2 block">Catatan</label>
-                <textarea
-                  placeholder={transactionType === "in" ? "Contoh: Order makalah 10 halaman" : "Contoh: Pengeluaran untuk canva pro"}
-                  className="w-full bg-subtle border border-border rounded-xl p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-medium h-20"
-                  value={formData.catatan}
-                  onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
-                />
+                  <div className="grid grid-cols-1 gap-4">
+                    <div>
+                      <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Nominal Jumlah</label>
+                      <div className="relative">
+                        <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-text-muted font-bold text-[10px]">Rp</span>
+                        <input
+                          type="text"
+                          placeholder="0"
+                          className="w-full bg-subtle border border-border rounded-xl p-2.5 pl-8 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          value={formData.jumlah}
+                          onChange={(e) => {
+                            const rawValue = e.target.value.replace(/[^0-9]/g, "");
+                            const formattedValue = rawValue ? Number(rawValue).toLocaleString("id-ID") : "";
+                            setFormData({...formData, jumlah: formattedValue});
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <SearchableSelect
+                    label="Metode Pembayaran"
+                    placeholder="Pilih Metode..."
+                    options={PaymentMethods}
+                    value={formData.metodePembayaran}
+                    onChange={(val) => setFormData({ ...formData, metodePembayaran: val })}
+                  />
+
+                  <div>
+                    <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Catatan Singkat</label>
+                    <textarea
+                      placeholder={transactionType === "in" ? "Contoh: Order makalah 10 halaman" : "Contoh: Pengeluaran untuk canva pro"}
+                      className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-medium h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                      value={formData.catatan}
+                      onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
+                    />
+                  </div>
+                </div>
               </div>
 
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className={`w-full py-3 rounded-xl font-bold text-sm shadow-sm transition-all flex items-center justify-center gap-2 ${
-                  isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:opacity-90 shadow-primary/20"
+                className={`w-full py-3 rounded-xl font-bold text-[11px] uppercase tracking-wider shadow-sm transition-all flex items-center justify-center gap-2 ${
+                  isSubmitting ? "opacity-70 cursor-not-allowed" : "hover:opacity-90 shadow-primary/20 active:scale-[0.98]"
                 } ${
                   transactionType === "in" ? "bg-primary text-white" : "bg-red-500 text-white hover:bg-red-600 shadow-red-500/20"
                 }`}
