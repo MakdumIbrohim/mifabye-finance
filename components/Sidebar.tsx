@@ -83,8 +83,8 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <div className="h-full flex flex-col p-6">
       <div className="flex items-center justify-between mb-10 px-2">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-            <span className="text-white font-bold text-xl font-mono">M</span>
+          <div className="w-10 h-10 rounded-xl bg-white border border-border flex items-center justify-center shadow-lg shadow-primary/5 p-1.5 overflow-hidden group-hover:scale-105 transition-transform">
+            <img src="/assets/mifabyte.png" alt="Mifabyte Logo" className="w-full h-full object-contain" />
           </div>
           <h1 className="text-xl font-bold tracking-tight text-foreground">Mifabyte<span className="text-primary">.id</span></h1>
         </div>
