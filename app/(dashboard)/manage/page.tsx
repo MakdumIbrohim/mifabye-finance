@@ -288,7 +288,7 @@ export default function ManagePage() {
                     <textarea
                       value={editItem.catatan}
                       onChange={(e) => setEditItem({...editItem, catatan: e.target.value})}
-                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold h-12 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-y"
+                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold h-24 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-y"
                     />
                   </div>
                 </div>
