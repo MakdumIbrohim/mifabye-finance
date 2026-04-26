@@ -161,6 +161,17 @@ export default function ManagePage() {
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
                 </button>
               </div>
+              
+              {editItem.jenis_transaksi === "Pengeluaran" && (
+                <div className="mx-1 mb-6 p-4 rounded-[1.25rem] border border-red-500/10 bg-red-500/[0.03] flex items-center gap-4 animate-in fade-in slide-in-from-top-2">
+                  <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center shrink-0">
+                    <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  </div>
+                  <p className="text-[10px] font-black text-red-600/80 leading-relaxed uppercase tracking-widest">
+                    Mode Pengeluaran Aktif: Field Nama Klien, Instansi, dan Jenis Layanan dikosongkan & dikunci secara otomatis.
+                  </p>
+                </div>
+              )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
                 {/* Kolom Kiri */}
@@ -180,8 +191,9 @@ export default function ManagePage() {
                     <input
                       type="text"
                       value={editItem.nama_klien}
+                      disabled={editItem.jenis_transaksi === "Pengeluaran"}
                       onChange={(e) => setEditItem({...editItem, nama_klien: e.target.value})}
-                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      className={`w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all ${editItem.jenis_transaksi === "Pengeluaran" ? "opacity-50 cursor-not-allowed bg-slate-100/50" : ""}`}
                     />
                   </div>
 
@@ -190,6 +202,7 @@ export default function ManagePage() {
                     placeholder="Cari Kampus..."
                     options={IndonesianUniversities}
                     value={editItem.asal_instansi}
+                    disabled={editItem.jenis_transaksi === "Pengeluaran"}
                     onChange={(val) => setEditItem({ ...editItem, asal_instansi: val })}
                   />
                 </div>
@@ -201,6 +214,7 @@ export default function ManagePage() {
                     placeholder="Cari Layanan..."
                     options={JokiServices}
                     value={editItem.produk_layanan}
+                    disabled={editItem.jenis_transaksi === "Pengeluaran"}
                     onChange={(val) => {
                       const selectedService = JokiServices.find(s => s.value === val);
                       setEditItem({ 
@@ -260,14 +274,6 @@ export default function ManagePage() {
                     </div>
                   </div>
 
-                  {editItem.jenis_transaksi === "Pengeluaran" && (
-                    <div className="md:col-span-2 p-3 rounded-2xl border border-red-500/10 bg-red-500/[0.03] flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
-                      <svg className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      <p className="text-[9px] font-black text-red-500/80 leading-relaxed uppercase tracking-tight">
-                        Mode Pengeluaran Aktif: Nama Klien, Instansi, dan Jenis Layanan dikosongkan karena tidak diperlukan untuk pengeluaran.
-                      </p>
-                    </div>
-                  )}
 
                   <SearchableSelect
                     label="Metode Pembayaran"

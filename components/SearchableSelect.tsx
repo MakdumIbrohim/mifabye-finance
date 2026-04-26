@@ -8,6 +8,7 @@ interface SearchableSelectProps {
   options: (string | { label: string, value: string })[];
   value: string;
   onChange: (value: string) => void;
+  disabled?: boolean;
 }
 
 export default function SearchableSelect({
@@ -16,6 +17,7 @@ export default function SearchableSelect({
   options,
   value,
   onChange,
+  disabled,
 }: SearchableSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [search, setSearch] = useState(value || "");
@@ -62,9 +64,10 @@ export default function SearchableSelect({
         <input
           type="text"
           placeholder={placeholder}
-          className="w-full bg-subtle border border-border rounded-xl p-3 pr-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold"
+          disabled={disabled}
+          className={`w-full bg-subtle border border-border rounded-xl p-3 pr-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold ${disabled ? "opacity-50 cursor-not-allowed bg-slate-100/50" : ""}`}
           value={search}
-          onFocus={() => setIsOpen(true)}
+          onFocus={() => !disabled && setIsOpen(true)}
           onChange={(e) => {
             const val = toTitleCase(e.target.value);
             setSearch(val);
