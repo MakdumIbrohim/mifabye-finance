@@ -93,7 +93,7 @@ export default function SearchableSelect({
                     key={i}
                     type="button"
                     onClick={() => handleSelect(opt)}
-                    className="w-full text-left px-4 py-3 text-sm font-medium text-foreground hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
+                    className="w-full text-left px-4 py-3 text-sm font-bold text-foreground hover:bg-primary-light hover:text-primary rounded-lg transition-colors flex items-center justify-between group"
                   >
                     {optLabel}
                     {value === optValue && (

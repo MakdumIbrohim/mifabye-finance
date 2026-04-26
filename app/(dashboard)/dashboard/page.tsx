@@ -547,7 +547,7 @@ function DashboardContent() {
                 </div>
               ) : (
                 <>
-                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 w-full h-full overflow-visible">
                     <defs>
                       <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stopColor="var(--primary)" stopOpacity="0.4" />
@@ -561,7 +561,30 @@ function DashboardContent() {
                     <path d={`M 0,100 L ${incomePoints} L 100,100 Z`} fill="url(#incomeGradient)" className="transition-all duration-300" />
                     <path d={`M 0,100 L ${expensePoints} L 100,100 Z`} fill="url(#expenseGradient)" className="transition-all duration-300" />
                     <polyline fill="none" stroke="var(--primary)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" points={incomePoints} vectorEffect="non-scaling-stroke" />
-                    <polyline fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="4 2" points={expensePoints} vectorEffect="non-scaling-stroke" />
+                    <polyline fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" points={expensePoints} vectorEffect="non-scaling-stroke" />
+                    
+                    {/* Data Points (Dots) */}
+                    {chartData.map((d, i) => (
+                      <g key={i}>
+                        {/* Income Dot */}
+                        <circle
+                          cx={(i * 100) / (chartData.length - 1)}
+                          cy={100 - d.income}
+                          r="0.7"
+                          className="fill-card-bg stroke-primary stroke-[1.5] transition-all duration-300"
+                          vectorEffect="non-scaling-stroke"
+                        />
+                        {/* Expense Dot */}
+                        <circle
+                          cx={(i * 100) / (chartData.length - 1)}
+                          cy={100 - d.expense}
+                          r="0.7"
+                          className="fill-card-bg stroke-red-500 stroke-[1.5] transition-all duration-300"
+                          vectorEffect="non-scaling-stroke"
+                        />
+                      </g>
+                    ))}
+
                     {hoveredDayIndex !== null && (
                       <line x1={(hoveredDayIndex * 100) / (chartData.length - 1)} y1="0" x2={(hoveredDayIndex * 100) / (chartData.length - 1)} y2="100" stroke="var(--primary)" strokeWidth="0.5" strokeDasharray="2 2" className="opacity-40" />
                     )}
