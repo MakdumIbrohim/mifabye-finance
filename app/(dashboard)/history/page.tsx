@@ -159,12 +159,12 @@ export default function HistoryPage() {
     return parts.join(" ");
   }, [selectedYear, selectedMonth, selectedWeek, selectedDay, MONTHS]);
 
-  const handleExport = (format: "pdf" | "csv" | "excel" | "premium-pdf") => {
+  const handleExport = async (format: "pdf" | "csv" | "excel" | "premium-pdf") => {
     if (format === "premium-pdf") {
       const now = new Date();
       const month = selectedMonth ? parseInt(selectedMonth) : now.getMonth();
       const year = selectedYear ? parseInt(selectedYear) : now.getFullYear();
-      exportPremiumPDF(filteredTransactions, month, year);
+      await exportPremiumPDF(filteredTransactions, month, year);
     } else {
       if (format === "pdf") exportToPDF(filteredTransactions, activeFilterLabel);
       if (format === "csv") exportToCSV(filteredTransactions, activeFilterLabel);

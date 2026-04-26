@@ -10,10 +10,27 @@ export const TEAM_MEMBERS = [
   "Nabil Qistubillah"
 ];
 
-export const exportPremiumPDF = (transactions: Transaction[], month: number, year: number) => {
+export const exportPremiumPDF = async (transactions: Transaction[], month: number, year: number) => {
   const doc = new jsPDF();
   const monthName = INDONESIAN_MONTHS[month];
   
+  // Load Logo
+  const loadImage = (url: string): Promise<HTMLImageElement> => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.src = url;
+      img.onload = () => resolve(img);
+      img.onerror = reject;
+    });
+  };
+
+  try {
+    const logo = await loadImage("/assets/mifabyte.png");
+    doc.addImage(logo, 'PNG', 15, 10, 10, 10); // X, Y, W, H
+  } catch (e) {
+    console.error("Failed to load logo:", e);
+  }
+
   // 1. Header Design
   // Blue side accent
   doc.setFillColor(37, 99, 235); // Primary Blue
@@ -21,9 +38,9 @@ export const exportPremiumPDF = (transactions: Transaction[], month: number, yea
   
   // Title & Brand
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(24);
+  doc.setFontSize(22);
   doc.setTextColor(37, 99, 235);
-  doc.text("MIFABYTE", 15, 20);
+  doc.text("MIFABYTE", 28, 18);
   
   doc.setFontSize(10);
   doc.setTextColor(100);
