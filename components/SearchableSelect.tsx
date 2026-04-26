@@ -65,7 +65,7 @@ export default function SearchableSelect({
           type="text"
           placeholder={placeholder}
           disabled={disabled}
-          className={`w-full bg-subtle border border-border rounded-xl p-3 pr-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-semibold ${disabled ? "opacity-50 cursor-not-allowed bg-slate-100/50" : ""}`}
+          className={`w-full bg-subtle border border-border rounded-xl p-3 pr-10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm font-bold ${disabled ? "opacity-50 cursor-not-allowed bg-slate-100/50" : ""}`}
           value={search}
           onFocus={() => !disabled && setIsOpen(true)}
           onChange={(e) => {

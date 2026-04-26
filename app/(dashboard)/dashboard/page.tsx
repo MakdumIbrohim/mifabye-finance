@@ -410,7 +410,7 @@ function DashboardContent() {
                   <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Tanggal Transaksi</label>
                   <input
                     type="date"
-                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
+                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all cursor-pointer"
                     value={formData.tanggal}
                     onChange={(e) => setFormData({...formData, tanggal: e.target.value})}
                   />
@@ -423,7 +423,7 @@ function DashboardContent() {
                       <input
                         type="text"
                         placeholder="Nama Pelanggan"
-                        className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                        className="w-full bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                         value={formData.namaKlien}
                         onChange={(e) => setFormData({...formData, namaKlien: toTitleCase(e.target.value)})}
                       />
@@ -467,7 +467,7 @@ function DashboardContent() {
                     <input
                       type="text"
                       placeholder="0"
-                      className="w-full bg-subtle border border-border rounded-xl p-2.5 pl-8 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      className="w-full bg-subtle border border-border rounded-xl p-2.5 pl-8 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       value={formData.jumlah}
                       onChange={(e) => {
                         const rawValue = e.target.value.replace(/[^0-9]/g, "");
@@ -498,7 +498,7 @@ function DashboardContent() {
                   <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Catatan Singkat</label>
                   <textarea
                     placeholder={transactionType === "in" ? "Contoh: Order makalah 10 halaman" : "Contoh: Pengeluaran untuk canva pro"}
-                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-xs font-medium h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
                     value={formData.catatan}
                     onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
                   />

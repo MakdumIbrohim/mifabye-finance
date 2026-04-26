@@ -182,7 +182,7 @@ export default function ManagePage() {
                       type="date"
                       value={new Date(editItem.tanggal).toLocaleDateString('en-CA')}
                       onChange={(e) => setEditItem({...editItem, tanggal: e.target.value})}
-                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                     />
                   </div>
 
@@ -193,7 +193,7 @@ export default function ManagePage() {
                       value={editItem.nama_klien}
                       disabled={editItem.jenis_transaksi === "Pengeluaran"}
                       onChange={(e) => setEditItem({...editItem, nama_klien: e.target.value})}
-                      className={`w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-xs font-semibold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all ${editItem.jenis_transaksi === "Pengeluaran" ? "opacity-50 cursor-not-allowed bg-slate-100/50" : ""}`}
+                      className={`w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all ${editItem.jenis_transaksi === "Pengeluaran" ? "opacity-50 cursor-not-allowed bg-slate-100/50" : ""}`}
                     />
                   </div>
 
@@ -237,7 +237,7 @@ export default function ManagePage() {
                             const rawValue = e.target.value.replace(/[^0-9]/g, "");
                             setEditItem({...editItem, nominal: rawValue ? Number(rawValue) : 0});
                           }}
-                          className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 pl-8 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+                          className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 pl-8 text-sm font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
                         />
                       </div>
                     </div>
@@ -260,7 +260,7 @@ export default function ManagePage() {
                               setEditItem({ ...editItem, jenis_transaksi: newType });
                             }
                           }}
-                          className="appearance-none w-full bg-bg-subtle border border-border rounded-xl p-2.5 pr-8 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
+                          className="appearance-none w-full bg-bg-subtle border border-border rounded-xl p-2.5 pr-8 text-sm font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
                         >
                           <option value="Pemasukan">Pemasukan</option>
                           <option value="Pengeluaran">Pengeluaran</option>
@@ -288,7 +288,7 @@ export default function ManagePage() {
                     <textarea
                       value={editItem.catatan}
                       onChange={(e) => setEditItem({...editItem, catatan: e.target.value})}
-                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-xs font-medium h-12 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                      className="w-full bg-bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold h-12 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                     />
                   </div>
                 </div>
