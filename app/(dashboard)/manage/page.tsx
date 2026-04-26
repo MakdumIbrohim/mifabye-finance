@@ -10,6 +10,7 @@ import { IndonesianUniversities } from "@/constants/universities";
 import { JokiServices } from "@/constants/services";
 import { PaymentMethods } from "@/constants/payment-methods";
 import Toast from "@/components/Toast";
+import { triggerConfetti } from "@/lib/confetti";
 
 export default function ManagePage() {
   const [isMounted, setIsMounted] = useState(false);
@@ -75,6 +76,7 @@ export default function ManagePage() {
       });
       const result = await response.json();
       if (result.result === "success") {
+        triggerConfetti();
         setStatus({ type: "success", message: "Data berhasil diperbarui!" });
         setEditItem(null);
         refreshData();

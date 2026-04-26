@@ -12,6 +12,7 @@ import TransactionDetailModal from "@/components/TransactionDetailModal";
 import { Transaction, calculateChartData, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import { useFinance } from "@/context/FinanceContext";
 import Toast from "@/components/Toast";
+import { triggerConfetti } from "@/lib/confetti";
 
 function DashboardContent() {
   const [isMounted, setIsMounted] = useState(false);
@@ -118,6 +119,7 @@ function DashboardContent() {
 
       if (result.result === "success") {
         setShowConfirmModal(false); // Close ONLY on success
+        triggerConfetti();
         setStatus({ type: "success", message: `Berhasil! Data tersimpan dengan ID: ${result.id}` });
         setFormData(initialFormState);
         refreshData();
