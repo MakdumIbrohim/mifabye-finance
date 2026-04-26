@@ -36,7 +36,7 @@ export default function AboutPage() {
               <span className="text-2xl font-black">19</span>
             </div>
             <div>
-              <h2 className="text-2xl font-black text-foreground">Hari Kelahiran Komunitas</h2>
+              <h2 className="text-2xl font-black text-foreground">Hari Terbentuknya Mifabyte</h2>
               <p className="text-primary font-bold tracking-widest uppercase text-xs mt-1">19 April 2026</p>
             </div>
           </div>
