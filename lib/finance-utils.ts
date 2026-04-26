@@ -44,6 +44,7 @@ export const calculateChartData = (transactions: Transaction[]) => {
     
     const dayName = days[d.getDay()];
     const fullName = fullDays[d.getDay()];
+    const fullDate = `${fullName}, ${d.getDate()} ${INDONESIAN_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
     
     // Construct local YYYY-MM-DD string manually to avoid timezone shifts
     const y = d.getFullYear();
@@ -75,6 +76,7 @@ export const calculateChartData = (transactions: Transaction[]) => {
     result.push({
       day: dayName,
       fullName: fullName,
+      fullDate: fullDate,
       income: income / 1000, // Scale down for graph if needed, or keep raw for tooltips
       rawIncome: income,
       rawExpense: expense,

@@ -596,7 +596,7 @@ function DashboardContent() {
                   </div>
                   {hoveredDayIndex !== null && chartData[hoveredDayIndex] && (
                     <div className="absolute z-20 pointer-events-none transition-all duration-200 subtle-card p-3 shadow-2xl bg-card-bg/95 backdrop-blur-sm -translate-x-1/2 -translate-y-full" style={{ left: `${(hoveredDayIndex * 100) / (chartData.length - 1)}%`, top: `-12px` }}>
-                      <p className="text-[10px] font-bold text-text-muted uppercase mb-2 border-b border-border pb-1">{chartData[hoveredDayIndex].fullName}</p>
+                      <p className="text-[10px] font-bold text-text-muted uppercase mb-2 border-b border-border pb-1">{(chartData[hoveredDayIndex] as any).fullDate}</p>
                       <div className="space-y-1.5 min-w-[140px]">
                         <div className="flex items-center justify-between gap-4">
                           <div className="flex items-center gap-1.5"><div className="w-1.5 h-1.5 rounded-full bg-primary" /><span className="text-[10px] font-semibold text-slate-500">Masuk</span></div>
