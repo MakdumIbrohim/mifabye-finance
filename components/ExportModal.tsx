@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 interface ExportModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onExport: (format: "pdf" | "csv" | "excel") => void;
+  onExport: (format: "pdf" | "csv" | "excel" | "premium-pdf") => void;
   filterInfo: string;
 }
 
