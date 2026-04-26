@@ -232,7 +232,20 @@ export default function ManagePage() {
                       <div className="relative group">
                         <select
                           value={editItem.jenis_transaksi}
-                          onChange={(e) => setEditItem({...editItem, jenis_transaksi: e.target.value})}
+                          onChange={(e) => {
+                            const newType = e.target.value;
+                            if (newType === "Pengeluaran") {
+                              setEditItem({
+                                ...editItem,
+                                jenis_transaksi: newType,
+                                nama_klien: "-",
+                                asal_instansi: "-",
+                                produk_layanan: ""
+                              });
+                            } else {
+                              setEditItem({ ...editItem, jenis_transaksi: newType });
+                            }
+                          }}
                           className="appearance-none w-full bg-bg-subtle border border-border rounded-xl p-2.5 pr-8 text-xs font-semibold text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
                         >
                           <option value="Pemasukan">Pemasukan</option>
@@ -246,6 +259,15 @@ export default function ManagePage() {
                       </div>
                     </div>
                   </div>
+
+                  {editItem.jenis_transaksi === "Pengeluaran" && (
+                    <div className="md:col-span-2 p-3 rounded-2xl border border-red-500/10 bg-red-500/[0.03] flex items-start gap-3 animate-in fade-in slide-in-from-top-2">
+                      <svg className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      <p className="text-[9px] font-black text-red-500/80 leading-relaxed uppercase tracking-tight">
+                        Mode Pengeluaran Aktif: Nama Klien, Instansi, dan Jenis Layanan dikosongkan karena tidak diperlukan untuk pengeluaran.
+                      </p>
+                    </div>
+                  )}
 
                   <SearchableSelect
                     label="Metode Pembayaran"
@@ -268,7 +290,13 @@ export default function ManagePage() {
 
               <div className="mt-8 flex gap-3">
                 <button type="button" onClick={() => setEditItem(null)} className="flex-1 py-3 font-bold text-[11px] uppercase tracking-wider text-text-muted hover:bg-bg-subtle rounded-xl transition-all">Batal</button>
-                <button type="submit" disabled={isProcessing} className="flex-1 py-3 bg-primary text-white font-bold text-[11px] uppercase tracking-wider rounded-xl shadow-lg shadow-primary/20 hover:opacity-90 active:scale-95 transition-all">
+                <button 
+                  type="submit" 
+                  disabled={isProcessing} 
+                  className={`flex-1 py-3 text-white font-bold text-[11px] uppercase tracking-wider rounded-xl shadow-lg transition-all ${
+                    editItem.jenis_transaksi === "Pengeluaran" ? "bg-red-500 shadow-red-500/20" : "bg-primary shadow-primary/20"
+                  } hover:opacity-90 active:scale-95`}
+                >
                    {isProcessing ? "Menyimpan..." : "Simpan Perubahan"}
                 </button>
               </div>
