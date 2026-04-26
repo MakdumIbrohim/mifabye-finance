@@ -79,6 +79,35 @@ export default function AboutPage() {
           </div>
         </div>
       </div>
+
+      {/* Team Section */}
+      <section className="max-w-2xl mx-auto mt-12 animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+        <div className="flex items-center gap-3 mb-6 px-1">
+          <div className="w-1 h-6 bg-primary rounded-full" />
+          <h2 className="text-xl font-black text-foreground tracking-tight uppercase tracking-widest">Tim Mifabyte</h2>
+        </div>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {[
+            "Fitri Aulia",
+            "Makdum Ibrohim",
+            "Muslimah Kurniawati",
+            "Tamara Adjuah"
+          ].map((name, i) => (
+            <div key={i} className="subtle-card p-4 flex items-center gap-4 group hover:border-primary/30 transition-all duration-300">
+              <div className="w-12 h-12 rounded-xl bg-bg-subtle flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-sm font-black text-foreground uppercase tracking-wider">{name}</p>
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-tighter">Anggota Tim</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
