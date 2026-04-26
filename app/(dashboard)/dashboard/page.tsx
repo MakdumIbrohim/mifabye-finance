@@ -498,7 +498,7 @@ function DashboardContent() {
                   <label className="text-[10px] font-bold text-text-muted uppercase mb-1.5 block tracking-tight">Catatan Singkat</label>
                   <textarea
                     placeholder={transactionType === "in" ? "Contoh: Order makalah 10 halaman" : "Contoh: Pengeluaran untuk canva pro"}
-                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                    className="w-full bg-subtle border border-border rounded-xl p-2.5 text-sm font-bold h-12 text-foreground focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-y"
                     value={formData.catatan}
                     onChange={(e) => setFormData({...formData, catatan: toTitleCase(e.target.value)})}
                   />
