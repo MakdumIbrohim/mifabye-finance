@@ -89,20 +89,28 @@ export default function AboutPage() {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {[
-            "Fitri Aulia",
-            "Makdum Ibrohim",
-            "Muslimah Kurniawati",
-            "Tamara Adjuah",
-            "Nabil Qistubillah"
-          ].map((name, i) => (
+            { name: "Fitri Aulia", gender: "female" },
+            { name: "Makdum Ibrohim", gender: "male" },
+            { name: "Muslimah Kurniawati", gender: "female" },
+            { name: "Tamara Adjuah", gender: "female" },
+            { name: "Nabil Qistubillah", gender: "female" }
+          ].map((m, i) => (
             <div key={i} className="subtle-card p-4 flex items-center gap-4 group hover:border-primary/30 transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-bg-subtle flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-500">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
+                {m.gender === "male" ? (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                ) : (
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11a4 4 0 100-8 4 4 0 000 8z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 21v-1a4 4 0 014-4h4a4 4 0 014 4v1" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 9c0-3.314 1.79-6 4-6s4 2.686 4 6v4M8 9v4" />
+                  </svg>
+                )}
               </div>
               <div>
-                <p className="text-sm font-black text-foreground uppercase tracking-wider">{name}</p>
+                <p className="text-sm font-black text-foreground uppercase tracking-wider">{m.name}</p>
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-tighter">Anggota Tim</p>
               </div>
             </div>
