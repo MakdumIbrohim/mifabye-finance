@@ -125,20 +125,6 @@ export default function ManagePage() {
         </div>
       </section>
 
-      {/* Global Status Notification */}
-      {status && (
-        <div className={`p-4 rounded-2xl text-sm font-bold flex items-center justify-between animate-in slide-in-from-top-4 ${
-          status.type === "success" ? "bg-green-500/10 text-green-500" : "bg-red-500/10 text-red-500"
-        }`}>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={status.type === "success" ? "M5 13l4 4L19 7" : "M6 18L18 6M6 6l12 12"} />
-            </svg>
-            {status.message}
-          </div>
-          <button onClick={() => setStatus(null)} className="text-[10px] uppercase underline">Tutup</button>
-        </div>
-      )}
 
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
@@ -452,7 +438,13 @@ export default function ManagePage() {
               )}
             </tbody>
           </table>
-        </div>
+          <Toast 
+        show={!!status} 
+        message={status?.message || ""} 
+        type={status?.type} 
+        onClose={() => setStatus(null)} 
+      />
+    </div>
       </div>
     </div>
   );
