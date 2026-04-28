@@ -104,5 +104,30 @@ export const INDONESIAN_MONTHS = [
 ];
 
 export const getCurrentMonthName = () => {
-  return INDONESIAN_MONTHS[new Date().getMonth()];
+  const date = new Date();
+  return INDONESIAN_MONTHS[date.getMonth()];
+};
+
+/**
+ * Calculates service popularity statistics
+ */
+export const calculateServiceStats = (transactions: Transaction[]) => {
+  const serviceCounts: Record<string, number> = {};
+  let totalIncomeTransactions = 0;
+
+  transactions.forEach(t => {
+    if (t.jenis_transaksi === "Pemasukan" && t.produk_layanan && t.produk_layanan !== "-") {
+      const service = t.produk_layanan;
+      serviceCounts[service] = (serviceCounts[service] || 0) + 1;
+      totalIncomeTransactions++;
+    }
+  });
+
+  const stats = Object.keys(serviceCounts).map(name => ({
+    name,
+    count: serviceCounts[name],
+    percentage: totalIncomeTransactions > 0 ? (serviceCounts[name] / totalIncomeTransactions) * 100 : 0
+  })).sort((a, b) => b.count - a.count); // Sort by highest count
+
+  return stats;
 };

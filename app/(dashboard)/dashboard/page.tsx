@@ -9,7 +9,7 @@ import { PaymentMethods } from "@/constants/payment-methods";
 import SearchableSelect from "@/components/SearchableSelect";
 import ConfirmationModal from "@/components/ConfirmationModal";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
-import { Transaction, calculateChartData, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
+import { Transaction, calculateChartData, calculateServiceStats, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
 import { useFinance } from "@/context/FinanceContext";
 import Toast from "@/components/Toast";
 import { triggerConfetti } from "@/lib/confetti";
@@ -135,6 +135,16 @@ function DashboardContent() {
 
   // Generate real-time chart data
   const chartData = calculateChartData(transactions);
+  const serviceStats = useMemo(() => calculateServiceStats(transactions).slice(0, 5), [transactions]); // Get top 5 services
+
+  // Pie chart variables
+  const pieColors = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#dbeafe'];
+  let currentPiePercentage = 0;
+  const pieGradient = serviceStats.map((s, i) => {
+    const start = currentPiePercentage;
+    currentPiePercentage += s.percentage;
+    return `${pieColors[i % pieColors.length]} ${start}% ${currentPiePercentage}%`;
+  }).join(', ');
 
   // Helper to generate SVG path
   const generatePath = (data: { income: number; expense: number }[], key: "income" | "expense") => {
@@ -516,9 +526,11 @@ function DashboardContent() {
         </div>
 
         <div className="lg:col-span-8 space-y-8">
-          {/* Chart Section */}
-          <div className="subtle-card p-8 min-h-[400px]">
-            <div className="flex items-center justify-between mb-8">
+          {/* Charts Row */}
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            
+            {/* Main Line Chart (Spans 2 columns) */}
+            <div className="subtle-card p-6 xl:p-8 min-h-[400px] xl:col-span-2 flex flex-col">            <div className="flex items-center justify-between mb-8">
               <div>
                 <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Arus Kas (7 Hari Terakhir)</p>
                 <h3 className="text-xl font-bold text-foreground">Statistik Operasional</h3>
@@ -619,6 +631,59 @@ function DashboardContent() {
                 ))}
               </div>
             )}
+          </div>
+
+            {/* Service Proportions Pie Chart (Spans 1 column) */}
+            <div className="subtle-card p-6 xl:p-8 min-h-[400px] flex flex-col">
+              <div className="mb-6">
+                <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Populer</p>
+                <h3 className="text-xl font-bold text-foreground">Porsi Layanan</h3>
+              </div>
+
+              {isLoading ? (
+                <div className="flex-1 flex flex-col items-center justify-center animate-pulse gap-4">
+                  <div className="w-32 h-32 rounded-full bg-background/50 border-[12px] border-background/30" />
+                  <span className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Memuat...</span>
+                </div>
+              ) : serviceStats.length > 0 ? (
+                <div className="flex-1 flex flex-col items-center">
+                  {/* Doughnut Chart */}
+                  <div className="relative w-40 h-40 mb-8 rounded-full shadow-lg shadow-primary/10 flex items-center justify-center transition-transform hover:scale-105"
+                       style={{ background: `conic-gradient(${pieGradient || 'transparent'})` }}>
+                    <div className="absolute inset-0 m-auto w-24 h-24 bg-card-bg rounded-full flex flex-col items-center justify-center">
+                      <span className="text-2xl font-black text-primary">{serviceStats.length}</span>
+                      <span className="text-[9px] font-bold text-text-muted uppercase">Layanan</span>
+                    </div>
+                  </div>
+
+                  {/* Legend */}
+                  <div className="w-full space-y-3">
+                    {serviceStats.map((stat, i) => (
+                      <div key={stat.name} className="flex items-center justify-between group">
+                        <div className="flex items-center gap-3 overflow-hidden">
+                          <span className="w-3 h-3 rounded-full shrink-0 shadow-sm" style={{ backgroundColor: pieColors[i % pieColors.length] }} />
+                          <span className="text-xs font-semibold text-text-muted truncate group-hover:text-foreground transition-colors">{stat.name}</span>
+                        </div>
+                        <div className="flex items-center gap-2 pl-2">
+                          <span className="text-xs font-black text-foreground">{stat.count}</span>
+                          <span className="text-[10px] font-bold text-text-muted w-8 text-right">{Math.round(stat.percentage)}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex-1 flex flex-col items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-bg-subtle flex items-center justify-center text-text-muted mb-3">
+                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                    </svg>
+                  </div>
+                  <p className="text-xs text-text-muted italic">Belum ada data pemasukan</p>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Table Section - Back below chart */}
