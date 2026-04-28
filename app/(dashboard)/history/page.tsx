@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useMemo } from "react";
-import { Transaction, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName } from "@/lib/finance-utils";
+import { Transaction, formatCurrency, INDONESIAN_MONTHS, getCurrentMonthName, calculateServiceStats } from "@/lib/finance-utils";
 import TransactionDetailModal from "@/components/TransactionDetailModal";
 import ExportModal from "@/components/ExportModal";
 import { useFinance } from "@/context/FinanceContext";
@@ -142,6 +142,17 @@ export default function HistoryPage() {
 
   const skeletonSize = transactions.length > 0 ? filteredTransactions.length : lastCount;
 
+  // Dynamic Pie Chart Data based on filtered transactions
+  const serviceStats = useMemo(() => calculateServiceStats(filteredTransactions).slice(0, 5), [filteredTransactions]);
+  const pieColors = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#dbeafe'];
+  let currentPiePercentage = 0;
+  const pieGradient = serviceStats.map((s, i) => {
+    const start = currentPiePercentage;
+    currentPiePercentage += s.percentage;
+    return `${pieColors[i % pieColors.length]} ${start}% ${currentPiePercentage}%`;
+  }).join(', ');
+
+
   const resetDateFilters = () => {
     setSelectedYear("");
     setSelectedMonth("");
@@ -216,25 +227,77 @@ export default function HistoryPage() {
         )}
       </section>
 
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan ({getCurrentMonthName()})</p>
-          <div className="flex items-end justify-between">
-            <h2 className="text-3xl font-bold text-primary">
-              {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyIncome)}
-            </h2>
-            {!isLoading && <span className="text-xs font-bold text-green-500 bg-green-500/10 px-2 py-1 rounded">Update Real-time</span>}
+      {/* Analytics Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Basic Summary Cards */}
+        <div className="grid grid-cols-1 gap-6 h-full">
+          <div className="subtle-card p-6 flex flex-col justify-center min-h-[140px]">
+            <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pemasukan</p>
+            <div className="flex items-end justify-between">
+              <h2 className="text-3xl font-bold text-primary truncate pr-2">
+                {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyIncome)}
+              </h2>
+            </div>
+          </div>
+          <div className="subtle-card p-6 flex flex-col justify-center min-h-[140px]">
+            <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran</p>
+            <div className="flex items-end justify-between">
+              <h2 className="text-3xl font-bold text-red-500 truncate pr-2">
+                {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyExpense)}
+              </h2>
+            </div>
           </div>
         </div>
-        <div className="subtle-card p-6 flex flex-col justify-between">
-          <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-4">Total Pengeluaran ({getCurrentMonthName()})</p>
-          <div className="flex items-end justify-between">
-            <h2 className="text-3xl font-bold text-red-500">
-              {isLoading ? <>Rp <LoadingDots /></> : formatCurrency(monthlyExpense)}
-            </h2>
-            {!isLoading && <span className="text-xs font-bold text-text-muted bg-bg-subtle px-2 py-1 rounded">Live Data</span>}
+
+        {/* Dynamic Pie Chart */}
+        <div className="lg:col-span-1 subtle-card p-6 flex flex-col">
+          <div className="mb-6 flex justify-between items-start">
+            <div>
+              <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest mb-1">Analitik</p>
+              <h3 className="text-lg font-bold text-foreground leading-tight">Porsi Layanan</h3>
+            </div>
+            <span className="text-[9px] font-bold text-primary bg-primary/10 px-2 py-1 rounded-md uppercase border border-primary/20">Berdasarkan Filter</span>
           </div>
+
+          {isLoading ? (
+            <div className="flex-1 flex flex-col items-center justify-center animate-pulse gap-4 py-8">
+              <div className="w-24 h-24 rounded-full bg-background/50 border-[8px] border-background/30" />
+            </div>
+          ) : serviceStats.length > 0 ? (
+            <div className="flex-1 flex flex-col items-center">
+              <div className="relative w-32 h-32 mb-6 rounded-full shadow-lg shadow-primary/10 flex items-center justify-center transition-transform hover:scale-105"
+                   style={{ background: `conic-gradient(${pieGradient || 'transparent'})` }}>
+                <div className="absolute inset-0 m-auto w-[4.5rem] h-[4.5rem] bg-card-bg rounded-full flex flex-col items-center justify-center">
+                  <span className="text-xl font-black text-primary">{serviceStats.length}</span>
+                  <span className="text-[8px] font-bold text-text-muted uppercase">Layanan</span>
+                </div>
+              </div>
+
+              <div className="w-full space-y-2.5">
+                {serviceStats.map((stat, i) => (
+                  <div key={stat.name} className="flex items-center justify-between group">
+                    <div className="flex items-center gap-3 overflow-hidden">
+                      <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: pieColors[i % pieColors.length] }} />
+                      <span className="text-[11px] font-semibold text-text-muted truncate group-hover:text-foreground transition-colors">{stat.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2 pl-2">
+                      <span className="text-[11px] font-black text-foreground">{stat.count}</span>
+                      <span className="text-[9px] font-bold text-text-muted w-8 text-right">{Math.round(stat.percentage)}%</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="flex-1 flex flex-col items-center justify-center py-8">
+              <div className="w-12 h-12 rounded-full bg-bg-subtle flex items-center justify-center text-text-muted mb-2">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M20 12H4M8 16l-4-4 4-4" />
+                </svg>
+              </div>
+              <p className="text-[10px] text-text-muted italic text-center">Data layanan tidak tersedia untuk filter ini.</p>
+            </div>
+          )}
         </div>
       </div>
 
