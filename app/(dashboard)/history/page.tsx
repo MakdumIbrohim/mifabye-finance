@@ -144,7 +144,7 @@ export default function HistoryPage() {
 
   // Dynamic Pie Chart Data based on filtered transactions
   const serviceStats = useMemo(() => calculateServiceStats(filteredTransactions).slice(0, 5), [filteredTransactions]);
-  const pieColors = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd', '#dbeafe'];
+  const pieColors = ['#2563eb', '#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#06b6d4'];
   let currentPiePercentage = 0;
   const pieGradient = serviceStats.map((s, i) => {
     const start = currentPiePercentage;
