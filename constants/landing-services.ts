@@ -86,7 +86,7 @@ export const landingServices: LandingServiceCategory[] = [
       { name: "Web Programming", price: "Mulai Rp 300.000" },
       { name: "Custom Development", price: "Mulai Rp 300.000" },
       { name: "Mobile Programming", price: "Mulai Rp 300.000" },
-      { name: "Software Licensing", price: "Mulai Rp 300.000", slug: "software-licensing" },
+      { name: "Aktivasi & Lisensi Software", price: "Mulai Rp 300.000", slug: "software-licensing" },
     ]
   }
 ];

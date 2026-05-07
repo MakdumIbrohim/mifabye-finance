@@ -11,15 +11,16 @@ const serviceDetails: Record<string, {
   icon: React.ReactNode;
 }> = {
   "software-licensing": {
-    title: "Software Licensing",
-    description: "Kami menyediakan berbagai macam lisensi software original untuk kebutuhan akademik dan profesional. Mulai dari Microsoft Office, Adobe Creative Cloud, hingga software khusus statistik dan pemograman. Solusi cerdas untuk mendapatkan software original dengan harga yang sangat terjangkau.",
+    title: "Aktivasi & Lisensi Software",
+    description: "Apakah Microsoft Office atau Windows Anda muncul pesan 'Activation Required' atau 'Product Key' tidak valid? Jangan biarkan pekerjaan Anda terhambat. Kami menyediakan jasa aktivasi dan lisensi original agar software Anda kembali normal, aman, dan tanpa gangguan pesan aktivasi lagi secara permanen.",
+    image: "/assets/Cara-Microsoft-Office-Activation-Failed.webp",
     features: [
-      "Lisensi Original 100% & Permanen",
-      "Aktivasi mudah & dipandu admin sampai berhasil",
-      "Support teknis 24/7 jika ada kendala instalasi",
-      "Harga khusus pelajar & mahasiswa (Hemat hingga 80%)",
-      "Tersedia untuk Windows, Mac, dan Android",
-      "Update resmi langsung dari server pengembang"
+      "Menghilangkan pesan 'Activation Wizard' secara permanen",
+      "Lisensi Original 100% (Aman dari virus & malware)",
+      "Akses penuh ke semua fitur Word, Excel, dan PowerPoint",
+      "Update resmi langsung dari Microsoft tanpa kendala",
+      "Aktivasi dipandu sampai tuntas atau dibantu via remote control",
+      "Sekali bayar untuk penggunaan selamanya (Lifetime)"
     ],
     icon: (
       <svg className="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -144,6 +145,22 @@ export default function ServiceDetailPage() {
             <p className={`text-xl md:text-2xl font-bold leading-relaxed transition-colors duration-300 ${isDarkMode ? "text-slate-300" : "text-slate-700"}`}>
               {detail.description}
             </p>
+
+            {(detail as any).image && (
+              <div className="mt-8 rounded-2xl overflow-hidden border border-border shadow-lg">
+                <div className="bg-bg-subtle px-4 py-2 border-b border-border flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                  <span className="text-[10px] font-bold text-text-muted ml-2 uppercase tracking-widest">Contoh Kendala Pelanggan</span>
+                </div>
+                <img 
+                  src={(detail as any).image} 
+                  alt="Contoh Masalah Aktivasi" 
+                  className="w-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500" 
+                />
+              </div>
+            )}
           </div>
 
           {/* Features Grid */}
