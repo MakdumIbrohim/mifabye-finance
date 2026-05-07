@@ -2,15 +2,16 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
 import { landingServices } from "@/constants/landing-services";
+import { useTheme } from "@/context/ThemeContext";
 
 const services = landingServices;
 
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([]);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { mode, toggleMode } = useTheme();
+  const isDarkMode = mode === "dark";
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const handleCopy = (id: string, text: string) => {
@@ -60,7 +61,7 @@ export default function LandingPage() {
 
             {/* Theme Toggle Button */}
             <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
+              onClick={toggleMode}
               className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 ${isDarkMode ? "bg-slate-900 text-yellow-400 border border-slate-800" : "bg-slate-100 text-slate-600 border border-slate-200"}`}
             >
               {isDarkMode ? (
