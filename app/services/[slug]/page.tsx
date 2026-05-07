@@ -107,9 +107,9 @@ export default function ServiceDetailPage() {
         }}
       />
 
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-border dark:border-slate-800 py-4">
+      <nav className={`fixed top-0 left-0 right-0 z-50 backdrop-blur-md border-b py-4 transition-all duration-300 ${isDarkMode ? "bg-slate-950/80 border-slate-800" : "bg-white/80 border-border"}`}>
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className={`flex items-center gap-3 group ${isDarkMode ? "text-white" : "text-slate-900"}`}>
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-lg border transition-all duration-300 ${isDarkMode ? "bg-slate-900 border-slate-700 group-hover:border-primary" : "bg-white border-border group-hover:border-primary"}`}>
               <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
@@ -118,10 +118,10 @@ export default function ServiceDetailPage() {
             <span className="font-black text-lg">Kembali</span>
           </Link>
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg overflow-hidden border border-border">
+            <div className="w-8 h-8 rounded-lg overflow-hidden border border-border bg-white p-1">
               <img src="/assets/mifabyte.png" alt="Logo" className="w-full h-full object-contain" />
             </div>
-            <h1 className="text-xl font-black tracking-tight hidden md:block">Mifabyte<span className="text-primary">.id</span></h1>
+            <h1 className={`text-xl font-black tracking-tight hidden md:block ${isDarkMode ? "text-white" : "text-slate-900"}`}>Mifabyte<span className="text-primary">.id</span></h1>
           </div>
         </div>
       </nav>
