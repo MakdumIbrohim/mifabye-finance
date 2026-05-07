@@ -3,85 +3,9 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-const services = [
-  {
-    category: "1. Jasa Tulis",
-    color: "bg-primary",
-    items: [
-      { name: "Buku Kecil A5", price: "Rp 3.000/Halaman" },
-      { name: "Buku Besar", price: "Rp 5.000/Halaman" },
-      { name: "Kertas Folio", price: "Rp 7.000/Halaman" },
-    ]
-  },
-  {
-    category: "2. Jasa Tugas",
-    color: "bg-primary",
-    items: [
-      { name: "Makalah", price: "Rp 5.000/Halaman" },
-      { name: "Esai", price: "Rp 5.000/Halaman" },
-      { name: "Artikel", price: "mulai Rp 30.000" },
-      { name: "Artikel Jurnal", price: "mulai Rp 50.000" },
-      { name: "Proposal", price: "Rp 5.000/Halaman" },
-      { name: "Laporan", price: "Rp 5.000/Halaman" },
-      { name: "Resume/Review", price: "Rp 5.000/Halaman" },
-      { name: "PPT (Tanpa Animasi)", price: "Rp 2.000/Slide" },
-      { name: "Pembuatan Kuesioner", price: "Rp 10.000" },
-      { name: "Membuat Cerpen (Cust)", price: "Rp 15.000" },
-      { name: "Membuat Cerpen (Mifa)", price: "Rp 25.000" },
-      { name: "Buat Modul (Word)", price: "Rp 5.000/Halaman" },
-      { name: "Buat Modul (Canva)", price: "Rp 10.000/Halaman" },
-      { name: "Soal SD-Mahasiswa", price: "Menyesuaikan" },
-    ]
-  },
-  {
-    category: "3. Jasa Ketik",
-    color: "bg-primary",
-    items: [
-      { name: "Microsoft Word", price: "Rp 3.000/Halaman" },
-      { name: "Excel", price: "Rp 3.000/Halaman" },
-      { name: "Bahasa Inggris", price: "Rp 3.000/Halaman" },
-      { name: "Rumus Matematika (Word)", price: "Rp 3.000/Halaman" },
-    ]
-  },
-  {
-    category: "4. Jasa Formatting File",
-    color: "bg-primary",
-    items: [
-      { name: "Daftar Isi/Gambar/Tabel", price: "Rp 5.000/Halaman" },
-      { name: "Merapikan Isi File", price: "Rp 1.000/Halaman" },
-      { name: "Penomoran Halaman", price: "Rp 1.000/2   Halaman" },
-      { name: "Koreksi Typo", price: "Rp 1.000/2 Halaman" },
-      { name: "Add Dapus (Mendeley)", price: "Rp 2.000/Sumber" },
-      { name: "Add Dapus (Manual)", price: "Rp 3.000/Sumber" },
-      { name: "Cari Sumber & Dapus", price: "Rp 5.000/Sumber" },
-    ]
-  },
-  {
-    category: "5. Jasa Edit",
-    color: "bg-primary",
-    items: [
-      { name: "CV Professional", price: "Rp 10.000" },
-      { name: "Surat Lamaran Kerja", price: "Rp 10.000 - Rp 20.000" },
-      { name: "Buat Poster", price: "Rp 10.000 - Rp 40.000" },
-      { name: "Undangan Pernikahan Web", price: "Rp 50.000 - Rp 150.000" },
-      { name: "Sertifikat Digital", price: "Rp 10.000/Sertifikat" },
-      { name: "Feed IG Menarik", price: "Rp 10.000/Feed" },
-      { name: "Mind Map / Flowchart", price: "Rp 5.000 - Rp 10.000" },
-      { name: "Edit Foto Sederhana", price: "Rp 5.000/Foto" },
-    ]
-  },
-  {
-    category: "6. IT Solutions",
-    color: "bg-primary",
-    badge: "START FROM RP300.000",
-    items: [
-      { name: "Web Programming", price: "Mulai Rp 300.000" },
-      { name: "Custom Development", price: "Mulai Rp 300.000" },
-      { name: "Mobile Programming", price: "Mulai Rp 300.000" },
-      { name: "Software Licensing", price: "Mulai Rp 300.000" },
-    ]
-  }
-];
+import { landingServices } from "@/constants/landing-services";
+
+const services = landingServices;
 
 export default function LandingPage() {
   const [scrolled, setScrolled] = useState(false);
@@ -276,8 +200,19 @@ export default function LandingPage() {
                         <div key={i} className="flex items-start justify-between gap-4 group/item">
                           <div className="flex items-start gap-3 min-w-0">
                             <div className={`w-1.5 h-1.5 rounded-full ${svc.color} opacity-40 mt-1.5 flex-shrink-0`} />
-                            <span className={`text-sm font-bold transition-colors leading-tight ${isDarkMode ? "text-slate-300 group-hover/item:text-white" : "text-slate-700 group-hover/item:text-primary"}`}>
+                            <span className={`text-sm font-bold transition-colors leading-tight flex items-center gap-2 ${isDarkMode ? "text-slate-300 group-hover/item:text-white" : "text-slate-700 group-hover/item:text-primary"}`}>
                               {item.name}
+                              {item.slug && (
+                                <Link 
+                                  href={`/services/${item.slug}`} 
+                                  className={`inline-flex items-center justify-center w-5 h-5 rounded-full border transition-all ${isDarkMode ? "border-slate-700 text-slate-500 hover:text-primary hover:border-primary" : "border-slate-200 text-slate-400 hover:text-primary hover:border-primary"}`}
+                                  title="Lihat Detail"
+                                >
+                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                                </Link>
+                              )}
                             </span>
                           </div>
                           <span className={`text-[10px] font-black px-2.5 py-1 rounded-lg transition-all flex-shrink-0 text-right ${isDarkMode ? "bg-white/5 text-slate-400 group-hover/item:bg-primary/20 group-hover/item:text-primary" : "bg-bg-subtle text-text-muted group-hover/item:bg-primary group-hover/item:text-white"}`}>
@@ -289,8 +224,12 @@ export default function LandingPage() {
 
                     {hasMore && (
                       <button
-                        onClick={() => toggleCategory(svc.category)}
-                        className={`relative z-20 w-full mt-4 py-4 text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all rounded-b-xl group/btn ${isDarkMode ? "hover:bg-white/5 active:bg-white/10" : "hover:bg-primary/5 active:bg-primary/10"}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          toggleCategory(svc.category);
+                        }}
+                        className={`relative z-30 w-full mt-4 py-4 text-[10px] font-black text-primary uppercase tracking-[0.2em] flex items-center justify-center gap-2 transition-all rounded-xl group/btn cursor-pointer ${isDarkMode ? "hover:bg-white/10 bg-white/5" : "hover:bg-primary/10 bg-primary/5"}`}
                       >
                         {isExpanded ? "Sembunyikan" : `Lihat ${svc.items.length - 3} Lainnya`}
                         <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
