@@ -9,6 +9,7 @@ const serviceDetails: Record<string, {
   description: string;
   features: string[];
   icon: React.ReactNode;
+  image?: string;
 }> = {
   "software-licensing": {
     title: "Aktivasi & Lisensi Software",
@@ -146,7 +147,7 @@ export default function ServiceDetailPage() {
               {detail.description}
             </p>
 
-            {(detail as any).image && (
+            {detail.image && (
               <div className="mt-8 rounded-2xl overflow-hidden border border-border shadow-lg">
                 <div className="bg-bg-subtle px-4 py-2 border-b border-border flex items-center gap-2">
                   <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
@@ -155,7 +156,7 @@ export default function ServiceDetailPage() {
                   <span className="text-[10px] font-bold text-text-muted ml-2 uppercase tracking-widest">Contoh Kendala Pelanggan</span>
                 </div>
                 <img 
-                  src={(detail as any).image} 
+                  src={detail.image} 
                   alt="Contoh Masalah Aktivasi" 
                   className="w-full object-cover grayscale-[0.2] hover:grayscale-0 transition-all duration-500" 
                 />
